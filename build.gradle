@@ -1,0 +1,64 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+
+        maven {
+            url 'https://maven.aliyun.com/repository/public/'
+        }
+
+        google()
+
+        mavenCentral()
+
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+        maven { url 'https://developer.huawei.com/repo' }
+        maven { url 'https://developer.hihonor.com/repo' }
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.2.2'
+        classpath 'com.adison.gradleplugin:jar:1.1.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21"
+//        classpath 'com.kezong:fat-aar:1.2.7'
+    }
+}
+
+allprojects {
+    repositories {
+
+        maven {
+
+            url 'https://maven.aliyun.com/repository/public/'
+        }
+
+        maven {
+            credentials {
+                username '60484b57e1a7ccc7cc5cb818'
+                password 'h[kPvS)un[t_'
+            }
+            url 'https://packages.aliyun.com/maven/repository/2154005-release-k0onJU/'
+        }
+
+        maven {
+            credentials {
+                username '60484b57e1a7ccc7cc5cb818'
+                password 'h[kPvS)un[t_'
+            }
+            url 'https://packages.aliyun.com/maven/repository/2154005-snapshot-JYlibY/'
+        }
+
+        google()
+        mavenCentral()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+        maven { url 'https://developer.huawei.com/repo' }
+        maven { url 'https://developer.hihonor.com/repo' }
+
+    }
+}

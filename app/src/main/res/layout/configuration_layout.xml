@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg"
+    android:orientation="vertical"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/testNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:singleLine="true"
+            android:text="测试ID" />
+
+        <EditText
+            android:id="@+id/appIdText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:singleLine="true"
+            android:text="app_id" />
+
+        <EditText
+            android:id="@+id/appKeyText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:singleLine="true"
+            android:text="app_key" />
+
+        <EditText
+            android:id="@+id/bidTokenText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:singleLine="true"
+            android:text="bid_token" />
+
+        <LinearLayout
+            android:id="@+id/splash_id_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--            <EditText-->
+            <!--                android:id="@+id/splashPlacementIdText"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginLeft="5dp"-->
+            <!--                android:layout_marginTop="5dp"-->
+            <!--                android:layout_marginRight="5dp"-->
+            <!--                android:ems="10"-->
+            <!--                android:inputType="textPersonName"-->
+            <!--                android:singleLine="true"-->
+            <!--                android:text="splash_placement_id" />-->
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/reward_id_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--            <EditText-->
+            <!--                android:id="@+id/placementIdText"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginLeft="5dp"-->
+            <!--                android:layout_marginTop="5dp"-->
+            <!--                android:layout_marginRight="5dp"-->
+            <!--                android:ems="10"-->
+            <!--                android:inputType="textPersonName"-->
+            <!--                android:singleLine="true"-->
+            <!--                android:text="placement_id" />-->
+
+            <!--            <EditText-->
+            <!--                android:id="@+id/placementId2Text"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginLeft="5dp"-->
+            <!--                android:layout_marginTop="5dp"-->
+            <!--                android:layout_marginRight="5dp"-->
+            <!--                android:ems="10"-->
+            <!--                android:inputType="textPersonName"-->
+            <!--                android:singleLine="true"-->
+            <!--                android:text="placement_id2" />-->
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/interstitial_id_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--            <EditText-->
+            <!--                android:id="@+id/placementId3Text"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginLeft="5dp"-->
+            <!--                android:layout_marginTop="5dp"-->
+            <!--                android:layout_marginRight="5dp"-->
+            <!--                android:ems="10"-->
+            <!--                android:inputType="textPersonName"-->
+            <!--                android:singleLine="true"-->
+            <!--                android:text="placement_id3" />-->
+
+            <!--            <EditText-->
+            <!--                android:id="@+id/placementId4Text"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginLeft="5dp"-->
+            <!--                android:layout_marginTop="5dp"-->
+            <!--                android:layout_marginRight="5dp"-->
+            <!--                android:ems="10"-->
+            <!--                android:inputType="textPersonName"-->
+            <!--                android:singleLine="true"-->
+            <!--                android:text="placement_id4" />-->
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/unified_native_id_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/halfSplash"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:singleLine="true"
+                android:text="全屏" />
+
+            <CheckBox
+                android:id="@+id/appHide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:singleLine="true"
+                android:text="自定义Logo" />
+
+            <CheckBox
+                android:id="@+id/mediation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:singleLine="true"
+                android:text="Mediation" />
+
+            <CheckBox
+                android:id="@+id/gdpr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:singleLine="true"
+                android:text="GDPR" />
+
+            <CheckBox
+                android:id="@+id/adult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:singleLine="true"
+                android:text="adult" />
+
+            <CheckBox
+                android:id="@+id/personOn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:singleLine="true"
+                android:text="personOn" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:text="update" />
+    </LinearLayout>
+
+</ScrollView>

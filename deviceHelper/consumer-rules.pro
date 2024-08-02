@@ -1,0 +1,19 @@
+#oaid
+-dontwarn com.bun.**
+-keep class com.bun.** {*;}
+-keep class a.**{*;}
+-keep class XI.CA.XI.**{*;}
+-keep class XI.K0.XI.**{*;}
+-keep class XI.XI.K0.**{*;}
+-keep class XI.vs.K0.**{*;}
+-keep class XI.xo.XI.XI.**{*;}
+-keep class com.asus.msa.SupplementaryDID.**{*;}
+-keep class com.asus.msa.sdid.**{*;}
+-keep class com.huawei.hms.ads.identifier.**{*;}
+-keep class com.samsung.android.deviceidservice.**{*;}
+-keep class com.zui.opendeviceidlibrary.**{*;}
+-keep class org.json.**{*;}
+-keep public class com.netease.nis.sdkwrapper.Utils {public <methods>;}
+
+-keep class com.sigmob.**{public *;}
+-keep interface com.sigmob.** {public *; }

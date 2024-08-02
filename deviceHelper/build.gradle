@@ -1,0 +1,50 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+//    sourceSets {
+//        main {
+//            jniLibs.srcDirs = ['libs']
+//        }
+//    }
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+    // namespace "com.czhj.devicehelper"
+//    buildFeatures {
+//        buildConfig = false
+//    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    compileOnly project(path: ':logger')
+    compileOnly project(path: ':volley')
+    compileOnly fileTree(include: ['msa*.aar'], dir: '../app/libs')
+    androidTestImplementation project(path: ':logger')
+
+    androidTestImplementation fileTree(include: ['msa*.aar'], dir: '../app/libs')
+    // 华为的最新版本广告标识服务SDK，参阅 https://developer.huawei.com/consumer/cn/doc/HMSCore-Guides/identifier-service-version-change-history-0000001050066927
+    compileOnly "com.huawei.hms:ads-identifier:3.4.62.300"
+    // 荣耀的最新版本广告标识服务SDK，参阅 https://developer.hihonor.com/cn/kitdoc?kitId=11030&navigation=guides&docId=intergrate.md
+    compileOnly 'com.hihonor.mcs:ads-identifier:1.0.2.301'
+}

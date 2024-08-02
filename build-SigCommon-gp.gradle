@@ -1,0 +1,106 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.kezong.fat-aar'
+
+
+def gitVersionCode() {
+    def cmd = 'git rev-list HEAD --first-parent --count'
+    cmd.execute([], project.rootDir).text.trim().toInteger()
+}
+
+def mVersionCode = 100
+def mVersionName = "1.0.1" + "-SNAPSHOT"
+
+if (project.hasProperty("buildVersion"))
+    mVersionName = "${project.buildVersion}"
+
+android {
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+    // namespace "com.czhj.sdk.common"
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 29
+        versionCode mVersionCode
+        versionName mVersionName
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    compileOnly fileTree(include: ["Wind-Consent.aar"], dir: '../app/libs')
+
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    embed project(path: ':wire', configuration: 'default')
+    embed project(path: ':volley', configuration: 'default')
+    embed project(path: ':logger', configuration: 'default')
+
+
+//    compileOnly project(':wire')
+//    compileOnly project(':volley')
+//    compileOnly project(':logger')
+    compileOnly project(':deviceHelper')
+    compileOnly project(':lib-aar-local')
+
+}
+
+task copyAAR {
+    doLast {
+        copy {
+
+            from "build/outputs/aar"
+            include "common-release.aar"
+            into '../output/AAR/'
+            rename "common-release.aar", "wind-common-gp-" + mVersionName + ".aar"
+
+        }
+//        copy {
+//            from "../../output/AAR/"
+//            include "wind-common-" + mVersionName + ".aar"
+//            into '../../WindAd/app/libs'
+//        }
+    }
+}
+
+
+//apply plugin: 'maven'
+//uploadArchives {
+//    repositories {
+//        mavenDeployer {
+//            repository(url: 'https://packages.aliyun.com/maven/repository/2154005-release-k0onJU/') {
+//                authentication(
+//                        userName: '60484b57e1a7ccc7cc5cb818',
+//                        password: 'h[kPvS)un[t_'
+//                )
+//            }
+//            snapshotRepository(url: 'https://packages.aliyun.com/maven/repository/2154005-snapshot-JYlibY/') {
+//                authentication(
+//                        userName: '60484b57e1a7ccc7cc5cb818',
+//                        password: 'h[kPvS)un[t_'
+//                )
+//            }
+//
+//            pom.version = mVersionName
+//            pom.artifactId = 'wind-common-gp'
+//            pom.groupId = 'com.sigmob.sdk'
+//        }
+//    }
+//}

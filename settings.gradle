@@ -1,0 +1,8 @@
+include ':app'
+
+include ':common'
+include ':deviceHelper'
+include ':logger'
+include ':volley'
+include ':wire'
+include ':lib-aar-local'

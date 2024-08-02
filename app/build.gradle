@@ -1,0 +1,152 @@
+apply plugin: 'com.android.application'
+
+def gitVersionCode() {
+    def cmd = 'git rev-list HEAD --first-parent --count'
+    cmd.execute([], project.rootDir).text.trim().toInteger()
+}
+
+def mVersionCode = 100
+def mVersionName = "1.0"
+
+if (project.hasProperty("buildVersion")) mVersionName = "${project.buildVersion}"
+
+android {
+    signingConfigs {
+        sign {
+            keyAlias 'key'
+            keyPassword 'fengyun'
+            storeFile file('../key/signKey')
+            storePassword 'fengyun'
+        }
+    }
+    compileSdkVersion 33
+    // namespace "com.wind.common"
+    defaultConfig {
+
+        applicationId 'com.sigmob.common.android'
+        minSdkVersion 19
+        targetSdkVersion 33
+        versionCode mVersionCode
+        versionName mVersionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters 'armeabi-v7a', 'x86', 'arm64-v8a', 'x86_64', 'armeabi'
+        }
+        packagingOptions {
+            doNotStrip "*/armeabi-v7a/*.so"
+            doNotStrip "*/x86/*.so"
+            doNotStrip "*/arm64-v8a/*.so"
+            doNotStrip "*/x86_64/*.so"
+            doNotStrip "armeabi.so"
+        }
+
+        multiDexEnabled true
+    }
+    useLibrary 'org.apache.http.legacy'
+
+    lintOptions {
+        abortOnError false
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.sign
+        }
+        debug {
+            minifyEnabled false
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+repositories {}
+
+
+dependencies {
+
+//    implementation fileTree(include: ["*.aar"], dir: 'libs')
+
+    implementation fileTree(include: ["msa_mdid*.aar"], dir: 'libs')
+    implementation fileTree(include: ["Wind-Consent.aar"], dir: 'libs')
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+
+    implementation 'com.github.bumptech.glide:glide:4.5.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
+
+    testImplementation 'junit:junit:4.12'
+
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+
+    implementation 'com.android.support:multidex:1.0.3'
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
+
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:support-v4:23.0.+'
+
+    implementation project(':common')
+
+    implementation project(':wire')
+    implementation project(':volley')
+    implementation project(':logger')
+    implementation project(':deviceHelper')
+    implementation project(':lib-aar-local')
+//    implementation 'com.sigmob.sdk:common-cn:1.1'
+//    implementation "com.sigmob.sdk:common-cn:${mVersionName}"
+
+}
+
+android.applicationVariants.all { variant ->
+    task "listDependencies${variant.name.capitalize()}"() {
+        outputs.upToDateWhen { false }
+        doLast {
+            println "Depdencies for ${variant.name.capitalize()}\n"
+            configurations.getByName("${variant.name}RuntimeClasspath").getResolvedConfiguration().getResolvedArtifacts().each { artifact ->
+                def id = artifact.moduleVersion.id
+                def targetName = "${id.group}"
+                if (targetName.contains("com.sigmob.sdk")) {
+                    copy {
+                        from artifact.file
+                        into "libs"
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+task copyAAR {
+    doLast {
+        delete "../AAR/"
+        copy {
+            from "../sigmob-sdk/build/outputs/aar"
+            include "sigmob-sdk-release.aar"
+            into '../AAR/'
+            rename "sigmob-sdk-release.aar", "WindAd-" + mVersionName + ".aar"
+
+        }
+        copy {
+            from "../common/build/outputs/aar"
+            include "common-release.aar"
+            into '../AAR/'
+            rename "common-release.aar", "Common-" + mVersionName + ".aar"
+
+        }
+        copy {
+            from "../AAR/"
+            into '../WindAd/app/libs'
+            include "*" + mVersionName + ".aar"
+        }
+    }
+}
+
+
+
