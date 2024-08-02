@@ -43,7 +43,7 @@ public class HIDeviceIDHelper {
             // 华为官方开发者文档提到“调用getAdvertisingIdInfo接口，获取OAID信息，不要在主线程中调用该方法。”
 
             Class cls = Class.forName("com.hihonor.ads.identifier.AdvertisingIdClient");
-            Method getAdvertisingIdInfoMethod = cls.getMethod("getAdvertisingIdInfo",Context.class);
+            Method getAdvertisingIdInfoMethod = cls.getMethod("getAdvertisingIdInfo", Context.class);
             final Object info = getAdvertisingIdInfoMethod.invoke(null, mContext);
 
             if (info == null) {
@@ -59,7 +59,7 @@ public class HIDeviceIDHelper {
                             Field id = info.getClass().getField("id");
 
                             Object o = id.get(info);
-                            if (o instanceof String){
+                            if (o instanceof String) {
                                 _listener.OnIdsAvalid((String) o);
                             }
                         } catch (Throwable e) {
@@ -71,19 +71,18 @@ public class HIDeviceIDHelper {
                 }
             });
         } catch (Throwable th) {
-            SigmobLog.e("HIDeviceIDHelper error ",th);
+            SigmobLog.e("HIDeviceIDHelper error ", th);
 
         }
     }
-
 
     public boolean isSupport() {
         try {
             try {
                 Class cls = Class.forName("com.hihonor.ads.identifier.AdvertisingIdClient");
-                Method isAdvertisingIdAvailable = cls.getMethod("isAdvertisingIdAvailable",Context.class);
+                Method isAdvertisingIdAvailable = cls.getMethod("isAdvertisingIdAvailable", Context.class);
                 Object result = isAdvertisingIdAvailable.invoke(null, mContext);
-                if (result instanceof Boolean){
+                if (result instanceof Boolean) {
                     return (Boolean) result;
                 }
 
@@ -97,7 +96,6 @@ public class HIDeviceIDHelper {
         return false;
 
     }
-
 
     ServiceConnection serviceConnection = new ServiceConnection() {
         @Override

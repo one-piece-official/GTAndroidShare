@@ -15,70 +15,69 @@ import com.czhj.sdk.logger.SigmobLog;
  */
 public class MeizuDeviceIDHelper {
 
-  private Context mContext;
+    private Context mContext;
 
-  public MeizuDeviceIDHelper(Context ctx) {
-    mContext = ctx;
-  }
+    public MeizuDeviceIDHelper(Context ctx) {
+        mContext = ctx;
+    }
 
 
-  private boolean isMeizuSupport() {
-    try {
-      PackageManager pm = mContext.getPackageManager();
-      if (pm != null) {
-        ProviderInfo pi = pm.resolveContentProvider("com.meizu.flyme.openidsdk", 0);        // "com.meizu.flyme.openidsdk"
-        if (pi != null) {
-          return true;
+    private boolean isMeizuSupport() {
+        try {
+            PackageManager pm = mContext.getPackageManager();
+            if (pm != null) {
+                ProviderInfo pi = pm.resolveContentProvider("com.meizu.flyme.openidsdk", 0);        // "com.meizu.flyme.openidsdk"
+                if (pi != null) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            //ignore
         }
-      }
-    } catch (Exception e) {
-      //ignore
-    }
-    return false;
-  }
-
-  public void getMeizuID(DevicesIDsHelper.AppIdsUpdater _listener) {
-
-    if (!isMeizuSupport()){
-      return;
+        return false;
     }
 
-    Uri uri = Uri.parse("content://com.meizu.flyme.openidsdk/");
-    Cursor cursor;
-    ContentResolver contentResolver = mContext.getContentResolver();
-    try {
-      cursor = contentResolver.query(uri, null, null, new String[]{"oaid"}, null);
-      String oaid = getOaid(cursor);
+    public void getMeizuID(DevicesIDsHelper.AppIdsUpdater _listener) {
 
-      if (_listener != null) {
-        _listener.OnIdsAvalid(oaid);
-      }
-      cursor.close();
-    }
-    catch (Throwable t) {
-       SigmobLog.e(t.getMessage());
-    }
-  }
+        if (!isMeizuSupport()) {
+            return;
+        }
 
-  /**
-   * 获取 OAID
-   *
-   * @param cursor
-   * @return
-   */
-  private String getOaid(Cursor cursor) {
-    String oaid = null;
-    if (cursor == null) {
-      return null;
+        Uri uri = Uri.parse("content://com.meizu.flyme.openidsdk/");
+        Cursor cursor;
+        ContentResolver contentResolver = mContext.getContentResolver();
+        try {
+            cursor = contentResolver.query(uri, null, null, new String[]{"oaid"}, null);
+            String oaid = getOaid(cursor);
+
+            if (_listener != null) {
+                _listener.OnIdsAvalid(oaid);
+            }
+            cursor.close();
+        } catch (Throwable t) {
+            SigmobLog.e(t.getMessage());
+        }
     }
-    if (cursor.isClosed()) {
-      return null;
+
+    /**
+     * 获取 OAID
+     *
+     * @param cursor
+     * @return
+     */
+    private String getOaid(Cursor cursor) {
+        String oaid = null;
+        if (cursor == null) {
+            return null;
+        }
+        if (cursor.isClosed()) {
+            return null;
+        }
+        cursor.moveToFirst();
+        int valueIdx = cursor.getColumnIndex("value");
+        if (valueIdx > 0) {
+            oaid = cursor.getString(valueIdx);
+        }
+        return oaid;
     }
-    cursor.moveToFirst();
-    int valueIdx = cursor.getColumnIndex("value");
-    if (valueIdx > 0) {
-      oaid = cursor.getString(valueIdx);
-    }
-    return oaid;
-  }
 }

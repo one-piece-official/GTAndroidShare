@@ -36,7 +36,6 @@ public final class DeviceHelper {
     private static boolean oaidSDKWaitCallback;
     private static int oaidSDKRetryCount;
 
-
     @SuppressLint("MissingPermission")
     public static String getIMEI(Context context) {
         try {
@@ -55,7 +54,6 @@ public final class DeviceHelper {
                     } catch (Throwable ignored) {
 
                     }
-
                     return tm.getMeid();
                 }
             } else {
@@ -70,7 +68,6 @@ public final class DeviceHelper {
 
         return null;
     }
-
 
     public static void getOAID_API(final Context context, final DevicesIDsHelper.AppIdsUpdater appIdsUpdater) {
         if (TextUtils.isEmpty(mOAID_API)) {
@@ -128,32 +125,27 @@ public final class DeviceHelper {
 
     }
 
-
     public static String getVAID() {
         return mVAID;
     }
 
-
     public static void getOAID(final Context context, final DevicesIDsHelper.AppIdsUpdater appIdsUpdater) {
 
         if (TextUtils.isEmpty(mOAID)) {
-            if (oaidSDKRetryCount > 10 ) {
+            if (oaidSDKRetryCount > 10) {
                 if (appIdsUpdater != null) {
                     appIdsUpdater.OnIdsAvalid("");
                 }
                 return;
             }
 
-
             oaid_Limt = System.currentTimeMillis();
 
             if (mOAID_Task == null) {
-                Log.d("", "Thread create ,current thread num :" + Thread.activeCount());
                 mOAID_Task = new Thread(new Runnable() {
                     @Override
                     public void run() {
                         SigmobLog.d("private  getOAID");
-
                         DevicesIDsHelper.getOAID(context, new DevicesIDsHelper.AppIdsUpdater() {
                             @Override
                             public void OnIdsAvalid(String oaid) {
@@ -185,7 +177,7 @@ public final class DeviceHelper {
                             if (appIdsUpdater != null) {
                                 appIdsUpdater.OnIdsAvalid("");
                             }
-                            if (mHandler != null){
+                            if (mHandler != null) {
                                 mHandler.removeCallbacksAndMessages(null);
                                 mHandler = null;
                             }
@@ -193,21 +185,16 @@ public final class DeviceHelper {
                     }
                 }, 10 * 1000);
             }
-
-
         } else {
             if (appIdsUpdater != null) {
                 appIdsUpdater.OnIdsAvalid(mAAID);
             }
         }
-
-
     }
 
     @SuppressLint("MissingPermission")
     public static String getIMEI(Context context, int index) {
         try {
-
             SigmobLog.d("private :getIMEI " + index);
 
             String deviceUniqueIdentifier = null;
@@ -240,7 +227,6 @@ public final class DeviceHelper {
 
     @SuppressLint({"MissingPermission", "HardwareIds"})
     public static String getIMSI(Context context) {
-
 //        try {
 //            if (!isCanUsePhoneState(context) || !isCanRetryIMEI()) return null;
 //
@@ -256,7 +242,6 @@ public final class DeviceHelper {
 //        }
         return null;
     }
-
 
     /**
      * 获取 Wifi MAC 地址
@@ -302,7 +287,6 @@ public final class DeviceHelper {
         return "";
     }
 
-
     @SuppressLint("MissingPermission")
     public static String getWifimac(Context context) {
 //        try {
@@ -323,14 +307,10 @@ public final class DeviceHelper {
 //
 //        }
         return "";
-
     }
-
 
     @SuppressLint("MissingPermission")
     public static String getWifiName(Context context) {
-
-
 //        try {
 //            //wifi mac地址
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -360,6 +340,4 @@ public final class DeviceHelper {
         return mWifiName;
 
     }
-
-
 }

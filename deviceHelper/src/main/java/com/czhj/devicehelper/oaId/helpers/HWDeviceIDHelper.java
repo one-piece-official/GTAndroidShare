@@ -44,7 +44,7 @@ public class HWDeviceIDHelper {
             // 华为官方开发者文档提到“调用getAdvertisingIdInfo接口，获取OAID信息，不要在主线程中调用该方法。”
             try {
                 Class cls = Class.forName("com.huawei.hms.ads.identifier.AdvertisingIdClient");
-                Method isAdvertisingIdAvailable = cls.getMethod("getAdvertisingIdInfo",Context.class);
+                Method isAdvertisingIdAvailable = cls.getMethod("getAdvertisingIdInfo", Context.class);
                 final Object info = isAdvertisingIdAvailable.invoke(null, mContext);
                 if (info == null) {
                     SigmobLog.e("HWDeviceIDHelper info is null");
@@ -54,7 +54,7 @@ public class HWDeviceIDHelper {
                     for (String pg : packages) {
                         if (TextUtils.isEmpty(oaid)) {
                             oaid = realLoadOaid(pg);
-                        }else{
+                        } else {
                             if (_listener != null) {
                                 _listener.OnIdsAvalid(oaid);
                             }
@@ -72,18 +72,18 @@ public class HWDeviceIDHelper {
                             try {
                                 Method getIdMethod = info.getClass().getDeclaredMethod("getId");
                                 Object idObject = getIdMethod.invoke(info);
-                                if (idObject instanceof String){
+                                if (idObject instanceof String) {
                                     String id = (String) idObject;
                                     _listener.OnIdsAvalid(id);
                                 }
-                            }catch (Throwable t){
+                            } catch (Throwable t) {
 
                             }
 
                         }
                     }
                 });
-            }catch (Throwable th){
+            } catch (Throwable th) {
                 SigmobLog.e("HWDeviceIDHelper error, will retry");
 
                 String oaid = null;
@@ -91,7 +91,7 @@ public class HWDeviceIDHelper {
                 for (String pg : packages) {
                     if (TextUtils.isEmpty(oaid)) {
                         oaid = realLoadOaid(pg);
-                    }else{
+                    } else {
                         if (_listener != null) {
                             _listener.OnIdsAvalid(oaid);
                         }
@@ -101,12 +101,12 @@ public class HWDeviceIDHelper {
             }
 
         } catch (Throwable th) {
-            SigmobLog.e("HWDeviceIDHelper error ",th);
+            SigmobLog.e("HWDeviceIDHelper error ", th);
 
         }
     }
 
-    private String realLoadOaid(String packageName){
+    private String realLoadOaid(String packageName) {
         Intent bindIntent = new Intent("com.uodis.opendevice.OPENIDS_SERVICE");
         bindIntent.setPackage(packageName);
         boolean isBin = mContext.bindService(bindIntent, serviceConnection, Context.BIND_AUTO_CREATE);
@@ -122,20 +122,21 @@ public class HWDeviceIDHelper {
                 mContext.unbindService(serviceConnection);
             }
         }
-        return  null;
+        return null;
     }
+
     public boolean isSupport() {
         try {
             Class cls = Class.forName("com.huawei.hms.ads.identifier.AdvertisingIdClient");
-            Method isAdvertisingIdAvailable = cls.getMethod("isAdvertisingIdAvailable",Context.class);
+            Method isAdvertisingIdAvailable = cls.getMethod("isAdvertisingIdAvailable", Context.class);
             Object result = isAdvertisingIdAvailable.invoke(null, mContext);
-            if (result instanceof Boolean){
+            if (result instanceof Boolean) {
                 return (Boolean) result;
             }
 
         } catch (Throwable e) {
 
-            SigmobLog.e("hw oaid support",e);
+            SigmobLog.e("hw oaid support", e);
         }
 
         try {

@@ -55,56 +55,38 @@ public class DevicesIDsHelper {
         if ("ASUS".equals(manufacturer)) {
 
             getIDFromNewThead(mcontext, manufacturer);
-        } else if ("HUAWEI".equals(manufacturer)
-                || "HONOR".equals(manufacturer)
-                || Build.BRAND.equalsIgnoreCase("HUAWEI")
-                || Build.BRAND.equalsIgnoreCase("HONOR")
-                || isEmuiOs()) {
+        } else if ("HUAWEI".equals(manufacturer) || "HONOR".equals(manufacturer) || Build.BRAND.equalsIgnoreCase("HUAWEI") || Build.BRAND.equalsIgnoreCase("HONOR") || isEmuiOs()) {
 
             getIDFromNewThead(mcontext, "HUAWEI");
-        } else if ("LENOVO".equals(manufacturer)
-                || Build.BRAND.equalsIgnoreCase("ZUK")) {
+        } else if ("LENOVO".equals(manufacturer) || Build.BRAND.equalsIgnoreCase("ZUK")) {
             getIDFromNewThead(mcontext, "LENOVO");
         } else if ("MOTOLORA".equals(manufacturer)) {
             getIDFromNewThead(mcontext, manufacturer);
 
-        } else if ("MEIZU".equals(manufacturer)
-                || Build.BRAND.equalsIgnoreCase("MEIZU")
-                || Build.DISPLAY.toUpperCase().contains("FLYME")) {
+        } else if ("MEIZU".equals(manufacturer) || Build.BRAND.equalsIgnoreCase("MEIZU") || Build.DISPLAY.toUpperCase().contains("FLYME")) {
 
             getIDFromNewThead(mcontext, "MEIZU");
 
         } else if ("NUBIA".equals(manufacturer)) {
             oaid = new NubiaDeviceIDHelper(mcontext).getNubiaID();
 
-        } else if ("OPPO".equals(manufacturer)
-                || Build.BRAND.equalsIgnoreCase("OPPO")
-                || Build.BRAND.equalsIgnoreCase("REALME")) {
+        } else if ("OPPO".equals(manufacturer) || Build.BRAND.equalsIgnoreCase("OPPO") || Build.BRAND.equalsIgnoreCase("REALME")) {
             getIDFromNewThead(mcontext, "OPPO");
 
-        } else if ("SAMSUNG".equals(manufacturer)
-                || Build.BRAND.equalsIgnoreCase("SAMSUNG")) {
+        } else if ("SAMSUNG".equals(manufacturer) || Build.BRAND.equalsIgnoreCase("SAMSUNG")) {
 
             getIDFromNewThead(mcontext, "SAMSUNG");
 
-        } else if ("VIVO".equals(manufacturer)
-                || Build.BRAND.equalsIgnoreCase("VIVO")
-                || !TextUtils.isEmpty(getProperty("ro.vivo.os.version"))) {
+        } else if ("VIVO".equals(manufacturer) || Build.BRAND.equalsIgnoreCase("VIVO") || !TextUtils.isEmpty(getProperty("ro.vivo.os.version"))) {
             oaid = new VivoDeviceIDHelper(mcontext).getOaid();
 
-        } else if ("XIAOMI".equals(manufacturer)
-                || "BLACKSHARK".equals(manufacturer)
-                || Build.BRAND.equalsIgnoreCase("XIAOMI")
-                || Build.BRAND.equalsIgnoreCase("REDMI")
-                || isMiuiOs()) {
+        } else if ("XIAOMI".equals(manufacturer) || "BLACKSHARK".equals(manufacturer) || Build.BRAND.equalsIgnoreCase("XIAOMI") || Build.BRAND.equalsIgnoreCase("REDMI") || isMiuiOs()) {
 
             oaid = new XiaomiDeviceIDHelper(mcontext).getOAID();
 
-        } else if ("ONEPLUS".equals(manufacturer)
-                || Build.BRAND.equalsIgnoreCase("ONEPLUS")) {
+        } else if ("ONEPLUS".equals(manufacturer) || Build.BRAND.equalsIgnoreCase("ONEPLUS")) {
             getIDFromNewThead(mcontext, "ONEPLUS");
-        } else if ("ZTE".equals(manufacturer)
-                || Build.BRAND.equalsIgnoreCase("ZTE")) {
+        } else if ("ZTE".equals(manufacturer) || Build.BRAND.equalsIgnoreCase("ZTE")) {
             getIDFromNewThead(mcontext, "ZTE");
 
         } else if ("FERRMEOS".equals(manufacturer) || isFreeMeOS()) {
@@ -126,7 +108,6 @@ public class DevicesIDsHelper {
         }
     }
 
-
     private static String getProperty(String property) {
         String res = null;
         if (property == null) {
@@ -143,8 +124,7 @@ public class DevicesIDsHelper {
         return res;
     }
 
-
-    public static boolean isEmuiOs(){
+    public static boolean isEmuiOs() {
         String pro = getProperty("ro.build.version.emui");      // "ro.miui.ui.version.name"
         if ((!TextUtils.isEmpty(pro))) {
             return true;
@@ -152,13 +132,14 @@ public class DevicesIDsHelper {
         return false;
     }
 
-    public static boolean isMiuiOs(){
+    public static boolean isMiuiOs() {
         String pro = getProperty("ro.miui.ui.version.name");      // "ro.miui.ui.version.name"
         if ((!TextUtils.isEmpty(pro))) {
             return true;
         }
         return false;
     }
+
     public static boolean isFreeMeOS() {
         String pro = getProperty("ro.build.freeme.label");      // "ro.build.freeme.label"
         if ((!TextUtils.isEmpty(pro)) && pro.equalsIgnoreCase("FREEMEOS")) {      // "FreemeOS"  FREEMEOS
@@ -174,7 +155,6 @@ public class DevicesIDsHelper {
         }
         return false;
     }
-
 
     /**
      * 启动子线程获取
@@ -195,7 +175,7 @@ public class DevicesIDsHelper {
                 } else if ("HUAWEI".equals(manufacturerm) || "HONOR".equalsIgnoreCase(manufacturerm)) {
 
                     HIDeviceIDHelper hiDeviceIDHelper = new HIDeviceIDHelper(context);
-                    if (hiDeviceIDHelper.isSupport()){
+                    if (hiDeviceIDHelper.isSupport()) {
                         hiDeviceIDHelper.getID(_oaidlistener);
                         return;
                     }
@@ -234,7 +214,6 @@ public class DevicesIDsHelper {
             }
         }).start();
     }
-
 
     private static Class<?> mIdentifyListener;
     private static Class<?> mIdSupplier;
@@ -354,7 +333,6 @@ public class DevicesIDsHelper {
 
     static class IdentifyListenerHandler implements InvocationHandler {
 
-
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             try {
@@ -381,7 +359,6 @@ public class DevicesIDsHelper {
     }
 
     private static void initInvokeListener() {
-
 
         try {
             mMidSDKHelper = Class.forName("com.bun.miitmdid.core.MdidSdkHelper");
