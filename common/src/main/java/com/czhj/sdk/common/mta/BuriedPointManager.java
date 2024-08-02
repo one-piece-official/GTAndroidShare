@@ -36,7 +36,7 @@ import java.util.zip.DeflaterOutputStream;
 
 public class BuriedPointManager {
 
-    private static final int MAX_LOGS_COUNT = 5000*100;
+    private static final int MAX_LOGS_COUNT = 5000 * 100;
     private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();// 定义锁对象
     private HashMap<Integer, String> send_value = null;
     private List<String> wait_send_list = null;
@@ -53,9 +53,9 @@ public class BuriedPointManager {
 
     }
 
-    public void start(){
+    public void start() {
 
-        if (database == null || repeatingHandlerRunnable == null){
+        if (database == null || repeatingHandlerRunnable == null) {
             database = SQLiteMTAHelper.getInstance().getWritableDatabase();
             clearLogDB();
             HandlerThread sendLog = new HandlerThread("sendLog");
@@ -66,25 +66,26 @@ public class BuriedPointManager {
                 protected void doWork() {
                     try {
                         sendPoint();
-                        repeatingHandlerRunnable.startRepeating(Config.sharedInstance().getSend_log_interval()*1000);
+                        repeatingHandlerRunnable.startRepeating(Config.sharedInstance().getSend_log_interval() * 1000);
 
                     } catch (Throwable throwable) {
                         SigmobLog.e("retryFaildTracking error " + throwable.getMessage());
                     }
                 }
             };
-            repeatingHandlerRunnable.startRepeating(Config.sharedInstance().getSend_log_interval()*1000);
+            repeatingHandlerRunnable.startRepeating(Config.sharedInstance().getSend_log_interval() * 1000);
         }
 
     }
 
-    public void addWaitSend(String log){
-        if (wait_send_list == null){
+    public void addWaitSend(String log) {
+        if (wait_send_list == null) {
             wait_send_list = new LinkedList<>();
         }
 
         wait_send_list.add(log);
     }
+
     public static BuriedPointManager getInstance() {
         synchronized (BuriedPointManager.class) {
             if (sInstance == null) {
@@ -130,10 +131,7 @@ public class BuriedPointManager {
     }
 
     private void cleanLogsDBByLogCount() {
-
         try {
-
-
             long numRows = DatabaseUtils.queryNumEntries(this.database, SQLiteMTAHelper.TABLE_POINT);
 
             if (numRows <= MAX_LOGS_COUNT) {
@@ -158,8 +156,7 @@ public class BuriedPointManager {
         Cursor cursor = null;
         try {
 
-            cursor = database.rawQuery("select * from " + SQLiteMTAHelper.TABLE_POINT + " where item not null" + " order by point_id",
-                    null);
+            cursor = database.rawQuery("select * from " + SQLiteMTAHelper.TABLE_POINT + " where item not null" + " order by point_id", null);
 
             int count = 0;
             if (cursor != null && cursor.moveToFirst()) {
@@ -173,13 +170,13 @@ public class BuriedPointManager {
                     Integer encryption = cursor.getInt(encrypColumn);
 
 
-                    if (!TextUtils.isEmpty(item) ) {
-                        if(encryption == 1){
+                    if (!TextUtils.isEmpty(item)) {
+                        if (encryption == 1) {
                             String s = AESUtil.DecryptString(item, Constants.AESKEY);
-                            if(!TextUtils.isEmpty(s)){
+                            if (!TextUtils.isEmpty(s)) {
                                 stringList.put(id, AESUtil.DecryptString(item, Constants.AESKEY));
                             }
-                        }else{
+                        } else {
                             stringList.put(id, item);
                         }
                     } else {
@@ -231,8 +228,7 @@ public class BuriedPointManager {
 
         try {
             Iterator<Integer> it = ids.iterator();
-            if (!it.hasNext())
-                return;
+            if (!it.hasNext()) return;
 
 //            long numRows = DatabaseUtils.queryNumEntries(database, SQLiteMTAHelper.TABLE_POINT);
 //            SigmobLog.d("begin numRows " + numRows);
@@ -246,8 +242,7 @@ public class BuriedPointManager {
             for (; ; ) {
                 Integer e = it.next();
                 builder.append(e);
-                if (!it.hasNext())
-                    break;
+                if (!it.hasNext()) break;
                 builder.append(',').append(' ');
             }
             builder.append(" )");
@@ -296,7 +291,6 @@ public class BuriedPointManager {
         }
     }
 
-
     public String sendPoint() {
         String body = null;
 
@@ -309,7 +303,7 @@ public class BuriedPointManager {
 
             send_value = getLogs(Config.sharedInstance().getMax_send_log_records());
 
-            if (send_value.size() == 0){
+            if (send_value.size() == 0) {
                 return null;
             }
 
@@ -338,36 +332,34 @@ public class BuriedPointManager {
             } catch (IOException e) {
                 SigmobLog.e(e.getMessage());
             }
-        }catch (Throwable th) {
-            SigmobLog.e("sendPoint fail ",th);
-        }finally {
+        } catch (Throwable th) {
+            SigmobLog.e("sendPoint fail ", th);
+        } finally {
             readWriteLock.readLock().unlock();
 
         }
 
-
-
         return body;
-
     }
 
-    private String getWaitSendLogs(){
+    private String getWaitSendLogs() {
         StringBuilder jsonStringBuilder = new StringBuilder();
 
-        if (wait_send_list != null&&wait_send_list.size()>0){
+        if (wait_send_list != null && wait_send_list.size() > 0) {
             wait_send_size = wait_send_list.size();
 
             Iterator<String> iterator = wait_send_list.iterator();
-            while (iterator.hasNext()){
+            while (iterator.hasNext()) {
                 String pointEntityJsonString = iterator.next();
                 jsonStringBuilder.append(pointEntityJsonString);
-                if (iterator.hasNext()){
+                if (iterator.hasNext()) {
                     jsonStringBuilder.append(",");
                 }
             }
         }
         return jsonStringBuilder.toString();
     }
+
     private void clearLog() {
         readWriteLock.writeLock().lock();
         if (send_value == null || send_value.size() == 0) {
@@ -382,18 +374,19 @@ public class BuriedPointManager {
 
     }
 
-    private void clearWaitList(){
-        if (wait_send_list != null && wait_send_list.size()>0){
+    private void clearWaitList() {
+        if (wait_send_list != null && wait_send_list.size() > 0) {
 
-            if (wait_send_list.size()>wait_send_size){
-                wait_send_list = wait_send_list.subList(wait_send_size,wait_send_list.size()-1);
-            }else {
+            if (wait_send_list.size() > wait_send_size) {
+                wait_send_list = wait_send_list.subList(wait_send_size, wait_send_list.size() - 1);
+            } else {
                 wait_send_list.clear();
             }
             wait_send_size = 0;
         }
     }
-    private void sendServer( String body, final boolean usedb) {
+
+    private void sendServer(String body, final boolean usedb) {
 
         isSending = true;
         BuriedPointRequest.BuriedPointSend(body, new BuriedPointRequest.RequestListener() {
@@ -416,10 +409,7 @@ public class BuriedPointManager {
                 SigmobLog.e(error.getMessage());
             }
         });
-
-
     }
-
 
     public Set<Integer> getLogBlackList() {
         return mLogBackList;

@@ -12,7 +12,6 @@ import com.czhj.sdk.common.network.Networking;
 
 public abstract class PointEntityCommon extends PointEntitySuper {
 
-
     public String getTargetSdkVersion() {
         return ClientMetadata.getInstance().getTargetSdkVersion();
     }

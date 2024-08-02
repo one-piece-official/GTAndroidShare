@@ -17,18 +17,11 @@ public class BaseMacroCommon implements Serializable {
     private static final long serialVersionUID = 1L;
     private Map<String, String> mMacroMap = new HashMap<>();
 
-
     private Map<String, String> mServerMacroMap = new HashMap<>();
 
     public enum MacroCode {
 
-        _MC_,
-        _COUNTRY_,
-        _TIMESTAMP_,
-        _OSVERSION_,
-        _BUNDLEID_,
-        _LANGUAGE_,
-        _TIMEMILLIS_;
+        _MC_, _COUNTRY_, _TIMESTAMP_, _OSVERSION_, _BUNDLEID_, _LANGUAGE_, _TIMEMILLIS_;
 
 
         static String getMacroValue(String macroName) {
@@ -84,7 +77,6 @@ public class BaseMacroCommon implements Serializable {
             }
 
         }
-
     }
 
     public void setServerMacroMap(Map<String, String> map) {
@@ -178,8 +170,7 @@ public class BaseMacroCommon implements Serializable {
             }
             SigmobLog.d("macroProcess() called with: final url " + tempUrl);
 
-        } catch (
-                Throwable e) {
+        } catch (Throwable e) {
             SigmobLog.e(e.getMessage());
         }
 

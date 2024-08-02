@@ -14,45 +14,37 @@ import java.util.StringTokenizer;
 
 public class JSONDeserializer {
 
-    public static <T> T Deserialize( Class<T> target, Object json ) throws MatchTypeException {
-        if ( json instanceof JSONObject) {
-            return DeserializeObject(target, (JSONObject)json);
-        } else if ( json instanceof JSONArray ) {
+    public static <T> T Deserialize(Class<T> target, Object json) throws MatchTypeException {
+        if (json instanceof JSONObject) {
+            return DeserializeObject(target, (JSONObject) json);
+        } else if (json instanceof JSONArray) {
             return DeserializeArray(target, (JSONArray) json);
         }
 
         return null;
     }
 
-    private static boolean isPrimitive( Class<?> c ) {
-        return  c==Character.class  || c==char.class ||
-                c==Byte.class       || c==byte.class ||
-                c==Short.class      || c==short.class ||
-                c==Integer.class    || c==int.class ||
-                c==Long.class       || c==long.class ||
-                c==Float.class      || c==float.class ||
-                c==Double.class     || c==double.class ||
-                c==Boolean.class    || c==boolean.class ||
-                c==String.class;
+    private static boolean isPrimitive(Class<?> c) {
+        return c == Character.class || c == char.class || c == Byte.class || c == byte.class || c == Short.class || c == short.class || c == Integer.class || c == int.class || c == Long.class || c == long.class || c == Float.class || c == float.class || c == Double.class || c == double.class || c == Boolean.class || c == boolean.class || c == String.class;
     }
 
     private static boolean isValidDeserializableField(Field field) {
-        boolean isTransient= field.isAnnotationPresent(Transient.class);
+        boolean isTransient = field.isAnnotationPresent(Transient.class);
         boolean validName = !field.getName().startsWith("this$");
 
         return !isTransient && validName;
     }
 
-    private static <T> T DeserializeObject( Class<T> targetClass, JSONObject json ) throws MatchTypeException {
+    private static <T> T DeserializeObject(Class<T> targetClass, JSONObject json) throws MatchTypeException {
 
-        T target = createTarget( targetClass );
-        if ( null==target ) {
+        T target = createTarget(targetClass);
+        if (null == target) {
             return null;
         }
 
-        for( Field field : target.getClass().getDeclaredFields() ) {
+        for (Field field : target.getClass().getDeclaredFields()) {
 
-            if ( isValidDeserializableField(field) ) {
+            if (isValidDeserializableField(field)) {
                 field.setAccessible(true);
                 Class<?> field_type_class = field.getType();
 
@@ -66,24 +58,24 @@ public class JSONDeserializer {
                             Object value;
 
                             // destination field is a List.
-                            if ( List.class.isAssignableFrom(field_type_class ) ) {
+                            if (List.class.isAssignableFrom(field_type_class)) {
 
                                 Type type = field.getGenericType();
-                                ParameterizedType ptype= (ParameterizedType)type;
+                                ParameterizedType ptype = (ParameterizedType) type;
                                 String stype = ptype.getActualTypeArguments()[0].toString();
 
-                                StringTokenizer st= new StringTokenizer(stype," ");
+                                StringTokenizer st = new StringTokenizer(stype, " ");
                                 st.nextToken();
-                                String sclass= st.nextToken();
+                                String sclass = st.nextToken();
 
                                 Class<?> cclass = Class.forName(sclass);
 
-                                value = DeserializeList(field_type_class, cclass, (JSONArray)v);
+                                value = DeserializeList(field_type_class, cclass, (JSONArray) v);
 
                             } else {
                                 value = Deserialize(field_type_class, v);
                             }
-                            field.set(target, value );
+                            field.set(target, value);
                         } else {
                             field.set(target, null);
                         }
@@ -97,16 +89,16 @@ public class JSONDeserializer {
         return target;
     }
 
-    private static <T> T DeserializeArray( Class<T> target, JSONArray json ) throws MatchTypeException {
+    private static <T> T DeserializeArray(Class<T> target, JSONArray json) throws MatchTypeException {
 
         if (!target.isArray()) {
             throw new MatchTypeException("Assigning json array to non array type: " + target.getCanonicalName());
         }
 
-        return (T)DeserializeArrayImpl(target.getComponentType(), json);
+        return (T) DeserializeArrayImpl(target.getComponentType(), json);
     }
 
-    private static Object DeserializeArrayImpl( Class<?> component_type, JSONArray json ) throws MatchTypeException {
+    private static Object DeserializeArrayImpl(Class<?> component_type, JSONArray json) throws MatchTypeException {
 
         Object array;
 
@@ -139,40 +131,40 @@ public class JSONDeserializer {
         return array;
     }
 
-    private static <T> List<T> DeserializeList( Class<?> clist, Class<?> target, JSONArray json ) throws MatchTypeException {
+    private static <T> List<T> DeserializeList(Class<?> clist, Class<?> target, JSONArray json) throws MatchTypeException {
 
         try {
 
-            Object arr = DeserializeArrayImpl( target, json );
+            Object arr = DeserializeArrayImpl(target, json);
 
-            List list = (List)clist.getConstructor().newInstance();
+            List list = (List) clist.getConstructor().newInstance();
 
-            for( int i=0; i<Array.getLength(arr); i++ ) {
-                list.add( Array.get(arr,i) );
+            for (int i = 0; i < Array.getLength(arr); i++) {
+                list.add(Array.get(arr, i));
             }
 
-            return (List<T>)list;
+            return (List<T>) list;
 
-        } catch(Exception x){
-            throw new MatchTypeException("Exception deserializing list: "+x.toString());
+        } catch (Exception x) {
+            throw new MatchTypeException("Exception deserializing list: " + x.toString());
         }
     }
 
-    private static <T> T createTarget(Class<T> c ) {
+    private static <T> T createTarget(Class<T> c) {
         try {
-            if ( c.isMemberClass()) {
+            if (c.isMemberClass()) {
                 // solve inner class.
 
-                Class<?> parent_class= c.getEnclosingClass();
+                Class<?> parent_class = c.getEnclosingClass();
                 Object parent_object = parent_class.newInstance();
 
                 Constructor<?> ctor = c.getDeclaredConstructor(parent_class);
                 ctor.setAccessible(true);
-                return (T)ctor.newInstance(parent_object);
+                return (T) ctor.newInstance(parent_object);
             } else {
                 return c.newInstance();
             }
-        } catch(Throwable e ) {
+        } catch (Throwable e) {
             return null;
         }
     }

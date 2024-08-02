@@ -16,7 +16,7 @@ public class ImageTypeUtil {
         mFileTypes.put("4749", "gif");
         mFileTypes.put("4949", "tif");
         mFileTypes.put("424D", "bmp");
-        mFileTypes.put("5745","webp");
+        mFileTypes.put("5745", "webp");
     }
 
     /**
@@ -48,7 +48,7 @@ public class ImageTypeUtil {
              */
             is.read(b, 0, b.length);
             value = bytesToHexString(b);
-            if(value.equals("5249")){
+            if (value.equals("5249")) {
                 is.skip(6);
                 is.read(b, 0, b.length);
                 value = bytesToHexString(b);

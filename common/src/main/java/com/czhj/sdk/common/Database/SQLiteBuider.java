@@ -16,16 +16,15 @@ public class SQLiteBuider {
 
     private static Map<String, String> adsColumn = null;
 
-
-    private static List<String> convertMapToList(Map<String, String> columes){
+    private static List<String> convertMapToList(Map<String, String> columes) {
 
         List<String> stringList = new ArrayList<>(columes.size());
 
-        for (String key : columes.keySet()){
+        for (String key : columes.keySet()) {
 
             String keyType;
-            String valueType =  columes.get(key).toLowerCase();
-            switch ( valueType ){
+            String valueType = columes.get(key).toLowerCase();
+            switch (valueType) {
                 case "int":
                 case "long":
                     keyType = "integer";
@@ -45,7 +44,7 @@ public class SQLiteBuider {
     }
 
 
-    public static class CreateTriggerBuilder{
+    public static class CreateTriggerBuilder {
 
         private String triggerName = null;
         private String onAction = null;
@@ -73,16 +72,16 @@ public class SQLiteBuider {
             return this;
         }
 
-        public String build(){
+        public String build() {
 
-            String sql = String.format("create trigger if not exists %s after %s on %s begin %s end;", triggerName, onAction,onTableName,execSql);
+            String sql = String.format("create trigger if not exists %s after %s on %s begin %s end;", triggerName, onAction, onTableName, execSql);
 
             return sql;
         }
     }
 
 
-    public static class Insert{
+    public static class Insert {
 
         String tableName;
         String sql;
@@ -116,7 +115,7 @@ public class SQLiteBuider {
             }
 
 
-            public void setColumnValues(Map<String, Object> values){
+            public void setColumnValues(Map<String, Object> values) {
                 this.columnValues = values;
             }
 
@@ -130,7 +129,7 @@ public class SQLiteBuider {
                 for (int i = 0; i < columns.size(); i++) {
                     keys.append(columns.get(i));
                     values.append("?");
-                    if(i+1 < columns.size()){
+                    if (i + 1 < columns.size()) {
                         keys.append(", ");
                         values.append(", ");
                     }
@@ -140,12 +139,12 @@ public class SQLiteBuider {
                 values.append(")");
                 builder.append(keys).append(" values ").append(values);
 
-                Insert insert= new Insert();
+                Insert insert = new Insert();
 
                 insert.tableName = tableName;
                 insert.columns = columns;
                 insert.values = columnValues;
-                insert.sql =  builder.toString();
+                insert.sql = builder.toString();
 
                 return insert;
             }
@@ -155,7 +154,7 @@ public class SQLiteBuider {
     }
 
 
-    public static class Update{
+    public static class Update {
 
         String tableName;
         String sql;
@@ -171,16 +170,17 @@ public class SQLiteBuider {
             private Map<String, Object> columnValues = null;
 
             private String sqlWhere = null;
+
             public void setTableName(String tableName) {
                 this.tableName = tableName;
             }
 
 
-            public void setColumnValues(Map<String, Object> values){
+            public void setColumnValues(Map<String, Object> values) {
                 this.columnValues = values;
             }
 
-            public void setWhere(String where){
+            public void setWhere(String where) {
                 this.sqlWhere = where;
             }
 
@@ -190,8 +190,8 @@ public class SQLiteBuider {
 
                 builder.append(" set ");
 
-                for (Iterator<String> it = columnValues.keySet().iterator(); it.hasNext();) {
-                    String key  = it.next();
+                for (Iterator<String> it = columnValues.keySet().iterator(); it.hasNext(); ) {
+                    String key = it.next();
                     builder.append(key + " = " + columnValues.get(key));
                     if (it.hasNext()) {
                         builder.append(", ");
@@ -199,16 +199,16 @@ public class SQLiteBuider {
                 }
 
 
-                if (!TextUtils.isEmpty(sqlWhere)){
-                    builder.append(" "+sqlWhere);
+                if (!TextUtils.isEmpty(sqlWhere)) {
+                    builder.append(" " + sqlWhere);
                 }
 
-                Update update= new Update();
+                Update update = new Update();
 
                 update.tableName = tableName;
                 update.values = columnValues;
                 update.where = sqlWhere;
-                update.sql =  builder.toString();
+                update.sql = builder.toString();
 
                 return update;
             }
@@ -218,7 +218,7 @@ public class SQLiteBuider {
     }
 
 
-    public static class CreateTable{
+    public static class CreateTable {
 
         String tableName;
         String sql;
@@ -236,9 +236,9 @@ public class SQLiteBuider {
                 return this;
             }
 
-            public Builder setPrimaryKey(String primaryKey, String keyType ) {
+            public Builder setPrimaryKey(String primaryKey, String keyType) {
 
-                if(this.primaryKey == null){
+                if (this.primaryKey == null) {
                     Map<String, String> tempColumes = new HashMap<>();
                     this.primaryKey = tempColumes;
 
@@ -261,10 +261,7 @@ public class SQLiteBuider {
             }
 
 
-
-
-
-            public CreateTable build(){
+            public CreateTable build() {
 
                 StringBuilder builder = new StringBuilder("create table if not exists ");
 
@@ -275,10 +272,10 @@ public class SQLiteBuider {
 
 
                 List<String> primarys = convertMapToList(primaryKey);
-                if (primarys.size()>1){
+                if (primarys.size() > 1) {
                     List<String> columesString = convertMapToList(columns);
 
-                    for (String colume :columesString){
+                    for (String colume : columesString) {
                         builder.append(colume).append(" ,");
                     }
 
@@ -287,30 +284,29 @@ public class SQLiteBuider {
 
                     Iterator<String> sets = primaryKey.keySet().iterator();
 
-                    while (sets.hasNext()){
+                    while (sets.hasNext()) {
 
                         builder.append(sets.next());
-                        if(sets.hasNext()){
+                        if (sets.hasNext()) {
                             builder.append(" ,");
-                        }else {
+                        } else {
                             builder.append(" )");
                         }
                     }
 
 
+                } else {
 
-                }else{
-
-                    if (mAutoincrement){
+                    if (mAutoincrement) {
                         builder.append(String.format("id integer primary key AUTOINCREMENT"));
-                    }else {
+                    } else {
                         builder.append(String.format("%s primary key ", primarys.get(0)));
 
                     }
                     columns.remove(primaryKey.keySet().iterator().next());
                     List<String> columesString = convertMapToList(columns);
 
-                    for (String colume :columesString){
+                    for (String colume : columesString) {
                         builder.append(" ,");
                         builder.append(colume).append(" ");
                     }

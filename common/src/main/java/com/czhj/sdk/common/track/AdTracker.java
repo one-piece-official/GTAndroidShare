@@ -62,7 +62,6 @@ public class AdTracker implements Serializable {
         buider.setColumns(columns);
 
         return buider.build();
-
     }
 
     public static List<AdTracker> getAdTrackerFromDB(int maxNum, final long expiredMs) {
@@ -74,8 +73,7 @@ public class AdTracker implements Serializable {
         try {
 
             db = SQLiteTrackHelper.getInstance().getReadableDatabase();
-            cursor = db.rawQuery("select * from " + SQLiteTrackHelper.TABLE_TRACK + " where timestamp > " + (System.currentTimeMillis() - expiredMs) + " order by id desc" + " limit " + maxNum,
-                    null);
+            cursor = db.rawQuery("select * from " + SQLiteTrackHelper.TABLE_TRACK + " where timestamp > " + (System.currentTimeMillis() - expiredMs) + " order by id desc" + " limit " + maxNum, null);
 
             int count = 0;
             if (cursor != null && cursor.moveToFirst()) {
@@ -90,8 +88,6 @@ public class AdTracker implements Serializable {
                 int messageTypeColumn = cursor.getColumnIndex("messageType");
 
                 while (count < maxNum) {
-
-
                     try {
                         String track_url = cursor.getString(urlColumn);
                         Long id = cursor.getLong(idColumn);
@@ -164,7 +160,6 @@ public class AdTracker implements Serializable {
         this.extInfo = extInfo;
     }
 
-
     public String getExtInfo() {
         return extInfo;
     }
@@ -208,8 +203,7 @@ public class AdTracker implements Serializable {
             }
 
             if (count > maxNum) {
-                cursor = db.rawQuery("select * from " + SQLiteTrackHelper.TABLE_TRACK + " order by id desc" + " limit " + maxNum,
-                        null);
+                cursor = db.rawQuery("select * from " + SQLiteTrackHelper.TABLE_TRACK + " order by id desc" + " limit " + maxNum, null);
 
                 int idColumn = cursor.getColumnIndex("id");
                 if (cursor != null && cursor.moveToLast()) {

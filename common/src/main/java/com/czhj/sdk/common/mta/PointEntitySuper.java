@@ -313,8 +313,7 @@ public abstract class PointEntitySuper {
                 } else {
                     value = entry.getValue().toString();
                 }
-                if (!value.startsWith("{"))
-                    builder.append("\"" + value + "\"");
+                if (!value.startsWith("{")) builder.append("\"" + value + "\"");
                 else {
                     builder.append(value);
                 }

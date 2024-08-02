@@ -7,6 +7,7 @@ public enum ResponseHeader {
     ACCEPT_LANGUAGE("Accept-Language");
 
     private final String key;
+
     ResponseHeader(String key) {
         this.key = key;
     }

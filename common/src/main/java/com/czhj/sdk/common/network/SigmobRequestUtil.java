@@ -17,16 +17,11 @@ import java.util.Map;
 
 public class SigmobRequestUtil {
 
-
     /**
      * This is a helper class and should not be instantiated.
      */
     private SigmobRequestUtil() {
     }
-
-
-
-
 
     static boolean isSigmobHost(final String url) {
 
@@ -125,7 +120,6 @@ public class SigmobRequestUtil {
             }
         }
 
-
         public synchronized void set(InetAddress inetAddr) {
             this.inetAddr = inetAddr;
         }
@@ -134,7 +128,6 @@ public class SigmobRequestUtil {
             return inetAddr;
         }
     }
-
 
 }
 

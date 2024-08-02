@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.UUID;
 
 public class AdvertisingId implements Serializable {
+
     private static final long ROTATION_TIME_MS = 24 * 60 * 60 * 1000;
 
     /**
@@ -31,17 +32,16 @@ public class AdvertisingId implements Serializable {
      */
     public final boolean mDoNotTrack;
 
-    AdvertisingId( String ifaId,
-                          String SigmobId,
-                         boolean limitAdTrackingEnabled,
-                         long rotationTime) {
+    AdvertisingId(String ifaId,
+                  String SigmobId,
+                  boolean limitAdTrackingEnabled,
+                  long rotationTime) {
         mAdvertisingId = ifaId;
         mSigmobId = SigmobId;
         mDoNotTrack = limitAdTrackingEnabled;
         mLastRotation = Calendar.getInstance();
         mLastRotation.setTimeInMillis(rotationTime);
     }
-
 
 
     public static AdvertisingId generateExpiredAdvertisingId() {

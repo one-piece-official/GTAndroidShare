@@ -20,10 +20,8 @@ import java.util.TimeZone;
 
 public class ModelBuilderCreator {
 
-
     public static Version.Builder createVersion(String version) {
         int major, micro, minor;
-
 
         try {
             String[] array = version.split("\\.");

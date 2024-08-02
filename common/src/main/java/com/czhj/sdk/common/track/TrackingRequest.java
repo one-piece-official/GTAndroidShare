@@ -22,22 +22,14 @@ public class TrackingRequest extends Request<NetworkResponse> {
         super(Method.GET, url, mListener);
         this.mListener = mListener;
 
-        if (retryNum < 0)
-            retryNum = 0;
-        else if (retryNum > 3)
-            retryNum = 3;
+        if (retryNum < 0) retryNum = 0;
+        else if (retryNum > 3) retryNum = 3;
 
         setShouldRetryServerErrors(true);
-        DefaultRetryPolicy retryPolicy = new DefaultRetryPolicy(
-                ConnectTimeoutMs,
-                ConnectTimeoutMs,
-                retryNum,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        DefaultRetryPolicy retryPolicy = new DefaultRetryPolicy(ConnectTimeoutMs, ConnectTimeoutMs, retryNum, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         setRetryPolicy(retryPolicy);
         setShouldCache(false);
-
     }
-
 
     @Override
     public int getMaxLength() {
@@ -68,10 +60,7 @@ public class TrackingRequest extends Request<NetworkResponse> {
         }
     }
 
-
     public interface RequestListener extends Response.ErrorListener {
         void onSuccess(NetworkResponse response);
     }
-
-
 }

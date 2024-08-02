@@ -11,9 +11,7 @@ import java.util.Map;
 
 public class ReflectionUtil {
 
-    public static Method getDeclaredMethodWithTraversal( final Class<?> clazz,
-                                                          final String methodName,  final Class<?>... parameterTypes)
-            throws NoSuchMethodException {
+    public static Method getDeclaredMethodWithTraversal(final Class<?> clazz, final String methodName, final Class<?>... parameterTypes) throws NoSuchMethodException {
         Preconditions.NoThrow.checkNotNull(methodName);
         Preconditions.NoThrow.checkNotNull(parameterTypes);
 
@@ -31,7 +29,7 @@ public class ReflectionUtil {
     }
 
 
-    public static List<Method> getMethodWithTraversal( final Class<?> clazz) {
+    public static List<Method> getMethodWithTraversal(final Class<?> clazz) {
         Preconditions.NoThrow.checkNotNull(clazz);
 
         try {
@@ -44,12 +42,12 @@ public class ReflectionUtil {
     }
 
 
-    public static Map<String, String> getPrivateFields( final Class classType) {
+    public static Map<String, String> getPrivateFields(final Class classType) {
         Field[] declaredFields = classType.getDeclaredFields();
 
         Map<String, String> declaredFieldMap = new HashMap<>(declaredFields.length);
         for (Field field : declaredFields) {
-            declaredFieldMap.put(field.getName(),field.getType().getName());
+            declaredFieldMap.put(field.getName(), field.getType().getName());
         }
 
         return declaredFieldMap;
@@ -71,7 +69,7 @@ public class ReflectionUtil {
         private boolean mIsAccessible;
         private boolean mIsStatic;
 
-        public MethodBuilder( final Object instance,  final String methodName) {
+        public MethodBuilder(final Object instance, final String methodName) {
             Preconditions.NoThrow.checkNotNull(methodName);
 
             mInstance = instance;
@@ -84,7 +82,7 @@ public class ReflectionUtil {
         }
 
 
-        public MethodBuilder( final Class cls,  final String methodName) {
+        public MethodBuilder(final Class cls, final String methodName) {
             Preconditions.NoThrow.checkNotNull(methodName);
 
             mIsStatic = true;
@@ -98,8 +96,7 @@ public class ReflectionUtil {
         }
 
 
-        public <T> MethodBuilder addParam(final Class<T> clazz,
-                                          final T parameter) {
+        public <T> MethodBuilder addParam(final Class<T> clazz, final T parameter) {
             Preconditions.NoThrow.checkNotNull(clazz);
 
             mParameterClasses.add(clazz);

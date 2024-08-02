@@ -10,7 +10,7 @@ public abstract class RepeatingHandlerRunnable implements Runnable {
     private volatile boolean mIsRunning;
     protected volatile long mUpdateIntervalMillis;
 
-    protected RepeatingHandlerRunnable( final Handler handler) {
+    protected RepeatingHandlerRunnable(final Handler handler) {
         Preconditions.NoThrow.checkNotNull(handler);
         mHandler = handler;
     }
@@ -29,8 +29,7 @@ public abstract class RepeatingHandlerRunnable implements Runnable {
      * Start this runnable immediately, repeating at the provided interval.
      */
     public void startRepeating(long intervalMillis) {
-        Preconditions.NoThrow.checkArgument(intervalMillis > 0, "intervalMillis must be greater than 0. " +
-                "Saw: "+intervalMillis);
+        Preconditions.NoThrow.checkArgument(intervalMillis > 0, "intervalMillis must be greater than 0. " + "Saw: " + intervalMillis);
         mUpdateIntervalMillis = intervalMillis;
         if (!mIsRunning) {
             mIsRunning = true;

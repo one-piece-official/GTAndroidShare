@@ -12,10 +12,9 @@ import com.czhj.sdk.logger.SigmobLog;
 
 public class SQLiteMTAHelper extends SQLiteOpenHelper {
 
-
     public static final String TABLE_POINT = "point";
 
-    private static String DEFAULT_MTA_NAME = Constants.SDK_COMMON_FOLDER+"_mta.db";
+    private static String DEFAULT_MTA_NAME = Constants.SDK_COMMON_FOLDER + "_mta.db";
 
     private static final int DATABASE_VERSION = 10;
     private static String create_point_Sql = "CREATE TABLE point ( point_id integer  primary key  ,item text , encryption int);\n";
@@ -194,10 +193,10 @@ public class SQLiteMTAHelper extends SQLiteOpenHelper {
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data"
         );
-        if (oldVersion ==9){
+        if (oldVersion == 9) {
             recreateDb(database);
-        }else if( newVersion > 8){
-            database.execSQL("ALTER TABLE "+TABLE_POINT+" ADD COLUMN 'encryption' int ");
+        } else if (newVersion > 8) {
+            database.execSQL("ALTER TABLE " + TABLE_POINT + " ADD COLUMN 'encryption' int ");
         }
 
     }

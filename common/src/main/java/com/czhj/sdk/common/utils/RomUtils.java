@@ -472,9 +472,7 @@ public final class RomUtils {
     private static String getSystemPropertyByStream(final String key) {
         try {
             Properties prop = new Properties();
-            FileInputStream is = new FileInputStream(
-                    new File(Environment.getRootDirectory(), "build.prop")
-            );
+            FileInputStream is = new FileInputStream(new File(Environment.getRootDirectory(), "build.prop"));
             prop.load(is);
             return prop.getProperty(key, "");
         } catch (Exception ignore) {/**/}
@@ -483,8 +481,7 @@ public final class RomUtils {
 
     private static String getSystemPropertyByReflect(String key) {
         try {
-            @SuppressLint("PrivateApi")
-            Class<?> clz = Class.forName("android.os.SystemProperties");
+            @SuppressLint("PrivateApi") Class<?> clz = Class.forName("android.os.SystemProperties");
             Method getMethod = clz.getMethod("get", String.class, String.class);
             return (String) getMethod.invoke(clz, key, "");
         } catch (Exception e) {/**/}
@@ -512,10 +509,7 @@ public final class RomUtils {
 
         @Override
         public String toString() {
-            return "RomInfo{name=" + name +
-                    ", version=" + version +
-                    ", osMarket=" + osMarket +
-                    "}";
+            return "RomInfo{name=" + name + ", version=" + version + ", osMarket=" + osMarket + "}";
         }
     }
 }

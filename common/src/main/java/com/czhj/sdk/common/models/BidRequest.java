@@ -22,682 +22,730 @@ import java.util.Map;
  * 内部竞价请求
  */
 public final class BidRequest extends AndroidMessage<BidRequest, BidRequest.Builder> {
-  public static final ProtoAdapter<BidRequest> ADAPTER = new ProtoAdapter_BidRequest();
+    public static final ProtoAdapter<BidRequest> ADAPTER = new ProtoAdapter_BidRequest();
 
-  public static final Parcelable.Creator<BidRequest> CREATOR = AndroidMessage.newCreator(ADAPTER);
+    public static final Parcelable.Creator<BidRequest> CREATOR = AndroidMessage.newCreator(ADAPTER);
 
-  private static final long serialVersionUID = 0L;
+    private static final long serialVersionUID = 0L;
 
-  public static final String DEFAULT_REQUEST_ID = "";
+    public static final String DEFAULT_REQUEST_ID = "";
 
-  public static final Long DEFAULT_REQ_TIMESTAMP = 0L;
+    public static final Long DEFAULT_REQ_TIMESTAMP = 0L;
 
-  public static final Integer DEFAULT_REQUEST_SCENE_TYPE = 0;
+    public static final Integer DEFAULT_REQUEST_SCENE_TYPE = 0;
 
-  public static final Boolean DEFAULT_AD_IS_EXPIRED = false;
+    public static final Boolean DEFAULT_AD_IS_EXPIRED = false;
 
-  public static final Boolean DEFAULT_DISABLE_MEDIATION = false;
+    public static final Boolean DEFAULT_DISABLE_MEDIATION = false;
 
-  public static final Boolean DEFAULT_DISABLE_INSTALL_PACKAGE = false;
-
-  /**
-   * 内部生成；请求唯一标识，[a-zA-Z0-9]{32}
-   */
-  @WireField(
-      tag = 1,
-      adapter = "com.squareup.wire.ProtoAdapter#STRING"
-  )
-  public final String request_id;
-
-  /**
-   * 选填, API版本
-   */
-  @WireField(
-      tag = 2,
-      adapter = "com.sigmob.sdk.common.models.Version#ADAPTER"
-  )
-  public final Version api_version;
-
-  /**
-   * 必填！应用信息
-   */
-  @WireField(
-      tag = 3,
-      adapter = "com.sigmob.sdk.common.models.App#ADAPTER"
-  )
-  public final App app;
-
-  /**
-   * 必填！设备信息
-   */
-  @WireField(
-      tag = 4,
-      adapter = "com.sigmob.sdk.common.models.Device#ADAPTER"
-  )
-  public final Device device;
-
-  /**
-   * 必填！网络环境信息
-   */
-  @WireField(
-      tag = 5,
-      adapter = "com.sigmob.sdk.common.models.Network#ADAPTER"
-  )
-  public final Network network;
-
-  /**
-   * 必填！广告位信息。 目前只支持单广告位
-   */
-  @WireField(
-      tag = 6,
-      adapter = "com.sigmob.sdk.common.models.AdSlot#ADAPTER",
-      label = WireField.Label.REPEATED
-  )
-  public final List<AdSlot> slots;
-
-  /**
-   * 广告请求时间，unix时间戳 (10 位，从1970开始的时间戳)
-   */
-  @WireField(
-      tag = 7,
-      adapter = "com.squareup.wire.ProtoAdapter#INT64"
-  )
-  public final Long req_timestamp;
-
-  /**
-   * 发起请求时场景，1）前后台切换 2）视频播放中自动加载请求 3）初始化请求 4）其他被动请求
-   */
-  @WireField(
-      tag = 8,
-      adapter = "com.squareup.wire.ProtoAdapter#UINT32"
-  )
-  public final Integer request_scene_type;
-
-  /**
-   * 发起请求时已缓存的广告是否过期了
-   */
-  @WireField(
-      tag = 9,
-      adapter = "com.squareup.wire.ProtoAdapter#BOOL"
-  )
-  public final Boolean ad_is_expired;
-
-  /**
-   * 用户隐私
-   */
-  @WireField(
-      tag = 10,
-      adapter = "com.sigmob.sdk.common.models.Privacy#ADAPTER"
-  )
-  public final Privacy privacy;
-
-  /**
-   * false: 使用的聚合；true: 单接
-   */
-  @WireField(
-      tag = 11,
-      adapter = "com.squareup.wire.ProtoAdapter#BOOL"
-  )
-  public final Boolean disable_mediation;
-
-  /**
-   * 保留扩展字段
-   */
-  @WireField(
-      tag = 15,
-      keyAdapter = "com.squareup.wire.ProtoAdapter#STRING",
-      adapter = "com.squareup.wire.ProtoAdapter#STRING"
-  )
-  public final Map<String, String> options;
-
-  /**
-   * header bidding信息
-   */
-  @WireField(
-      tag = 16,
-      adapter = "com.sigmob.sdk.common.models.HeaderBidding#ADAPTER"
-  )
-  public final HeaderBidding header_bidding;
-
-  /**
-   * 用户信息
-   */
-  @WireField(
-      tag = 17,
-      adapter = "com.sigmob.sdk.common.models.User#ADAPTER"
-  )
-  public final User user;
-
-  /**
-   * 第三方adn headerbidding信息
-   */
-  @WireField(
-      tag = 18,
-      adapter = "com.sigmob.sdk.common.models.HeaderBidding#ADAPTER",
-      label = WireField.Label.REPEATED
-  )
-  public final List<HeaderBidding> hbs;
-
-  /**
-   * 保留扩展字段
-   */
-  @WireField(
-      tag = 19,
-      keyAdapter = "com.squareup.wire.ProtoAdapter#STRING",
-      adapter = "com.squareup.wire.ProtoAdapter#STRING"
-  )
-  public final Map<String, String> ext_options;
-
-  /**
-   * sdk版本
-   */
-  @WireField(
-      tag = 20,
-      adapter = "com.sigmob.sdk.common.models.Version#ADAPTER"
-  )
-  public final Version sdk_version;
-
-  @WireField(
-      tag = 21,
-      adapter = "com.sigmob.sdk.common.models.WXProgramReq#ADAPTER"
-  )
-  public final WXProgramReq wx_program_req;
-
-  /**
-   * 策略请求
-   */
-  @WireField(
-      tag = 22,
-      adapter = "com.sigmob.sdk.common.models.StrategyReq#ADAPTER"
-  )
-  public final StrategyReq strategy_req;
-
-  /**
-   * 应用是否禁止安装行为，默认false
-   */
-  @WireField(
-      tag = 23,
-      adapter = "com.squareup.wire.ProtoAdapter#BOOL"
-  )
-  public final Boolean disable_install_package;
-
-  public BidRequest(String request_id, Version api_version, App app, Device device, Network network,
-      List<AdSlot> slots, Long req_timestamp, Integer request_scene_type, Boolean ad_is_expired,
-      Privacy privacy, Boolean disable_mediation, Map<String, String> options,
-      HeaderBidding header_bidding, User user, List<HeaderBidding> hbs,
-      Map<String, String> ext_options, Version sdk_version, WXProgramReq wx_program_req,
-      StrategyReq strategy_req, Boolean disable_install_package) {
-    this(request_id, api_version, app, device, network, slots, req_timestamp, request_scene_type, ad_is_expired, privacy, disable_mediation, options, header_bidding, user, hbs, ext_options, sdk_version, wx_program_req, strategy_req, disable_install_package, ByteString.EMPTY);
-  }
-
-  public BidRequest(String request_id, Version api_version, App app, Device device, Network network,
-      List<AdSlot> slots, Long req_timestamp, Integer request_scene_type, Boolean ad_is_expired,
-      Privacy privacy, Boolean disable_mediation, Map<String, String> options,
-      HeaderBidding header_bidding, User user, List<HeaderBidding> hbs,
-      Map<String, String> ext_options, Version sdk_version, WXProgramReq wx_program_req,
-      StrategyReq strategy_req, Boolean disable_install_package, ByteString unknownFields) {
-    super(ADAPTER, unknownFields);
-    this.request_id = request_id;
-    this.api_version = api_version;
-    this.app = app;
-    this.device = device;
-    this.network = network;
-    this.slots = Internal.immutableCopyOf("slots", slots);
-    this.req_timestamp = req_timestamp;
-    this.request_scene_type = request_scene_type;
-    this.ad_is_expired = ad_is_expired;
-    this.privacy = privacy;
-    this.disable_mediation = disable_mediation;
-    this.options = Internal.immutableCopyOf("options", options);
-    this.header_bidding = header_bidding;
-    this.user = user;
-    this.hbs = Internal.immutableCopyOf("hbs", hbs);
-    this.ext_options = Internal.immutableCopyOf("ext_options", ext_options);
-    this.sdk_version = sdk_version;
-    this.wx_program_req = wx_program_req;
-    this.strategy_req = strategy_req;
-    this.disable_install_package = disable_install_package;
-  }
-
-  @Override
-  public Builder newBuilder() {
-    Builder builder = new Builder();
-    builder.request_id = request_id;
-    builder.api_version = api_version;
-    builder.app = app;
-    builder.device = device;
-    builder.network = network;
-    builder.slots = Internal.copyOf("slots", slots);
-    builder.req_timestamp = req_timestamp;
-    builder.request_scene_type = request_scene_type;
-    builder.ad_is_expired = ad_is_expired;
-    builder.privacy = privacy;
-    builder.disable_mediation = disable_mediation;
-    builder.options = Internal.copyOf("options", options);
-    builder.header_bidding = header_bidding;
-    builder.user = user;
-    builder.hbs = Internal.copyOf("hbs", hbs);
-    builder.ext_options = Internal.copyOf("ext_options", ext_options);
-    builder.sdk_version = sdk_version;
-    builder.wx_program_req = wx_program_req;
-    builder.strategy_req = strategy_req;
-    builder.disable_install_package = disable_install_package;
-    builder.addUnknownFields(unknownFields());
-    return builder;
-  }
-
-  @Override
-  public boolean equals(Object other) {
-    if (other == this) return true;
-    if (!(other instanceof BidRequest)) return false;
-    BidRequest o = (BidRequest) other;
-    return unknownFields().equals(o.unknownFields())
-        && Internal.equals(request_id, o.request_id)
-        && Internal.equals(api_version, o.api_version)
-        && Internal.equals(app, o.app)
-        && Internal.equals(device, o.device)
-        && Internal.equals(network, o.network)
-        && slots.equals(o.slots)
-        && Internal.equals(req_timestamp, o.req_timestamp)
-        && Internal.equals(request_scene_type, o.request_scene_type)
-        && Internal.equals(ad_is_expired, o.ad_is_expired)
-        && Internal.equals(privacy, o.privacy)
-        && Internal.equals(disable_mediation, o.disable_mediation)
-        && options.equals(o.options)
-        && Internal.equals(header_bidding, o.header_bidding)
-        && Internal.equals(user, o.user)
-        && hbs.equals(o.hbs)
-        && ext_options.equals(o.ext_options)
-        && Internal.equals(sdk_version, o.sdk_version)
-        && Internal.equals(wx_program_req, o.wx_program_req)
-        && Internal.equals(strategy_req, o.strategy_req)
-        && Internal.equals(disable_install_package, o.disable_install_package);
-  }
-
-  @Override
-  public int hashCode() {
-    int result = super.hashCode;
-    if (result == 0) {
-      result = unknownFields().hashCode();
-      result = result * 37 + (request_id != null ? request_id.hashCode() : 0);
-      result = result * 37 + (api_version != null ? api_version.hashCode() : 0);
-      result = result * 37 + (app != null ? app.hashCode() : 0);
-      result = result * 37 + (device != null ? device.hashCode() : 0);
-      result = result * 37 + (network != null ? network.hashCode() : 0);
-      result = result * 37 + slots.hashCode();
-      result = result * 37 + (req_timestamp != null ? req_timestamp.hashCode() : 0);
-      result = result * 37 + (request_scene_type != null ? request_scene_type.hashCode() : 0);
-      result = result * 37 + (ad_is_expired != null ? ad_is_expired.hashCode() : 0);
-      result = result * 37 + (privacy != null ? privacy.hashCode() : 0);
-      result = result * 37 + (disable_mediation != null ? disable_mediation.hashCode() : 0);
-      result = result * 37 + options.hashCode();
-      result = result * 37 + (header_bidding != null ? header_bidding.hashCode() : 0);
-      result = result * 37 + (user != null ? user.hashCode() : 0);
-      result = result * 37 + hbs.hashCode();
-      result = result * 37 + ext_options.hashCode();
-      result = result * 37 + (sdk_version != null ? sdk_version.hashCode() : 0);
-      result = result * 37 + (wx_program_req != null ? wx_program_req.hashCode() : 0);
-      result = result * 37 + (strategy_req != null ? strategy_req.hashCode() : 0);
-      result = result * 37 + (disable_install_package != null ? disable_install_package.hashCode() : 0);
-      super.hashCode = result;
-    }
-    return result;
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder builder = new StringBuilder();
-    if (request_id != null) builder.append(", request_id=").append(request_id);
-    if (api_version != null) builder.append(", api_version=").append(api_version);
-    if (app != null) builder.append(", app=").append(app);
-    if (device != null) builder.append(", device=").append(device);
-    if (network != null) builder.append(", network=").append(network);
-    if (!slots.isEmpty()) builder.append(", slots=").append(slots);
-    if (req_timestamp != null) builder.append(", req_timestamp=").append(req_timestamp);
-    if (request_scene_type != null) builder.append(", request_scene_type=").append(request_scene_type);
-    if (ad_is_expired != null) builder.append(", ad_is_expired=").append(ad_is_expired);
-    if (privacy != null) builder.append(", privacy=").append(privacy);
-    if (disable_mediation != null) builder.append(", disable_mediation=").append(disable_mediation);
-    if (!options.isEmpty()) builder.append(", options=").append(options);
-    if (header_bidding != null) builder.append(", header_bidding=").append(header_bidding);
-    if (user != null) builder.append(", user=").append(user);
-    if (!hbs.isEmpty()) builder.append(", hbs=").append(hbs);
-    if (!ext_options.isEmpty()) builder.append(", ext_options=").append(ext_options);
-    if (sdk_version != null) builder.append(", sdk_version=").append(sdk_version);
-    if (wx_program_req != null) builder.append(", wx_program_req=").append(wx_program_req);
-    if (strategy_req != null) builder.append(", strategy_req=").append(strategy_req);
-    if (disable_install_package != null) builder.append(", disable_install_package=").append(disable_install_package);
-    return builder.replace(0, 2, "BidRequest{").append('}').toString();
-  }
-
-  public static final class Builder extends Message.Builder<BidRequest, Builder> {
-    public String request_id;
-
-    public Version api_version;
-
-    public App app;
-
-    public Device device;
-
-    public Network network;
-
-    public List<AdSlot> slots;
-
-    public Long req_timestamp;
-
-    public Integer request_scene_type;
-
-    public Boolean ad_is_expired;
-
-    public Privacy privacy;
-
-    public Boolean disable_mediation;
-
-    public Map<String, String> options;
-
-    public HeaderBidding header_bidding;
-
-    public User user;
-
-    public List<HeaderBidding> hbs;
-
-    public Map<String, String> ext_options;
-
-    public Version sdk_version;
-
-    public WXProgramReq wx_program_req;
-
-    public StrategyReq strategy_req;
-
-    public Boolean disable_install_package;
-
-    public Builder() {
-      slots = Internal.newMutableList();
-      options = Internal.newMutableMap();
-      hbs = Internal.newMutableList();
-      ext_options = Internal.newMutableMap();
-    }
+    public static final Boolean DEFAULT_DISABLE_INSTALL_PACKAGE = false;
 
     /**
      * 内部生成；请求唯一标识，[a-zA-Z0-9]{32}
      */
-    public Builder request_id(String request_id) {
-      this.request_id = request_id;
-      return this;
-    }
+    @WireField(
+            tag = 1,
+            adapter = "com.squareup.wire.ProtoAdapter#STRING"
+    )
+    public final String request_id;
 
     /**
      * 选填, API版本
      */
-    public Builder api_version(Version api_version) {
-      this.api_version = api_version;
-      return this;
-    }
+    @WireField(
+            tag = 2,
+            adapter = "com.sigmob.sdk.common.models.Version#ADAPTER"
+    )
+    public final Version api_version;
 
     /**
      * 必填！应用信息
      */
-    public Builder app(App app) {
-      this.app = app;
-      return this;
-    }
+    @WireField(
+            tag = 3,
+            adapter = "com.sigmob.sdk.common.models.App#ADAPTER"
+    )
+    public final App app;
 
     /**
      * 必填！设备信息
      */
-    public Builder device(Device device) {
-      this.device = device;
-      return this;
-    }
+    @WireField(
+            tag = 4,
+            adapter = "com.sigmob.sdk.common.models.Device#ADAPTER"
+    )
+    public final Device device;
 
     /**
      * 必填！网络环境信息
      */
-    public Builder network(Network network) {
-      this.network = network;
-      return this;
-    }
+    @WireField(
+            tag = 5,
+            adapter = "com.sigmob.sdk.common.models.Network#ADAPTER"
+    )
+    public final Network network;
 
     /**
      * 必填！广告位信息。 目前只支持单广告位
      */
-    public Builder slots(List<AdSlot> slots) {
-      Internal.checkElementsNotNull(slots);
-      this.slots = slots;
-      return this;
-    }
+    @WireField(
+            tag = 6,
+            adapter = "com.sigmob.sdk.common.models.AdSlot#ADAPTER",
+            label = WireField.Label.REPEATED
+    )
+    public final List<AdSlot> slots;
 
     /**
      * 广告请求时间，unix时间戳 (10 位，从1970开始的时间戳)
      */
-    public Builder req_timestamp(Long req_timestamp) {
-      this.req_timestamp = req_timestamp;
-      return this;
-    }
+    @WireField(
+            tag = 7,
+            adapter = "com.squareup.wire.ProtoAdapter#INT64"
+    )
+    public final Long req_timestamp;
 
     /**
      * 发起请求时场景，1）前后台切换 2）视频播放中自动加载请求 3）初始化请求 4）其他被动请求
      */
-    public Builder request_scene_type(Integer request_scene_type) {
-      this.request_scene_type = request_scene_type;
-      return this;
-    }
+    @WireField(
+            tag = 8,
+            adapter = "com.squareup.wire.ProtoAdapter#UINT32"
+    )
+    public final Integer request_scene_type;
 
     /**
      * 发起请求时已缓存的广告是否过期了
      */
-    public Builder ad_is_expired(Boolean ad_is_expired) {
-      this.ad_is_expired = ad_is_expired;
-      return this;
-    }
+    @WireField(
+            tag = 9,
+            adapter = "com.squareup.wire.ProtoAdapter#BOOL"
+    )
+    public final Boolean ad_is_expired;
 
     /**
      * 用户隐私
      */
-    public Builder privacy(Privacy privacy) {
-      this.privacy = privacy;
-      return this;
-    }
+    @WireField(
+            tag = 10,
+            adapter = "com.sigmob.sdk.common.models.Privacy#ADAPTER"
+    )
+    public final Privacy privacy;
 
     /**
      * false: 使用的聚合；true: 单接
      */
-    public Builder disable_mediation(Boolean disable_mediation) {
-      this.disable_mediation = disable_mediation;
-      return this;
-    }
+    @WireField(
+            tag = 11,
+            adapter = "com.squareup.wire.ProtoAdapter#BOOL"
+    )
+    public final Boolean disable_mediation;
 
     /**
      * 保留扩展字段
      */
-    public Builder options(Map<String, String> options) {
-      Internal.checkElementsNotNull(options);
-      this.options = options;
-      return this;
-    }
+    @WireField(
+            tag = 15,
+            keyAdapter = "com.squareup.wire.ProtoAdapter#STRING",
+            adapter = "com.squareup.wire.ProtoAdapter#STRING"
+    )
+    public final Map<String, String> options;
 
     /**
      * header bidding信息
      */
-    public Builder header_bidding(HeaderBidding header_bidding) {
-      this.header_bidding = header_bidding;
-      return this;
-    }
+    @WireField(
+            tag = 16,
+            adapter = "com.sigmob.sdk.common.models.HeaderBidding#ADAPTER"
+    )
+    public final HeaderBidding header_bidding;
 
     /**
      * 用户信息
      */
-    public Builder user(User user) {
-      this.user = user;
-      return this;
-    }
+    @WireField(
+            tag = 17,
+            adapter = "com.sigmob.sdk.common.models.User#ADAPTER"
+    )
+    public final User user;
 
     /**
      * 第三方adn headerbidding信息
      */
-    public Builder hbs(List<HeaderBidding> hbs) {
-      Internal.checkElementsNotNull(hbs);
-      this.hbs = hbs;
-      return this;
-    }
+    @WireField(
+            tag = 18,
+            adapter = "com.sigmob.sdk.common.models.HeaderBidding#ADAPTER",
+            label = WireField.Label.REPEATED
+    )
+    public final List<HeaderBidding> hbs;
 
     /**
      * 保留扩展字段
      */
-    public Builder ext_options(Map<String, String> ext_options) {
-      Internal.checkElementsNotNull(ext_options);
-      this.ext_options = ext_options;
-      return this;
-    }
+    @WireField(
+            tag = 19,
+            keyAdapter = "com.squareup.wire.ProtoAdapter#STRING",
+            adapter = "com.squareup.wire.ProtoAdapter#STRING"
+    )
+    public final Map<String, String> ext_options;
 
     /**
      * sdk版本
      */
-    public Builder sdk_version(Version sdk_version) {
-      this.sdk_version = sdk_version;
-      return this;
-    }
+    @WireField(
+            tag = 20,
+            adapter = "com.sigmob.sdk.common.models.Version#ADAPTER"
+    )
+    public final Version sdk_version;
 
-    public Builder wx_program_req(WXProgramReq wx_program_req) {
-      this.wx_program_req = wx_program_req;
-      return this;
-    }
+    @WireField(
+            tag = 21,
+            adapter = "com.sigmob.sdk.common.models.WXProgramReq#ADAPTER"
+    )
+    public final WXProgramReq wx_program_req;
 
     /**
      * 策略请求
      */
-    public Builder strategy_req(StrategyReq strategy_req) {
-      this.strategy_req = strategy_req;
-      return this;
-    }
+    @WireField(
+            tag = 22,
+            adapter = "com.sigmob.sdk.common.models.StrategyReq#ADAPTER"
+    )
+    public final StrategyReq strategy_req;
 
     /**
      * 应用是否禁止安装行为，默认false
      */
-    public Builder disable_install_package(Boolean disable_install_package) {
-      this.disable_install_package = disable_install_package;
-      return this;
+    @WireField(
+            tag = 23,
+            adapter = "com.squareup.wire.ProtoAdapter#BOOL"
+    )
+    public final Boolean disable_install_package;
+
+    public BidRequest(String request_id, Version api_version, App app, Device device, Network network,
+                      List<AdSlot> slots, Long req_timestamp, Integer request_scene_type, Boolean ad_is_expired,
+                      Privacy privacy, Boolean disable_mediation, Map<String, String> options,
+                      HeaderBidding header_bidding, User user, List<HeaderBidding> hbs,
+                      Map<String, String> ext_options, Version sdk_version, WXProgramReq wx_program_req,
+                      StrategyReq strategy_req, Boolean disable_install_package) {
+        this(request_id, api_version, app, device, network, slots, req_timestamp, request_scene_type, ad_is_expired, privacy, disable_mediation, options, header_bidding, user, hbs, ext_options, sdk_version, wx_program_req, strategy_req, disable_install_package, ByteString.EMPTY);
+    }
+
+    public BidRequest(String request_id, Version api_version, App app, Device device, Network network,
+                      List<AdSlot> slots, Long req_timestamp, Integer request_scene_type, Boolean ad_is_expired,
+                      Privacy privacy, Boolean disable_mediation, Map<String, String> options,
+                      HeaderBidding header_bidding, User user, List<HeaderBidding> hbs,
+                      Map<String, String> ext_options, Version sdk_version, WXProgramReq wx_program_req,
+                      StrategyReq strategy_req, Boolean disable_install_package, ByteString unknownFields) {
+        super(ADAPTER, unknownFields);
+        this.request_id = request_id;
+        this.api_version = api_version;
+        this.app = app;
+        this.device = device;
+        this.network = network;
+        this.slots = Internal.immutableCopyOf("slots", slots);
+        this.req_timestamp = req_timestamp;
+        this.request_scene_type = request_scene_type;
+        this.ad_is_expired = ad_is_expired;
+        this.privacy = privacy;
+        this.disable_mediation = disable_mediation;
+        this.options = Internal.immutableCopyOf("options", options);
+        this.header_bidding = header_bidding;
+        this.user = user;
+        this.hbs = Internal.immutableCopyOf("hbs", hbs);
+        this.ext_options = Internal.immutableCopyOf("ext_options", ext_options);
+        this.sdk_version = sdk_version;
+        this.wx_program_req = wx_program_req;
+        this.strategy_req = strategy_req;
+        this.disable_install_package = disable_install_package;
     }
 
     @Override
-    public BidRequest build() {
-      return new BidRequest(request_id, api_version, app, device, network, slots, req_timestamp, request_scene_type, ad_is_expired, privacy, disable_mediation, options, header_bidding, user, hbs, ext_options, sdk_version, wx_program_req, strategy_req, disable_install_package, super.buildUnknownFields());
-    }
-  }
-
-  private static final class ProtoAdapter_BidRequest extends ProtoAdapter<BidRequest> {
-    private final ProtoAdapter<Map<String, String>> options = ProtoAdapter.newMapAdapter(ProtoAdapter.STRING, ProtoAdapter.STRING);
-
-    private final ProtoAdapter<Map<String, String>> ext_options = ProtoAdapter.newMapAdapter(ProtoAdapter.STRING, ProtoAdapter.STRING);
-
-    public ProtoAdapter_BidRequest() {
-      super(FieldEncoding.LENGTH_DELIMITED, BidRequest.class);
-    }
-
-    @Override
-    public int encodedSize(BidRequest value) {
-      return ProtoAdapter.STRING.encodedSizeWithTag(1, value.request_id)
-          + Version.ADAPTER.encodedSizeWithTag(2, value.api_version)
-          + App.ADAPTER.encodedSizeWithTag(3, value.app)
-          + Device.ADAPTER.encodedSizeWithTag(4, value.device)
-          + Network.ADAPTER.encodedSizeWithTag(5, value.network)
-          + AdSlot.ADAPTER.asRepeated().encodedSizeWithTag(6, value.slots)
-          + ProtoAdapter.INT64.encodedSizeWithTag(7, value.req_timestamp)
-          + ProtoAdapter.UINT32.encodedSizeWithTag(8, value.request_scene_type)
-          + ProtoAdapter.BOOL.encodedSizeWithTag(9, value.ad_is_expired)
-          + Privacy.ADAPTER.encodedSizeWithTag(10, value.privacy)
-          + ProtoAdapter.BOOL.encodedSizeWithTag(11, value.disable_mediation)
-          + options.encodedSizeWithTag(15, value.options)
-          + HeaderBidding.ADAPTER.encodedSizeWithTag(16, value.header_bidding)
-          + User.ADAPTER.encodedSizeWithTag(17, value.user)
-          + HeaderBidding.ADAPTER.asRepeated().encodedSizeWithTag(18, value.hbs)
-          + ext_options.encodedSizeWithTag(19, value.ext_options)
-          + Version.ADAPTER.encodedSizeWithTag(20, value.sdk_version)
-          + WXProgramReq.ADAPTER.encodedSizeWithTag(21, value.wx_program_req)
-          + StrategyReq.ADAPTER.encodedSizeWithTag(22, value.strategy_req)
-          + ProtoAdapter.BOOL.encodedSizeWithTag(23, value.disable_install_package)
-          + value.unknownFields().size();
+    public Builder newBuilder() {
+        Builder builder = new Builder();
+        builder.request_id = request_id;
+        builder.api_version = api_version;
+        builder.app = app;
+        builder.device = device;
+        builder.network = network;
+        builder.slots = Internal.copyOf("slots", slots);
+        builder.req_timestamp = req_timestamp;
+        builder.request_scene_type = request_scene_type;
+        builder.ad_is_expired = ad_is_expired;
+        builder.privacy = privacy;
+        builder.disable_mediation = disable_mediation;
+        builder.options = Internal.copyOf("options", options);
+        builder.header_bidding = header_bidding;
+        builder.user = user;
+        builder.hbs = Internal.copyOf("hbs", hbs);
+        builder.ext_options = Internal.copyOf("ext_options", ext_options);
+        builder.sdk_version = sdk_version;
+        builder.wx_program_req = wx_program_req;
+        builder.strategy_req = strategy_req;
+        builder.disable_install_package = disable_install_package;
+        builder.addUnknownFields(unknownFields());
+        return builder;
     }
 
     @Override
-    public void encode(ProtoWriter writer, BidRequest value) throws IOException {
-      ProtoAdapter.STRING.encodeWithTag(writer, 1, value.request_id);
-      Version.ADAPTER.encodeWithTag(writer, 2, value.api_version);
-      App.ADAPTER.encodeWithTag(writer, 3, value.app);
-      Device.ADAPTER.encodeWithTag(writer, 4, value.device);
-      Network.ADAPTER.encodeWithTag(writer, 5, value.network);
-      AdSlot.ADAPTER.asRepeated().encodeWithTag(writer, 6, value.slots);
-      ProtoAdapter.INT64.encodeWithTag(writer, 7, value.req_timestamp);
-      ProtoAdapter.UINT32.encodeWithTag(writer, 8, value.request_scene_type);
-      ProtoAdapter.BOOL.encodeWithTag(writer, 9, value.ad_is_expired);
-      Privacy.ADAPTER.encodeWithTag(writer, 10, value.privacy);
-      ProtoAdapter.BOOL.encodeWithTag(writer, 11, value.disable_mediation);
-      options.encodeWithTag(writer, 15, value.options);
-      HeaderBidding.ADAPTER.encodeWithTag(writer, 16, value.header_bidding);
-      User.ADAPTER.encodeWithTag(writer, 17, value.user);
-      HeaderBidding.ADAPTER.asRepeated().encodeWithTag(writer, 18, value.hbs);
-      ext_options.encodeWithTag(writer, 19, value.ext_options);
-      Version.ADAPTER.encodeWithTag(writer, 20, value.sdk_version);
-      WXProgramReq.ADAPTER.encodeWithTag(writer, 21, value.wx_program_req);
-      StrategyReq.ADAPTER.encodeWithTag(writer, 22, value.strategy_req);
-      ProtoAdapter.BOOL.encodeWithTag(writer, 23, value.disable_install_package);
-      writer.writeBytes(value.unknownFields());
+    public boolean equals(Object other) {
+        if (other == this) return true;
+        if (!(other instanceof BidRequest)) return false;
+        BidRequest o = (BidRequest) other;
+        return unknownFields().equals(o.unknownFields())
+                && Internal.equals(request_id, o.request_id)
+                && Internal.equals(api_version, o.api_version)
+                && Internal.equals(app, o.app)
+                && Internal.equals(device, o.device)
+                && Internal.equals(network, o.network)
+                && slots.equals(o.slots)
+                && Internal.equals(req_timestamp, o.req_timestamp)
+                && Internal.equals(request_scene_type, o.request_scene_type)
+                && Internal.equals(ad_is_expired, o.ad_is_expired)
+                && Internal.equals(privacy, o.privacy)
+                && Internal.equals(disable_mediation, o.disable_mediation)
+                && options.equals(o.options)
+                && Internal.equals(header_bidding, o.header_bidding)
+                && Internal.equals(user, o.user)
+                && hbs.equals(o.hbs)
+                && ext_options.equals(o.ext_options)
+                && Internal.equals(sdk_version, o.sdk_version)
+                && Internal.equals(wx_program_req, o.wx_program_req)
+                && Internal.equals(strategy_req, o.strategy_req)
+                && Internal.equals(disable_install_package, o.disable_install_package);
     }
 
     @Override
-    public BidRequest decode(ProtoReader reader) throws IOException {
-      Builder builder = new Builder();
-      long token = reader.beginMessage();
-      for (int tag; (tag = reader.nextTag()) != -1;) {
-        switch (tag) {
-          case 1: builder.request_id(ProtoAdapter.STRING.decode(reader)); break;
-          case 2: builder.api_version(Version.ADAPTER.decode(reader)); break;
-          case 3: builder.app(App.ADAPTER.decode(reader)); break;
-          case 4: builder.device(Device.ADAPTER.decode(reader)); break;
-          case 5: builder.network(Network.ADAPTER.decode(reader)); break;
-          case 6: builder.slots.add(AdSlot.ADAPTER.decode(reader)); break;
-          case 7: builder.req_timestamp(ProtoAdapter.INT64.decode(reader)); break;
-          case 8: builder.request_scene_type(ProtoAdapter.UINT32.decode(reader)); break;
-          case 9: builder.ad_is_expired(ProtoAdapter.BOOL.decode(reader)); break;
-          case 10: builder.privacy(Privacy.ADAPTER.decode(reader)); break;
-          case 11: builder.disable_mediation(ProtoAdapter.BOOL.decode(reader)); break;
-          case 15: builder.options.putAll(options.decode(reader)); break;
-          case 16: builder.header_bidding(HeaderBidding.ADAPTER.decode(reader)); break;
-          case 17: builder.user(User.ADAPTER.decode(reader)); break;
-          case 18: builder.hbs.add(HeaderBidding.ADAPTER.decode(reader)); break;
-          case 19: builder.ext_options.putAll(ext_options.decode(reader)); break;
-          case 20: builder.sdk_version(Version.ADAPTER.decode(reader)); break;
-          case 21: builder.wx_program_req(WXProgramReq.ADAPTER.decode(reader)); break;
-          case 22: builder.strategy_req(StrategyReq.ADAPTER.decode(reader)); break;
-          case 23: builder.disable_install_package(ProtoAdapter.BOOL.decode(reader)); break;
-          default: {
-            FieldEncoding fieldEncoding = reader.peekFieldEncoding();
-            Object value = fieldEncoding.rawProtoAdapter().decode(reader);
-            builder.addUnknownField(tag, fieldEncoding, value);
-          }
+    public int hashCode() {
+        int result = super.hashCode;
+        if (result == 0) {
+            result = unknownFields().hashCode();
+            result = result * 37 + (request_id != null ? request_id.hashCode() : 0);
+            result = result * 37 + (api_version != null ? api_version.hashCode() : 0);
+            result = result * 37 + (app != null ? app.hashCode() : 0);
+            result = result * 37 + (device != null ? device.hashCode() : 0);
+            result = result * 37 + (network != null ? network.hashCode() : 0);
+            result = result * 37 + slots.hashCode();
+            result = result * 37 + (req_timestamp != null ? req_timestamp.hashCode() : 0);
+            result = result * 37 + (request_scene_type != null ? request_scene_type.hashCode() : 0);
+            result = result * 37 + (ad_is_expired != null ? ad_is_expired.hashCode() : 0);
+            result = result * 37 + (privacy != null ? privacy.hashCode() : 0);
+            result = result * 37 + (disable_mediation != null ? disable_mediation.hashCode() : 0);
+            result = result * 37 + options.hashCode();
+            result = result * 37 + (header_bidding != null ? header_bidding.hashCode() : 0);
+            result = result * 37 + (user != null ? user.hashCode() : 0);
+            result = result * 37 + hbs.hashCode();
+            result = result * 37 + ext_options.hashCode();
+            result = result * 37 + (sdk_version != null ? sdk_version.hashCode() : 0);
+            result = result * 37 + (wx_program_req != null ? wx_program_req.hashCode() : 0);
+            result = result * 37 + (strategy_req != null ? strategy_req.hashCode() : 0);
+            result = result * 37 + (disable_install_package != null ? disable_install_package.hashCode() : 0);
+            super.hashCode = result;
         }
-      }
-      reader.endMessage(token);
-      return builder.build();
+        return result;
     }
 
     @Override
-    public BidRequest redact(BidRequest value) {
-      Builder builder = value.newBuilder();
-      if (builder.api_version != null) builder.api_version = Version.ADAPTER.redact(builder.api_version);
-      if (builder.app != null) builder.app = App.ADAPTER.redact(builder.app);
-      if (builder.device != null) builder.device = Device.ADAPTER.redact(builder.device);
-      if (builder.network != null) builder.network = Network.ADAPTER.redact(builder.network);
-      Internal.redactElements(builder.slots, AdSlot.ADAPTER);
-      if (builder.privacy != null) builder.privacy = Privacy.ADAPTER.redact(builder.privacy);
-      if (builder.header_bidding != null) builder.header_bidding = HeaderBidding.ADAPTER.redact(builder.header_bidding);
-      if (builder.user != null) builder.user = User.ADAPTER.redact(builder.user);
-      Internal.redactElements(builder.hbs, HeaderBidding.ADAPTER);
-      if (builder.sdk_version != null) builder.sdk_version = Version.ADAPTER.redact(builder.sdk_version);
-      if (builder.wx_program_req != null) builder.wx_program_req = WXProgramReq.ADAPTER.redact(builder.wx_program_req);
-      if (builder.strategy_req != null) builder.strategy_req = StrategyReq.ADAPTER.redact(builder.strategy_req);
-      builder.clearUnknownFields();
-      return builder.build();
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        if (request_id != null) builder.append(", request_id=").append(request_id);
+        if (api_version != null) builder.append(", api_version=").append(api_version);
+        if (app != null) builder.append(", app=").append(app);
+        if (device != null) builder.append(", device=").append(device);
+        if (network != null) builder.append(", network=").append(network);
+        if (!slots.isEmpty()) builder.append(", slots=").append(slots);
+        if (req_timestamp != null) builder.append(", req_timestamp=").append(req_timestamp);
+        if (request_scene_type != null)
+            builder.append(", request_scene_type=").append(request_scene_type);
+        if (ad_is_expired != null) builder.append(", ad_is_expired=").append(ad_is_expired);
+        if (privacy != null) builder.append(", privacy=").append(privacy);
+        if (disable_mediation != null)
+            builder.append(", disable_mediation=").append(disable_mediation);
+        if (!options.isEmpty()) builder.append(", options=").append(options);
+        if (header_bidding != null) builder.append(", header_bidding=").append(header_bidding);
+        if (user != null) builder.append(", user=").append(user);
+        if (!hbs.isEmpty()) builder.append(", hbs=").append(hbs);
+        if (!ext_options.isEmpty()) builder.append(", ext_options=").append(ext_options);
+        if (sdk_version != null) builder.append(", sdk_version=").append(sdk_version);
+        if (wx_program_req != null) builder.append(", wx_program_req=").append(wx_program_req);
+        if (strategy_req != null) builder.append(", strategy_req=").append(strategy_req);
+        if (disable_install_package != null)
+            builder.append(", disable_install_package=").append(disable_install_package);
+        return builder.replace(0, 2, "BidRequest{").append('}').toString();
     }
-  }
+
+    public static final class Builder extends Message.Builder<BidRequest, Builder> {
+        public String request_id;
+
+        public Version api_version;
+
+        public App app;
+
+        public Device device;
+
+        public Network network;
+
+        public List<AdSlot> slots;
+
+        public Long req_timestamp;
+
+        public Integer request_scene_type;
+
+        public Boolean ad_is_expired;
+
+        public Privacy privacy;
+
+        public Boolean disable_mediation;
+
+        public Map<String, String> options;
+
+        public HeaderBidding header_bidding;
+
+        public User user;
+
+        public List<HeaderBidding> hbs;
+
+        public Map<String, String> ext_options;
+
+        public Version sdk_version;
+
+        public WXProgramReq wx_program_req;
+
+        public StrategyReq strategy_req;
+
+        public Boolean disable_install_package;
+
+        public Builder() {
+            slots = Internal.newMutableList();
+            options = Internal.newMutableMap();
+            hbs = Internal.newMutableList();
+            ext_options = Internal.newMutableMap();
+        }
+
+        /**
+         * 内部生成；请求唯一标识，[a-zA-Z0-9]{32}
+         */
+        public Builder request_id(String request_id) {
+            this.request_id = request_id;
+            return this;
+        }
+
+        /**
+         * 选填, API版本
+         */
+        public Builder api_version(Version api_version) {
+            this.api_version = api_version;
+            return this;
+        }
+
+        /**
+         * 必填！应用信息
+         */
+        public Builder app(App app) {
+            this.app = app;
+            return this;
+        }
+
+        /**
+         * 必填！设备信息
+         */
+        public Builder device(Device device) {
+            this.device = device;
+            return this;
+        }
+
+        /**
+         * 必填！网络环境信息
+         */
+        public Builder network(Network network) {
+            this.network = network;
+            return this;
+        }
+
+        /**
+         * 必填！广告位信息。 目前只支持单广告位
+         */
+        public Builder slots(List<AdSlot> slots) {
+            Internal.checkElementsNotNull(slots);
+            this.slots = slots;
+            return this;
+        }
+
+        /**
+         * 广告请求时间，unix时间戳 (10 位，从1970开始的时间戳)
+         */
+        public Builder req_timestamp(Long req_timestamp) {
+            this.req_timestamp = req_timestamp;
+            return this;
+        }
+
+        /**
+         * 发起请求时场景，1）前后台切换 2）视频播放中自动加载请求 3）初始化请求 4）其他被动请求
+         */
+        public Builder request_scene_type(Integer request_scene_type) {
+            this.request_scene_type = request_scene_type;
+            return this;
+        }
+
+        /**
+         * 发起请求时已缓存的广告是否过期了
+         */
+        public Builder ad_is_expired(Boolean ad_is_expired) {
+            this.ad_is_expired = ad_is_expired;
+            return this;
+        }
+
+        /**
+         * 用户隐私
+         */
+        public Builder privacy(Privacy privacy) {
+            this.privacy = privacy;
+            return this;
+        }
+
+        /**
+         * false: 使用的聚合；true: 单接
+         */
+        public Builder disable_mediation(Boolean disable_mediation) {
+            this.disable_mediation = disable_mediation;
+            return this;
+        }
+
+        /**
+         * 保留扩展字段
+         */
+        public Builder options(Map<String, String> options) {
+            Internal.checkElementsNotNull(options);
+            this.options = options;
+            return this;
+        }
+
+        /**
+         * header bidding信息
+         */
+        public Builder header_bidding(HeaderBidding header_bidding) {
+            this.header_bidding = header_bidding;
+            return this;
+        }
+
+        /**
+         * 用户信息
+         */
+        public Builder user(User user) {
+            this.user = user;
+            return this;
+        }
+
+        /**
+         * 第三方adn headerbidding信息
+         */
+        public Builder hbs(List<HeaderBidding> hbs) {
+            Internal.checkElementsNotNull(hbs);
+            this.hbs = hbs;
+            return this;
+        }
+
+        /**
+         * 保留扩展字段
+         */
+        public Builder ext_options(Map<String, String> ext_options) {
+            Internal.checkElementsNotNull(ext_options);
+            this.ext_options = ext_options;
+            return this;
+        }
+
+        /**
+         * sdk版本
+         */
+        public Builder sdk_version(Version sdk_version) {
+            this.sdk_version = sdk_version;
+            return this;
+        }
+
+        public Builder wx_program_req(WXProgramReq wx_program_req) {
+            this.wx_program_req = wx_program_req;
+            return this;
+        }
+
+        /**
+         * 策略请求
+         */
+        public Builder strategy_req(StrategyReq strategy_req) {
+            this.strategy_req = strategy_req;
+            return this;
+        }
+
+        /**
+         * 应用是否禁止安装行为，默认false
+         */
+        public Builder disable_install_package(Boolean disable_install_package) {
+            this.disable_install_package = disable_install_package;
+            return this;
+        }
+
+        @Override
+        public BidRequest build() {
+            return new BidRequest(request_id, api_version, app, device, network, slots, req_timestamp, request_scene_type, ad_is_expired, privacy, disable_mediation, options, header_bidding, user, hbs, ext_options, sdk_version, wx_program_req, strategy_req, disable_install_package, super.buildUnknownFields());
+        }
+    }
+
+    private static final class ProtoAdapter_BidRequest extends ProtoAdapter<BidRequest> {
+        private final ProtoAdapter<Map<String, String>> options = ProtoAdapter.newMapAdapter(ProtoAdapter.STRING, ProtoAdapter.STRING);
+
+        private final ProtoAdapter<Map<String, String>> ext_options = ProtoAdapter.newMapAdapter(ProtoAdapter.STRING, ProtoAdapter.STRING);
+
+        public ProtoAdapter_BidRequest() {
+            super(FieldEncoding.LENGTH_DELIMITED, BidRequest.class);
+        }
+
+        @Override
+        public int encodedSize(BidRequest value) {
+            return ProtoAdapter.STRING.encodedSizeWithTag(1, value.request_id)
+                    + Version.ADAPTER.encodedSizeWithTag(2, value.api_version)
+                    + App.ADAPTER.encodedSizeWithTag(3, value.app)
+                    + Device.ADAPTER.encodedSizeWithTag(4, value.device)
+                    + Network.ADAPTER.encodedSizeWithTag(5, value.network)
+                    + AdSlot.ADAPTER.asRepeated().encodedSizeWithTag(6, value.slots)
+                    + ProtoAdapter.INT64.encodedSizeWithTag(7, value.req_timestamp)
+                    + ProtoAdapter.UINT32.encodedSizeWithTag(8, value.request_scene_type)
+                    + ProtoAdapter.BOOL.encodedSizeWithTag(9, value.ad_is_expired)
+                    + Privacy.ADAPTER.encodedSizeWithTag(10, value.privacy)
+                    + ProtoAdapter.BOOL.encodedSizeWithTag(11, value.disable_mediation)
+                    + options.encodedSizeWithTag(15, value.options)
+                    + HeaderBidding.ADAPTER.encodedSizeWithTag(16, value.header_bidding)
+                    + User.ADAPTER.encodedSizeWithTag(17, value.user)
+                    + HeaderBidding.ADAPTER.asRepeated().encodedSizeWithTag(18, value.hbs)
+                    + ext_options.encodedSizeWithTag(19, value.ext_options)
+                    + Version.ADAPTER.encodedSizeWithTag(20, value.sdk_version)
+                    + WXProgramReq.ADAPTER.encodedSizeWithTag(21, value.wx_program_req)
+                    + StrategyReq.ADAPTER.encodedSizeWithTag(22, value.strategy_req)
+                    + ProtoAdapter.BOOL.encodedSizeWithTag(23, value.disable_install_package)
+                    + value.unknownFields().size();
+        }
+
+        @Override
+        public void encode(ProtoWriter writer, BidRequest value) throws IOException {
+            ProtoAdapter.STRING.encodeWithTag(writer, 1, value.request_id);
+            Version.ADAPTER.encodeWithTag(writer, 2, value.api_version);
+            App.ADAPTER.encodeWithTag(writer, 3, value.app);
+            Device.ADAPTER.encodeWithTag(writer, 4, value.device);
+            Network.ADAPTER.encodeWithTag(writer, 5, value.network);
+            AdSlot.ADAPTER.asRepeated().encodeWithTag(writer, 6, value.slots);
+            ProtoAdapter.INT64.encodeWithTag(writer, 7, value.req_timestamp);
+            ProtoAdapter.UINT32.encodeWithTag(writer, 8, value.request_scene_type);
+            ProtoAdapter.BOOL.encodeWithTag(writer, 9, value.ad_is_expired);
+            Privacy.ADAPTER.encodeWithTag(writer, 10, value.privacy);
+            ProtoAdapter.BOOL.encodeWithTag(writer, 11, value.disable_mediation);
+            options.encodeWithTag(writer, 15, value.options);
+            HeaderBidding.ADAPTER.encodeWithTag(writer, 16, value.header_bidding);
+            User.ADAPTER.encodeWithTag(writer, 17, value.user);
+            HeaderBidding.ADAPTER.asRepeated().encodeWithTag(writer, 18, value.hbs);
+            ext_options.encodeWithTag(writer, 19, value.ext_options);
+            Version.ADAPTER.encodeWithTag(writer, 20, value.sdk_version);
+            WXProgramReq.ADAPTER.encodeWithTag(writer, 21, value.wx_program_req);
+            StrategyReq.ADAPTER.encodeWithTag(writer, 22, value.strategy_req);
+            ProtoAdapter.BOOL.encodeWithTag(writer, 23, value.disable_install_package);
+            writer.writeBytes(value.unknownFields());
+        }
+
+        @Override
+        public BidRequest decode(ProtoReader reader) throws IOException {
+            Builder builder = new Builder();
+            long token = reader.beginMessage();
+            for (int tag; (tag = reader.nextTag()) != -1; ) {
+                switch (tag) {
+                    case 1:
+                        builder.request_id(ProtoAdapter.STRING.decode(reader));
+                        break;
+                    case 2:
+                        builder.api_version(Version.ADAPTER.decode(reader));
+                        break;
+                    case 3:
+                        builder.app(App.ADAPTER.decode(reader));
+                        break;
+                    case 4:
+                        builder.device(Device.ADAPTER.decode(reader));
+                        break;
+                    case 5:
+                        builder.network(Network.ADAPTER.decode(reader));
+                        break;
+                    case 6:
+                        builder.slots.add(AdSlot.ADAPTER.decode(reader));
+                        break;
+                    case 7:
+                        builder.req_timestamp(ProtoAdapter.INT64.decode(reader));
+                        break;
+                    case 8:
+                        builder.request_scene_type(ProtoAdapter.UINT32.decode(reader));
+                        break;
+                    case 9:
+                        builder.ad_is_expired(ProtoAdapter.BOOL.decode(reader));
+                        break;
+                    case 10:
+                        builder.privacy(Privacy.ADAPTER.decode(reader));
+                        break;
+                    case 11:
+                        builder.disable_mediation(ProtoAdapter.BOOL.decode(reader));
+                        break;
+                    case 15:
+                        builder.options.putAll(options.decode(reader));
+                        break;
+                    case 16:
+                        builder.header_bidding(HeaderBidding.ADAPTER.decode(reader));
+                        break;
+                    case 17:
+                        builder.user(User.ADAPTER.decode(reader));
+                        break;
+                    case 18:
+                        builder.hbs.add(HeaderBidding.ADAPTER.decode(reader));
+                        break;
+                    case 19:
+                        builder.ext_options.putAll(ext_options.decode(reader));
+                        break;
+                    case 20:
+                        builder.sdk_version(Version.ADAPTER.decode(reader));
+                        break;
+                    case 21:
+                        builder.wx_program_req(WXProgramReq.ADAPTER.decode(reader));
+                        break;
+                    case 22:
+                        builder.strategy_req(StrategyReq.ADAPTER.decode(reader));
+                        break;
+                    case 23:
+                        builder.disable_install_package(ProtoAdapter.BOOL.decode(reader));
+                        break;
+                    default: {
+                        FieldEncoding fieldEncoding = reader.peekFieldEncoding();
+                        Object value = fieldEncoding.rawProtoAdapter().decode(reader);
+                        builder.addUnknownField(tag, fieldEncoding, value);
+                    }
+                }
+            }
+            reader.endMessage(token);
+            return builder.build();
+        }
+
+        @Override
+        public BidRequest redact(BidRequest value) {
+            Builder builder = value.newBuilder();
+            if (builder.api_version != null)
+                builder.api_version = Version.ADAPTER.redact(builder.api_version);
+            if (builder.app != null) builder.app = App.ADAPTER.redact(builder.app);
+            if (builder.device != null) builder.device = Device.ADAPTER.redact(builder.device);
+            if (builder.network != null) builder.network = Network.ADAPTER.redact(builder.network);
+            Internal.redactElements(builder.slots, AdSlot.ADAPTER);
+            if (builder.privacy != null) builder.privacy = Privacy.ADAPTER.redact(builder.privacy);
+            if (builder.header_bidding != null)
+                builder.header_bidding = HeaderBidding.ADAPTER.redact(builder.header_bidding);
+            if (builder.user != null) builder.user = User.ADAPTER.redact(builder.user);
+            Internal.redactElements(builder.hbs, HeaderBidding.ADAPTER);
+            if (builder.sdk_version != null)
+                builder.sdk_version = Version.ADAPTER.redact(builder.sdk_version);
+            if (builder.wx_program_req != null)
+                builder.wx_program_req = WXProgramReq.ADAPTER.redact(builder.wx_program_req);
+            if (builder.strategy_req != null)
+                builder.strategy_req = StrategyReq.ADAPTER.redact(builder.strategy_req);
+            builder.clearUnknownFields();
+            return builder.build();
+        }
+    }
 }

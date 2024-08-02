@@ -24,9 +24,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public final class FileUtil {
-
-
-
     /**
      * 删除目录及目录下的文件
      *
@@ -36,8 +33,7 @@ public final class FileUtil {
     public static boolean deleteDirectory(String dir) {
         try {
             // 如果dir不以文件分隔符结尾，自动添加文件分隔符
-            if (!dir.endsWith(File.separator))
-                dir = dir + File.separator;
+            if (!dir.endsWith(File.separator)) dir = dir + File.separator;
             File dirFile = new File(dir);
             // 如果dir对应的文件不存在，或者不是一个目录，则退出
             if ((!dirFile.exists()) || (!dirFile.isDirectory())) {
@@ -51,15 +47,12 @@ public final class FileUtil {
                 // 删除子文件
                 if (file.isFile()) {
                     flag = deleteFile(file.getAbsolutePath());
-                    if (!flag)
-                        break;
+                    if (!flag) break;
                 }
                 // 删除子目录
                 else if (file.isDirectory()) {
-                    flag = deleteDirectory(file
-                            .getAbsolutePath());
-                    if (!flag)
-                        break;
+                    flag = deleteDirectory(file.getAbsolutePath());
+                    if (!flag) break;
                 }
             }
             if (!flag) {
@@ -86,8 +79,7 @@ public final class FileUtil {
         if (null == uri) return null;
         final String scheme = uri.getScheme();
         String data = null;
-        if (scheme == null)
-            data = uri.getPath();
+        if (scheme == null) data = uri.getPath();
         else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
             data = uri.getPath();
         } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
@@ -161,8 +153,7 @@ public final class FileUtil {
 
         try {
             File file = new File(path);
-            if (!file.getParentFile().exists())
-                file.getParentFile().mkdirs();
+            if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
 
             fos = new FileOutputStream(file);
 
@@ -189,8 +180,7 @@ public final class FileUtil {
         File file = null;
         try {
             file = new File(path);
-            if (!file.getParentFile().exists())
-                file.getParentFile().mkdirs();
+            if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
 
             fos = new FileOutputStream(file);
 
@@ -203,13 +193,13 @@ public final class FileUtil {
                 fos.write(buffer, 0, bytesRead);
             }
             fos.getFD().sync();
-            if (total == 0){
+            if (total == 0) {
                 file.delete();
             }
             SigmobLog.d("writeCache :" + file.getName());
             return true;
         } catch (Throwable e) {
-            if (file != null && file.exists()){
+            if (file != null && file.exists()) {
                 file.delete();
             }
             SigmobLog.e(e.getMessage());
@@ -232,8 +222,7 @@ public final class FileUtil {
 
         try {
             File file = new File(path);
-            if (!file.getParentFile().exists())
-                file.getParentFile().mkdirs();
+            if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
 
             fos = new FileOutputStream(file);
             objectOutput = new ObjectOutputStream(fos);
@@ -281,7 +270,7 @@ public final class FileUtil {
             }
 
         } catch (Throwable e) {
-            if (file != null && file.exists()){
+            if (file != null && file.exists()) {
                 file.delete();
             }
 
@@ -346,7 +335,6 @@ public final class FileUtil {
     }
 
 
-
     public static File[] orderByDate(String filePath) {
         File file = new File(filePath);
         File[] fs = file.listFiles();
@@ -354,12 +342,9 @@ public final class FileUtil {
             Arrays.sort(fs, new Comparator<File>() {
                 public int compare(File f1, File f2) {
                     long diff = f1.lastModified() - f2.lastModified();
-                    if (diff > 0)
-                        return 1;
-                    else if (diff == 0)
-                        return 0;
-                    else
-                        return -1;
+                    if (diff > 0) return 1;
+                    else if (diff == 0) return 0;
+                    else return -1;
                 }
 
                 public boolean equals(Object obj) {
@@ -371,8 +356,6 @@ public final class FileUtil {
 
         return fs;
     }
-
-
 
 
     public static File[] clearCacheFileByCount(File[] files, int count) {

@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.List;
 
 public final class App extends AndroidMessage<App, App.Builder> {
+
     public static final ProtoAdapter<App> ADAPTER = new ProtoAdapter_App();
 
     public static final Parcelable.Creator<App> CREATOR = AndroidMessage.newCreator(ADAPTER);
@@ -47,151 +48,98 @@ public final class App extends AndroidMessage<App, App.Builder> {
     /**
      * 应用ID
      */
-    @WireField(
-            tag = 1,
-            adapter = "com.squareup.wire.ProtoAdapter#STRING"
-    )
+    @WireField(tag = 1, adapter = "com.squareup.wire.ProtoAdapter#STRING")
     public final String app_id;
 
     /**
      * 必填！应用版本
      */
-    @WireField(
-            tag = 2,
-            adapter = "com.sigmob.sdk.common.models.Version#ADAPTER"
-    )
+    @WireField(tag = 2, adapter = "com.sigmob.sdk.common.models.Version#ADAPTER")
     public final Version app_version;
 
     /**
      * 必填！应用包名。IOS设备为bundle id
      */
-    @WireField(
-            tag = 3,
-            adapter = "com.squareup.wire.ProtoAdapter#STRING"
-    )
+    @WireField(tag = 3, adapter = "com.squareup.wire.ProtoAdapter#STRING")
     public final String app_package;
 
     /**
      * app方向：0: MaskAll、1:portrait、2:landspace
      */
-    @WireField(
-            tag = 4,
-            adapter = "com.squareup.wire.ProtoAdapter#UINT32"
-    )
+    @WireField(tag = 4, adapter = "com.squareup.wire.ProtoAdapter#UINT32")
     public final Integer orientation;
 
     /**
      * app名称
      */
-    @WireField(
-            tag = 5,
-            adapter = "com.squareup.wire.ProtoAdapter#STRING"
-    )
+    @WireField(tag = 5, adapter = "com.squareup.wire.ProtoAdapter#STRING")
     public final String name;
 
     /**
      * Vindor标示符，适用于对内：例如分析用户在应用内的行为等。
      */
-    @WireField(
-            tag = 6,
-            adapter = "com.squareup.wire.ProtoAdapter#STRING"
-    )
+    @WireField(tag = 6, adapter = "com.squareup.wire.ProtoAdapter#STRING")
     public final String idfv;
 
     /**
      * 应用商店的渠道标识。字典同yomob的渠道字典，当前也只有yomob需要
      */
-    @WireField(
-            tag = 7,
-            adapter = "com.squareup.wire.ProtoAdapter#STRING"
-    )
+    @WireField(tag = 7, adapter = "com.squareup.wire.ProtoAdapter#STRING")
     public final String channel_id;
 
     /**
      * 媒体在投放系统中的apple id（iOS） 或 package name（Android）
      */
-    @WireField(
-            tag = 8,
-            adapter = "com.squareup.wire.ProtoAdapter#STRING"
-    )
+    @WireField(tag = 8, adapter = "com.squareup.wire.ProtoAdapter#STRING")
     public final String product_id;
 
     /**
      * app是否支持http
      */
-    @WireField(
-            tag = 9,
-            adapter = "com.squareup.wire.ProtoAdapter#BOOL"
-    )
+    @WireField(tag = 9, adapter = "com.squareup.wire.ProtoAdapter#BOOL")
     public final Boolean support_http;
 
     /**
      * 媒体在info.plist中配置的SKAdNetworkId列表
      */
-    @WireField(
-            tag = 10,
-            adapter = "com.squareup.wire.ProtoAdapter#STRING",
-            label = WireField.Label.REPEATED
-    )
+    @WireField(tag = 10, adapter = "com.squareup.wire.ProtoAdapter#STRING", label = WireField.Label.REPEATED)
     public final List<String> ad_network_ids;
 
     /**
      * 如果为空，则不支持sk，填写当前支持的最大版本目前取值：1.0/2.0
      */
-    @WireField(
-            tag = 11,
-            adapter = "com.squareup.wire.ProtoAdapter#STRING"
-    )
+    @WireField(tag = 11, adapter = "com.squareup.wire.ProtoAdapter#STRING")
     public final String support_sk_version;
 
     /**
      * 当前SDK版本所支持的扩展的功能1: overlay(仅iOS)；2:storekit(仅iOS)
      */
-    @WireField(
-            tag = 12,
-            adapter = "com.squareup.wire.ProtoAdapter#UINT32",
-            label = WireField.Label.REPEATED
-    )
+    @WireField(tag = 12, adapter = "com.squareup.wire.ProtoAdapter#UINT32", label = WireField.Label.REPEATED)
     public final List<Integer> sdk_ext_cap;
 
     /**
      * 媒体应用安装时间，单位为秒
      */
-    @WireField(
-            tag = 15,
-            adapter = "com.squareup.wire.ProtoAdapter#INT64"
-    )
+    @WireField(tag = 15, adapter = "com.squareup.wire.ProtoAdapter#INT64")
     public final Long install_time;
 
     /**
      * 必填！mraid1.x协议版本号
      */
-    @WireField(
-            tag = 17,
-            adapter = "com.sigmob.sdk.common.models.Version#ADAPTER"
-    )
+    @WireField(tag = 17, adapter = "com.sigmob.sdk.common.models.Version#ADAPTER")
     public final Version mraid1_version;
 
     /**
      * 必填！mraid2.x协议版本号
      */
-    @WireField(
-            tag = 18,
-            adapter = "com.sigmob.sdk.common.models.Version#ADAPTER"
-    )
+    @WireField(tag = 18, adapter = "com.sigmob.sdk.common.models.Version#ADAPTER")
     public final Version mraid2_version;
 
-    public App(String app_id, Version app_version, String app_package, Integer orientation,
-               String name, String idfv, String channel_id, String product_id, Boolean support_http,
-               List<String> ad_network_ids, String support_sk_version, List<Integer> sdk_ext_cap,
-               Long install_time, Version mraid1_version, Version mraid2_version) {
+    public App(String app_id, Version app_version, String app_package, Integer orientation, String name, String idfv, String channel_id, String product_id, Boolean support_http, List<String> ad_network_ids, String support_sk_version, List<Integer> sdk_ext_cap, Long install_time, Version mraid1_version, Version mraid2_version) {
         this(app_id, app_version, app_package, orientation, name, idfv, channel_id, product_id, support_http, ad_network_ids, support_sk_version, sdk_ext_cap, install_time, mraid1_version, mraid2_version, ByteString.EMPTY);
     }
 
-    public App(String app_id, Version app_version, String app_package, Integer orientation,
-               String name, String idfv, String channel_id, String product_id, Boolean support_http,
-               List<String> ad_network_ids, String support_sk_version, List<Integer> sdk_ext_cap,
-               Long install_time, Version mraid1_version, Version mraid2_version, ByteString unknownFields) {
+    public App(String app_id, Version app_version, String app_package, Integer orientation, String name, String idfv, String channel_id, String product_id, Boolean support_http, List<String> ad_network_ids, String support_sk_version, List<Integer> sdk_ext_cap, Long install_time, Version mraid1_version, Version mraid2_version, ByteString unknownFields) {
         super(ADAPTER, unknownFields);
         this.app_id = app_id;
         this.app_version = app_version;
@@ -237,22 +185,7 @@ public final class App extends AndroidMessage<App, App.Builder> {
         if (other == this) return true;
         if (!(other instanceof App)) return false;
         App o = (App) other;
-        return unknownFields().equals(o.unknownFields())
-                && Internal.equals(app_id, o.app_id)
-                && Internal.equals(app_version, o.app_version)
-                && Internal.equals(app_package, o.app_package)
-                && Internal.equals(orientation, o.orientation)
-                && Internal.equals(name, o.name)
-                && Internal.equals(idfv, o.idfv)
-                && Internal.equals(channel_id, o.channel_id)
-                && Internal.equals(product_id, o.product_id)
-                && Internal.equals(support_http, o.support_http)
-                && ad_network_ids.equals(o.ad_network_ids)
-                && Internal.equals(support_sk_version, o.support_sk_version)
-                && sdk_ext_cap.equals(o.sdk_ext_cap)
-                && Internal.equals(install_time, o.install_time)
-                && Internal.equals(mraid1_version, o.mraid1_version)
-                && Internal.equals(mraid2_version, o.mraid2_version);
+        return unknownFields().equals(o.unknownFields()) && Internal.equals(app_id, o.app_id) && Internal.equals(app_version, o.app_version) && Internal.equals(app_package, o.app_package) && Internal.equals(orientation, o.orientation) && Internal.equals(name, o.name) && Internal.equals(idfv, o.idfv) && Internal.equals(channel_id, o.channel_id) && Internal.equals(product_id, o.product_id) && Internal.equals(support_http, o.support_http) && ad_network_ids.equals(o.ad_network_ids) && Internal.equals(support_sk_version, o.support_sk_version) && sdk_ext_cap.equals(o.sdk_ext_cap) && Internal.equals(install_time, o.install_time) && Internal.equals(mraid1_version, o.mraid1_version) && Internal.equals(mraid2_version, o.mraid2_version);
     }
 
     @Override
@@ -473,22 +406,7 @@ public final class App extends AndroidMessage<App, App.Builder> {
 
         @Override
         public int encodedSize(App value) {
-            return ProtoAdapter.STRING.encodedSizeWithTag(1, value.app_id)
-                    + Version.ADAPTER.encodedSizeWithTag(2, value.app_version)
-                    + ProtoAdapter.STRING.encodedSizeWithTag(3, value.app_package)
-                    + ProtoAdapter.UINT32.encodedSizeWithTag(4, value.orientation)
-                    + ProtoAdapter.STRING.encodedSizeWithTag(5, value.name)
-                    + ProtoAdapter.STRING.encodedSizeWithTag(6, value.idfv)
-                    + ProtoAdapter.STRING.encodedSizeWithTag(7, value.channel_id)
-                    + ProtoAdapter.STRING.encodedSizeWithTag(8, value.product_id)
-                    + ProtoAdapter.BOOL.encodedSizeWithTag(9, value.support_http)
-                    + ProtoAdapter.STRING.asRepeated().encodedSizeWithTag(10, value.ad_network_ids)
-                    + ProtoAdapter.STRING.encodedSizeWithTag(11, value.support_sk_version)
-                    + ProtoAdapter.UINT32.asRepeated().encodedSizeWithTag(12, value.sdk_ext_cap)
-                    + ProtoAdapter.INT64.encodedSizeWithTag(15, value.install_time)
-                    + Version.ADAPTER.encodedSizeWithTag(17, value.mraid1_version)
-                    + Version.ADAPTER.encodedSizeWithTag(18, value.mraid2_version)
-                    + value.unknownFields().size();
+            return ProtoAdapter.STRING.encodedSizeWithTag(1, value.app_id) + Version.ADAPTER.encodedSizeWithTag(2, value.app_version) + ProtoAdapter.STRING.encodedSizeWithTag(3, value.app_package) + ProtoAdapter.UINT32.encodedSizeWithTag(4, value.orientation) + ProtoAdapter.STRING.encodedSizeWithTag(5, value.name) + ProtoAdapter.STRING.encodedSizeWithTag(6, value.idfv) + ProtoAdapter.STRING.encodedSizeWithTag(7, value.channel_id) + ProtoAdapter.STRING.encodedSizeWithTag(8, value.product_id) + ProtoAdapter.BOOL.encodedSizeWithTag(9, value.support_http) + ProtoAdapter.STRING.asRepeated().encodedSizeWithTag(10, value.ad_network_ids) + ProtoAdapter.STRING.encodedSizeWithTag(11, value.support_sk_version) + ProtoAdapter.UINT32.asRepeated().encodedSizeWithTag(12, value.sdk_ext_cap) + ProtoAdapter.INT64.encodedSizeWithTag(15, value.install_time) + Version.ADAPTER.encodedSizeWithTag(17, value.mraid1_version) + Version.ADAPTER.encodedSizeWithTag(18, value.mraid2_version) + value.unknownFields().size();
         }
 
         @Override

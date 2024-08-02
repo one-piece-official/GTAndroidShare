@@ -37,86 +37,56 @@ public final class User extends AndroidMessage<User, User.Builder> {
     /**
      * 生日年份，例：1995
      */
-    @WireField(
-            tag = 1,
-            adapter = "com.squareup.wire.ProtoAdapter#UINT32"
-    )
+    @WireField(tag = 1, adapter = "com.squareup.wire.ProtoAdapter#UINT32")
     public final Integer yob;
 
     /**
      * 性别，M-男；F-女；O-未知
      */
-    @WireField(
-            tag = 2,
-            adapter = "com.squareup.wire.ProtoAdapter#STRING"
-    )
+    @WireField(tag = 2, adapter = "com.squareup.wire.ProtoAdapter#STRING")
     public final String gender;
 
     /**
      * 用户已安装应用列表
      */
-    @WireField(
-            tag = 3,
-            adapter = "com.squareup.wire.ProtoAdapter#STRING",
-            label = WireField.Label.REPEATED
-    )
+    @WireField(tag = 3, adapter = "com.squareup.wire.ProtoAdapter#STRING", label = WireField.Label.REPEATED)
     public final List<String> app_list;
 
     /**
      * 用户属性id，如：3342，表示改用户安装了com.weibo应用；1111，表示该用户是体育运动爱好者
      */
-    @WireField(
-            tag = 4,
-            adapter = "com.squareup.wire.ProtoAdapter#STRING",
-            label = WireField.Label.REPEATED
-    )
+    @WireField(tag = 4, adapter = "com.squareup.wire.ProtoAdapter#STRING", label = WireField.Label.REPEATED)
     public final List<String> user_strategy;
 
     /**
      * 设备应用市场版本号
      */
-    @WireField(
-            tag = 5,
-            adapter = "Version#ADAPTER"
-    )
+    @WireField(tag = 5, adapter = "Version#ADAPTER")
     public final Version app_market_version;
 
     /**
      * 是否未成年人，false-否；true-是
      */
-    @WireField(
-            tag = 7,
-            adapter = "com.squareup.wire.ProtoAdapter#BOOL"
-    )
+    @WireField(tag = 7, adapter = "com.squareup.wire.ProtoAdapter#BOOL")
     public final Boolean is_minor;
 
     /**
      * 是否禁止个性化推荐，false-不禁止；true-禁止
      */
-    @WireField(
-            tag = 8,
-            adapter = "com.squareup.wire.ProtoAdapter#BOOL"
-    )
+    @WireField(tag = 8, adapter = "com.squareup.wire.ProtoAdapter#BOOL")
     public final Boolean disable_personalized_recommendation;
 
     /**
      * disable_personalized_recommendation 个性化状态（实时状态）与sdk初始化个性化推荐状态是否一致。false-一致；true-不一致
      */
-    @WireField(
-            tag = 9,
-            adapter = "com.squareup.wire.ProtoAdapter#BOOL"
-    )
+    @WireField(tag = 9, adapter = "com.squareup.wire.ProtoAdapter#BOOL")
     public final Boolean change_recommendation_state;
 
-    public User(Integer yob, String gender, List<String> app_list, List<String> user_strategy,
-                Version app_market_version, Boolean is_minor, Boolean disable_personalized_recommendation,
-                Boolean change_recommendation_state) {
+    public User(Integer yob, String gender, List<String> app_list, List<String> user_strategy, Version app_market_version, Boolean is_minor, Boolean disable_personalized_recommendation, Boolean change_recommendation_state) {
         this(yob, gender, app_list, user_strategy, app_market_version, is_minor, disable_personalized_recommendation, change_recommendation_state, ByteString.EMPTY);
     }
 
-    public User(Integer yob, String gender, List<String> app_list, List<String> user_strategy,
-                Version app_market_version, Boolean is_minor, Boolean disable_personalized_recommendation,
-                Boolean change_recommendation_state, ByteString unknownFields) {
+    public User(Integer yob, String gender, List<String> app_list, List<String> user_strategy, Version app_market_version, Boolean is_minor, Boolean disable_personalized_recommendation, Boolean change_recommendation_state, ByteString unknownFields) {
         super(ADAPTER, unknownFields);
         this.yob = yob;
         this.gender = gender;
@@ -148,15 +118,7 @@ public final class User extends AndroidMessage<User, User.Builder> {
         if (other == this) return true;
         if (!(other instanceof User)) return false;
         User o = (User) other;
-        return unknownFields().equals(o.unknownFields())
-                && Internal.equals(yob, o.yob)
-                && Internal.equals(gender, o.gender)
-                && app_list.equals(o.app_list)
-                && user_strategy.equals(o.user_strategy)
-                && Internal.equals(app_market_version, o.app_market_version)
-                && Internal.equals(is_minor, o.is_minor)
-                && Internal.equals(disable_personalized_recommendation, o.disable_personalized_recommendation)
-                && Internal.equals(change_recommendation_state, o.change_recommendation_state);
+        return unknownFields().equals(o.unknownFields()) && Internal.equals(yob, o.yob) && Internal.equals(gender, o.gender) && app_list.equals(o.app_list) && user_strategy.equals(o.user_strategy) && Internal.equals(app_market_version, o.app_market_version) && Internal.equals(is_minor, o.is_minor) && Internal.equals(disable_personalized_recommendation, o.disable_personalized_recommendation) && Internal.equals(change_recommendation_state, o.change_recommendation_state);
     }
 
     @Override
@@ -295,15 +257,7 @@ public final class User extends AndroidMessage<User, User.Builder> {
 
         @Override
         public int encodedSize(User value) {
-            return ProtoAdapter.UINT32.encodedSizeWithTag(1, value.yob)
-                    + ProtoAdapter.STRING.encodedSizeWithTag(2, value.gender)
-                    + ProtoAdapter.STRING.asRepeated().encodedSizeWithTag(3, value.app_list)
-                    + ProtoAdapter.STRING.asRepeated().encodedSizeWithTag(4, value.user_strategy)
-                    + Version.ADAPTER.encodedSizeWithTag(5, value.app_market_version)
-                    + ProtoAdapter.BOOL.encodedSizeWithTag(7, value.is_minor)
-                    + ProtoAdapter.BOOL.encodedSizeWithTag(8, value.disable_personalized_recommendation)
-                    + ProtoAdapter.BOOL.encodedSizeWithTag(9, value.change_recommendation_state)
-                    + value.unknownFields().size();
+            return ProtoAdapter.UINT32.encodedSizeWithTag(1, value.yob) + ProtoAdapter.STRING.encodedSizeWithTag(2, value.gender) + ProtoAdapter.STRING.asRepeated().encodedSizeWithTag(3, value.app_list) + ProtoAdapter.STRING.asRepeated().encodedSizeWithTag(4, value.user_strategy) + Version.ADAPTER.encodedSizeWithTag(5, value.app_market_version) + ProtoAdapter.BOOL.encodedSizeWithTag(7, value.is_minor) + ProtoAdapter.BOOL.encodedSizeWithTag(8, value.disable_personalized_recommendation) + ProtoAdapter.BOOL.encodedSizeWithTag(9, value.change_recommendation_state) + value.unknownFields().size();
         }
 
         @Override

@@ -44,91 +44,62 @@ public final class Geo extends AndroidMessage<Geo, Geo.Builder> {
     /**
      * 纬度
      */
-    @WireField(
-            tag = 1,
-            adapter = "com.squareup.wire.ProtoAdapter#FLOAT"
-    )
+    @WireField(tag = 1, adapter = "com.squareup.wire.ProtoAdapter#FLOAT")
     public final Float lat;
 
     /**
      * 经度
      */
-    @WireField(
-            tag = 2,
-            adapter = "com.squareup.wire.ProtoAdapter#FLOAT"
-    )
+    @WireField(tag = 2, adapter = "com.squareup.wire.ProtoAdapter#FLOAT")
     public final Float lon;
 
     /**
      * 语言（大写）
      */
-    @WireField(
-            tag = 3,
-            adapter = "com.squareup.wire.ProtoAdapter#STRING"
-    )
+    @WireField(tag = 3, adapter = "com.squareup.wire.ProtoAdapter#STRING")
     public final String language;
 
     /**
      * 时区
      */
-    @WireField(
-            tag = 4,
-            adapter = "com.squareup.wire.ProtoAdapter#STRING"
-    )
+    @WireField(tag = 4, adapter = "com.squareup.wire.ProtoAdapter#STRING")
     public final String timeZone;
 
     /**
      * 地域编码
      */
-    @WireField(
-            tag = 5,
-            adapter = "com.squareup.wire.ProtoAdapter#UINT64"
-    )
+    @WireField(tag = 5, adapter = "com.squareup.wire.ProtoAdapter#UINT64")
     public final Long city_code;
 
     /**
      * 国家
      */
-    @WireField(
-            tag = 6,
-            adapter = "com.squareup.wire.ProtoAdapter#STRING"
-    )
+    @WireField(tag = 6, adapter = "com.squareup.wire.ProtoAdapter#STRING")
     public final String country;
 
     /**
      * ip库中识别出来的编码，可能是市级编码、省级编码
      */
-    @WireField(
-            tag = 7,
-            adapter = "com.squareup.wire.ProtoAdapter#STRING"
-    )
+    @WireField(tag = 7, adapter = "com.squareup.wire.ProtoAdapter#STRING")
     public final String region_code;
 
     /**
      * 当前时区距离隔离的秒数
      */
-    @WireField(
-            tag = 8,
-            adapter = "com.squareup.wire.ProtoAdapter#STRING"
-    )
+    @WireField(tag = 8, adapter = "com.squareup.wire.ProtoAdapter#STRING")
     public final String secondsFromGMT;
 
     /**
      * 经纬度半径，单位：米
      */
-    @WireField(
-            tag = 9,
-            adapter = "com.squareup.wire.ProtoAdapter#DOUBLE"
-    )
+    @WireField(tag = 9, adapter = "com.squareup.wire.ProtoAdapter#DOUBLE")
     public final Double accuracy;
 
-    public Geo(Float lat, Float lon, String language, String timeZone, Long city_code, String country,
-               String region_code, String secondsFromGMT, Double accuracy) {
+    public Geo(Float lat, Float lon, String language, String timeZone, Long city_code, String country, String region_code, String secondsFromGMT, Double accuracy) {
         this(lat, lon, language, timeZone, city_code, country, region_code, secondsFromGMT, accuracy, ByteString.EMPTY);
     }
 
-    public Geo(Float lat, Float lon, String language, String timeZone, Long city_code, String country,
-               String region_code, String secondsFromGMT, Double accuracy, ByteString unknownFields) {
+    public Geo(Float lat, Float lon, String language, String timeZone, Long city_code, String country, String region_code, String secondsFromGMT, Double accuracy, ByteString unknownFields) {
         super(ADAPTER, unknownFields);
         this.lat = lat;
         this.lon = lon;
@@ -162,16 +133,7 @@ public final class Geo extends AndroidMessage<Geo, Geo.Builder> {
         if (other == this) return true;
         if (!(other instanceof Geo)) return false;
         Geo o = (Geo) other;
-        return unknownFields().equals(o.unknownFields())
-                && Internal.equals(lat, o.lat)
-                && Internal.equals(lon, o.lon)
-                && Internal.equals(language, o.language)
-                && Internal.equals(timeZone, o.timeZone)
-                && Internal.equals(city_code, o.city_code)
-                && Internal.equals(country, o.country)
-                && Internal.equals(region_code, o.region_code)
-                && Internal.equals(secondsFromGMT, o.secondsFromGMT)
-                && Internal.equals(accuracy, o.accuracy);
+        return unknownFields().equals(o.unknownFields()) && Internal.equals(lat, o.lat) && Internal.equals(lon, o.lon) && Internal.equals(language, o.language) && Internal.equals(timeZone, o.timeZone) && Internal.equals(city_code, o.city_code) && Internal.equals(country, o.country) && Internal.equals(region_code, o.region_code) && Internal.equals(secondsFromGMT, o.secondsFromGMT) && Internal.equals(accuracy, o.accuracy);
     }
 
     @Override
@@ -315,16 +277,7 @@ public final class Geo extends AndroidMessage<Geo, Geo.Builder> {
 
         @Override
         public int encodedSize(Geo value) {
-            return ProtoAdapter.FLOAT.encodedSizeWithTag(1, value.lat)
-                    + ProtoAdapter.FLOAT.encodedSizeWithTag(2, value.lon)
-                    + ProtoAdapter.STRING.encodedSizeWithTag(3, value.language)
-                    + ProtoAdapter.STRING.encodedSizeWithTag(4, value.timeZone)
-                    + ProtoAdapter.UINT64.encodedSizeWithTag(5, value.city_code)
-                    + ProtoAdapter.STRING.encodedSizeWithTag(6, value.country)
-                    + ProtoAdapter.STRING.encodedSizeWithTag(7, value.region_code)
-                    + ProtoAdapter.STRING.encodedSizeWithTag(8, value.secondsFromGMT)
-                    + ProtoAdapter.DOUBLE.encodedSizeWithTag(9, value.accuracy)
-                    + value.unknownFields().size();
+            return ProtoAdapter.FLOAT.encodedSizeWithTag(1, value.lat) + ProtoAdapter.FLOAT.encodedSizeWithTag(2, value.lon) + ProtoAdapter.STRING.encodedSizeWithTag(3, value.language) + ProtoAdapter.STRING.encodedSizeWithTag(4, value.timeZone) + ProtoAdapter.UINT64.encodedSizeWithTag(5, value.city_code) + ProtoAdapter.STRING.encodedSizeWithTag(6, value.country) + ProtoAdapter.STRING.encodedSizeWithTag(7, value.region_code) + ProtoAdapter.STRING.encodedSizeWithTag(8, value.secondsFromGMT) + ProtoAdapter.DOUBLE.encodedSizeWithTag(9, value.accuracy) + value.unknownFields().size();
         }
 
         @Override

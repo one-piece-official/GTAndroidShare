@@ -20,12 +20,10 @@ import javax.net.ssl.SSLSocketFactory;
 
 public class CustomSSLSocketFactory extends SSLSocketFactory {
 
-
     private SSLSocketFactory mCertificateSocketFactory;
 
     private CustomSSLSocketFactory() {
     }
-
 
     public static CustomSSLSocketFactory getDefault(final int handshakeTimeoutMillis) {
         CustomSSLSocketFactory factory = new CustomSSLSocketFactory();

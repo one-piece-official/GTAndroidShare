@@ -14,6 +14,7 @@ import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 public class AESUtil {
+
     private static final int GCM_NONCE_LENGTH = 12; // in bytes
     private static final int GCM_TAG_LENGTH = 128; // in bytes
     private static volatile byte[] nonce = null;

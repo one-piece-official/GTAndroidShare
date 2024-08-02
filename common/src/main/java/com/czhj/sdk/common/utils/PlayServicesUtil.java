@@ -18,7 +18,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class PlayServicesUtil {
 
-
     public static class AdvertisingInfo {
         public final boolean limitAdTracking;
         public final String advertisingId;

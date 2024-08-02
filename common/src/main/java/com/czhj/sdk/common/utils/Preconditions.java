@@ -11,7 +11,7 @@ import java.util.IllegalFormatException;
 /**
  * Simple static methods to be called at the start of your own methods to verify correct arguments
  * and state.
- *
+ * <p>
  * Each method supports 2 flavors - one that will always throw a runtime exception, and a NoThrow
  * version that will only throw an exception when in strict mode. We use the former
  * for internal state checks, and the later to validate arguments passed to the SDK.
@@ -42,8 +42,7 @@ public final class Preconditions {
          * Ensures the truth of an expression.
          */
         public static boolean checkArgument(boolean expression) {
-            return checkArgumentInternal(expression, sStrictMode, "Illegal argument",
-                    EMPTY_ARGUMENTS);
+            return checkArgumentInternal(expression, sStrictMode, "Illegal argument", EMPTY_ARGUMENTS);
         }
 
         /**
@@ -58,8 +57,7 @@ public final class Preconditions {
          * Ensures that an object reference is not null.
          */
         public static boolean checkNotNull(Object reference) {
-            return checkNotNullInternal(reference, sStrictMode, null,
-                    EMPTY_ARGUMENTS);
+            return checkNotNullInternal(reference, sStrictMode, null, EMPTY_ARGUMENTS);
         }
 
         /**
@@ -74,11 +72,12 @@ public final class Preconditions {
 
                 StackTraceElement ste = new Throwable().getStackTrace()[2];
                 return ste.getFileName() + ": Line " + ste.getMethodName();
-            }catch (Throwable e){
+            } catch (Throwable e) {
                 return "";
             }
 
         }
+
         /**
          * Ensures that the current thread is the UI thread, with an error message.
          */
@@ -88,8 +87,7 @@ public final class Preconditions {
 
     }
 
-    private static boolean checkArgumentInternal(boolean expression, boolean allowThrow,
-                                                 String errorMessageTemplate, Object... errorMessageArgs) {
+    private static boolean checkArgumentInternal(boolean expression, boolean allowThrow, String errorMessageTemplate, Object... errorMessageArgs) {
         if (expression) {
             return true;
         }
@@ -103,8 +101,7 @@ public final class Preconditions {
         return false;
     }
 
-    private static boolean checkStateInternal(boolean expression, boolean allowThrow,
-                                              String errorMessageTemplate, Object... errorMessageArgs) {
+    private static boolean checkStateInternal(boolean expression, boolean allowThrow, String errorMessageTemplate, Object... errorMessageArgs) {
         if (expression) {
             return true;
         }
@@ -118,8 +115,7 @@ public final class Preconditions {
         return false;
     }
 
-    private static boolean checkNotNullInternal(Object reference, boolean allowThrow,
-                                                String errorMessageTemplate, Object... errorMessageArgs) {
+    private static boolean checkNotNullInternal(Object reference, boolean allowThrow, String errorMessageTemplate, Object... errorMessageArgs) {
         if (reference != null) {
             return true;
         }
@@ -133,8 +129,7 @@ public final class Preconditions {
         return false;
     }
 
-    private static boolean checkUiThreadInternal(boolean allowThrow,
-                                                 String errorMessageTemplate, Object... errorMessageArgs) {
+    private static boolean checkUiThreadInternal(boolean allowThrow, String errorMessageTemplate, Object... errorMessageArgs) {
         // Check that the main looper is the current looper.
         if (Looper.getMainLooper().equals(Looper.myLooper())) {
             return true;

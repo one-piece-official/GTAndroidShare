@@ -32,36 +32,26 @@ public final class Privacy extends AndroidMessage<Privacy, Privacy.Builder> {
     /**
      * gdpr 授权状态
      */
-    @WireField(
-            tag = 1,
-            adapter = "com.squareup.wire.ProtoAdapter#UINT32"
-    )
+    @WireField(tag = 1, adapter = "com.squareup.wire.ProtoAdapter#UINT32")
     public final Integer gdpr_consent;
 
     /**
      * 儿童保护
      */
-    @WireField(
-            tag = 2,
-            adapter = "com.squareup.wire.ProtoAdapter#UINT32"
-    )
+    @WireField(tag = 2, adapter = "com.squareup.wire.ProtoAdapter#UINT32")
     public final Integer child_protection;
 
     /**
      * 用户年龄
      */
-    @WireField(
-            tag = 3,
-            adapter = "com.squareup.wire.ProtoAdapter#UINT32"
-    )
+    @WireField(tag = 3, adapter = "com.squareup.wire.ProtoAdapter#UINT32")
     public final Integer age;
 
     public Privacy(Integer gdpr_consent, Integer child_protection, Integer age) {
         this(gdpr_consent, child_protection, age, ByteString.EMPTY);
     }
 
-    public Privacy(Integer gdpr_consent, Integer child_protection, Integer age,
-                   ByteString unknownFields) {
+    public Privacy(Integer gdpr_consent, Integer child_protection, Integer age, ByteString unknownFields) {
         super(ADAPTER, unknownFields);
         this.gdpr_consent = gdpr_consent;
         this.child_protection = child_protection;
@@ -83,10 +73,7 @@ public final class Privacy extends AndroidMessage<Privacy, Privacy.Builder> {
         if (other == this) return true;
         if (!(other instanceof Privacy)) return false;
         Privacy o = (Privacy) other;
-        return unknownFields().equals(o.unknownFields())
-                && Internal.equals(gdpr_consent, o.gdpr_consent)
-                && Internal.equals(child_protection, o.child_protection)
-                && Internal.equals(age, o.age);
+        return unknownFields().equals(o.unknownFields()) && Internal.equals(gdpr_consent, o.gdpr_consent) && Internal.equals(child_protection, o.child_protection) && Internal.equals(age, o.age);
     }
 
     @Override
@@ -159,10 +146,7 @@ public final class Privacy extends AndroidMessage<Privacy, Privacy.Builder> {
 
         @Override
         public int encodedSize(Privacy value) {
-            return ProtoAdapter.UINT32.encodedSizeWithTag(1, value.gdpr_consent)
-                    + ProtoAdapter.UINT32.encodedSizeWithTag(2, value.child_protection)
-                    + ProtoAdapter.UINT32.encodedSizeWithTag(3, value.age)
-                    + value.unknownFields().size();
+            return ProtoAdapter.UINT32.encodedSizeWithTag(1, value.gdpr_consent) + ProtoAdapter.UINT32.encodedSizeWithTag(2, value.child_protection) + ProtoAdapter.UINT32.encodedSizeWithTag(3, value.age) + value.unknownFields().size();
         }
 
         @Override

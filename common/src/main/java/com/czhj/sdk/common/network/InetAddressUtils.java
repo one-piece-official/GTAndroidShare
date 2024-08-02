@@ -5,7 +5,7 @@ import java.net.UnknownHostException;
 
 class InetAddressUtils {
 
-    public static InetAddress getInetAddressByName( final String host) throws UnknownHostException {
+    public static InetAddress getInetAddressByName(final String host) throws UnknownHostException {
         return InetAddress.getByName(host);
     }
 

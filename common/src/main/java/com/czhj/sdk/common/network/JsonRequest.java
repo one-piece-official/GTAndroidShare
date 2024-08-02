@@ -22,14 +22,11 @@ public class JsonRequest extends SigmobRequest<JSONObject> {
     }
 
     public JsonRequest(String url, Listener mListener, int retryNum) {
-        super( url, Method.GET, mListener);
+        super(url, Method.GET, mListener);
         this.mListener = mListener;
 
 
-        DefaultRetryPolicy retryPolicy = new DefaultRetryPolicy(
-                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        DefaultRetryPolicy retryPolicy = new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         setRetryPolicy(retryPolicy);
         setShouldCache(false);
 
@@ -39,13 +36,10 @@ public class JsonRequest extends SigmobRequest<JSONObject> {
     protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
 
         try {
-            String jsonString = new String(
-                    response.data,
-                    HttpHeaderParser.parseCharset(response.headers, PROTOCOL_CHARSET));
-            return Response.success(
-                    new JSONObject(jsonString), HttpHeaderParser.parseCacheHeaders(response));
+            String jsonString = new String(response.data, HttpHeaderParser.parseCharset(response.headers, PROTOCOL_CHARSET));
+            return Response.success(new JSONObject(jsonString), HttpHeaderParser.parseCacheHeaders(response));
         } catch (Throwable e) {
-             SigmobLog.e(e.getMessage());
+            SigmobLog.e(e.getMessage());
             return Response.error(new ParseError(e));
 
         }
@@ -55,7 +49,7 @@ public class JsonRequest extends SigmobRequest<JSONObject> {
 
     @Override
     public void deliverError(VolleyError error) {
-        SigmobLog.e("send tracking: "+getUrl()+" fail");
+        SigmobLog.e("send tracking: " + getUrl() + " fail");
 
         super.deliverError(error);
 
@@ -68,7 +62,7 @@ public class JsonRequest extends SigmobRequest<JSONObject> {
             listener = mListener;
         }
 
-        SigmobLog.i("send tracking: "+getUrl()+" success");
+        SigmobLog.i("send tracking: " + getUrl() + " success");
         if (listener != null) {
             listener.onSuccess(response);
         }

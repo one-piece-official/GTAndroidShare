@@ -35,56 +35,38 @@ public final class HeaderBidding extends AndroidMessage<HeaderBidding, HeaderBid
     /**
      * 竞价获取广告标识
      */
-    @WireField(
-            tag = 1,
-            adapter = "com.squareup.wire.ProtoAdapter#STRING"
-    )
+    @WireField(tag = 1, adapter = "com.squareup.wire.ProtoAdapter#STRING")
     public final String bid_token;
 
     /**
      * 聚合渠道id
      */
-    @WireField(
-            tag = 2,
-            adapter = "com.squareup.wire.ProtoAdapter#UINT32"
-    )
+    @WireField(tag = 2, adapter = "com.squareup.wire.ProtoAdapter#UINT32")
     public final Integer channel_id;
 
     /**
      * 外部渠道媒体属性
      */
-    @WireField(
-            tag = 3,
-            keyAdapter = "com.squareup.wire.ProtoAdapter#STRING",
-            adapter = "com.squareup.wire.ProtoAdapter#STRING"
-    )
+    @WireField(tag = 3, keyAdapter = "com.squareup.wire.ProtoAdapter#STRING", adapter = "com.squareup.wire.ProtoAdapter#STRING")
     public final Map<String, String> options;
 
     /**
      * 竞价广告位
      */
-    @WireField(
-            tag = 4,
-            adapter = "com.squareup.wire.ProtoAdapter#STRING"
-    )
+    @WireField(tag = 4, adapter = "com.squareup.wire.ProtoAdapter#STRING")
     public final String p_id;
 
     /**
      * 请求价格币种 CNY, USD
      */
-    @WireField(
-            tag = 5,
-            adapter = "com.squareup.wire.ProtoAdapter#STRING"
-    )
+    @WireField(tag = 5, adapter = "com.squareup.wire.ProtoAdapter#STRING")
     public final String cur;
 
-    public HeaderBidding(String bid_token, Integer channel_id, Map<String, String> options,
-                         String p_id, String cur) {
+    public HeaderBidding(String bid_token, Integer channel_id, Map<String, String> options, String p_id, String cur) {
         this(bid_token, channel_id, options, p_id, cur, ByteString.EMPTY);
     }
 
-    public HeaderBidding(String bid_token, Integer channel_id, Map<String, String> options,
-                         String p_id, String cur, ByteString unknownFields) {
+    public HeaderBidding(String bid_token, Integer channel_id, Map<String, String> options, String p_id, String cur, ByteString unknownFields) {
         super(ADAPTER, unknownFields);
         this.bid_token = bid_token;
         this.channel_id = channel_id;
@@ -110,12 +92,7 @@ public final class HeaderBidding extends AndroidMessage<HeaderBidding, HeaderBid
         if (other == this) return true;
         if (!(other instanceof HeaderBidding)) return false;
         HeaderBidding o = (HeaderBidding) other;
-        return unknownFields().equals(o.unknownFields())
-                && Internal.equals(bid_token, o.bid_token)
-                && Internal.equals(channel_id, o.channel_id)
-                && options.equals(o.options)
-                && Internal.equals(p_id, o.p_id)
-                && Internal.equals(cur, o.cur);
+        return unknownFields().equals(o.unknownFields()) && Internal.equals(bid_token, o.bid_token) && Internal.equals(channel_id, o.channel_id) && options.equals(o.options) && Internal.equals(p_id, o.p_id) && Internal.equals(cur, o.cur);
     }
 
     @Override
@@ -215,12 +192,7 @@ public final class HeaderBidding extends AndroidMessage<HeaderBidding, HeaderBid
 
         @Override
         public int encodedSize(HeaderBidding value) {
-            return ProtoAdapter.STRING.encodedSizeWithTag(1, value.bid_token)
-                    + ProtoAdapter.UINT32.encodedSizeWithTag(2, value.channel_id)
-                    + options.encodedSizeWithTag(3, value.options)
-                    + ProtoAdapter.STRING.encodedSizeWithTag(4, value.p_id)
-                    + ProtoAdapter.STRING.encodedSizeWithTag(5, value.cur)
-                    + value.unknownFields().size();
+            return ProtoAdapter.STRING.encodedSizeWithTag(1, value.bid_token) + ProtoAdapter.UINT32.encodedSizeWithTag(2, value.channel_id) + options.encodedSizeWithTag(3, value.options) + ProtoAdapter.STRING.encodedSizeWithTag(4, value.p_id) + ProtoAdapter.STRING.encodedSizeWithTag(5, value.cur) + value.unknownFields().size();
         }
 
         @Override

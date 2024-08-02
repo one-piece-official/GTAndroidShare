@@ -25,8 +25,7 @@ public final class SharedPreferencesUtil {
         return context.getSharedPreferences(DEFAULT_PREFERENCE_NAME, MODE_PRIVATE | MODE_MULTI_PROCESS);
     }
 
-    public static SharedPreferences getSharedPreferences(
-            final Context context, final String preferenceName) {
+    public static SharedPreferences getSharedPreferences(final Context context, final String preferenceName) {
         Preconditions.NoThrow.checkNotNull(context);
         Preconditions.NoThrow.checkNotNull(preferenceName);
 

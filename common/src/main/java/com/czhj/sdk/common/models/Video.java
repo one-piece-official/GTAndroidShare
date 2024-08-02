@@ -30,19 +30,13 @@ public final class Video extends AndroidMessage<Video, Video.Builder> {
     /**
      * 视频最大时长
      */
-    @WireField(
-            tag = 1,
-            adapter = "com.squareup.wire.ProtoAdapter#UINT32"
-    )
+    @WireField(tag = 1, adapter = "com.squareup.wire.ProtoAdapter#UINT32")
     public final Integer max_duration;
 
     /**
      * 视频最小时长
      */
-    @WireField(
-            tag = 2,
-            adapter = "com.squareup.wire.ProtoAdapter#UINT32"
-    )
+    @WireField(tag = 2, adapter = "com.squareup.wire.ProtoAdapter#UINT32")
     public final Integer min_duration;
 
     public Video(Integer max_duration, Integer min_duration) {
@@ -69,9 +63,7 @@ public final class Video extends AndroidMessage<Video, Video.Builder> {
         if (other == this) return true;
         if (!(other instanceof Video)) return false;
         Video o = (Video) other;
-        return unknownFields().equals(o.unknownFields())
-                && Internal.equals(max_duration, o.max_duration)
-                && Internal.equals(min_duration, o.min_duration);
+        return unknownFields().equals(o.unknownFields()) && Internal.equals(max_duration, o.max_duration) && Internal.equals(min_duration, o.min_duration);
     }
 
     @Override
@@ -131,9 +123,7 @@ public final class Video extends AndroidMessage<Video, Video.Builder> {
 
         @Override
         public int encodedSize(Video value) {
-            return ProtoAdapter.UINT32.encodedSizeWithTag(1, value.max_duration)
-                    + ProtoAdapter.UINT32.encodedSizeWithTag(2, value.min_duration)
-                    + value.unknownFields().size();
+            return ProtoAdapter.UINT32.encodedSizeWithTag(1, value.max_duration) + ProtoAdapter.UINT32.encodedSizeWithTag(2, value.min_duration) + value.unknownFields().size();
         }
 
         @Override

@@ -32,36 +32,26 @@ public final class WXProgramReq extends AndroidMessage<WXProgramReq, WXProgramRe
     /**
      * 用户微信内SDK版本
      */
-    @WireField(
-            tag = 1,
-            adapter = "com.squareup.wire.ProtoAdapter#INT32"
-    )
+    @WireField(tag = 1, adapter = "com.squareup.wire.ProtoAdapter#INT32")
     public final Integer wx_api_ver;
 
     /**
      * 微信openSDK版本
      */
-    @WireField(
-            tag = 2,
-            adapter = "com.squareup.wire.ProtoAdapter#STRING"
-    )
+    @WireField(tag = 2, adapter = "com.squareup.wire.ProtoAdapter#STRING")
     public final String opensdk_ver;
 
     /**
      * 用户是否已安装微信
      */
-    @WireField(
-            tag = 3,
-            adapter = "com.squareup.wire.ProtoAdapter#BOOL"
-    )
+    @WireField(tag = 3, adapter = "com.squareup.wire.ProtoAdapter#BOOL")
     public final Boolean wx_installed;
 
     public WXProgramReq(Integer wx_api_ver, String opensdk_ver, Boolean wx_installed) {
         this(wx_api_ver, opensdk_ver, wx_installed, ByteString.EMPTY);
     }
 
-    public WXProgramReq(Integer wx_api_ver, String opensdk_ver, Boolean wx_installed,
-                        ByteString unknownFields) {
+    public WXProgramReq(Integer wx_api_ver, String opensdk_ver, Boolean wx_installed, ByteString unknownFields) {
         super(ADAPTER, unknownFields);
         this.wx_api_ver = wx_api_ver;
         this.opensdk_ver = opensdk_ver;
@@ -83,10 +73,7 @@ public final class WXProgramReq extends AndroidMessage<WXProgramReq, WXProgramRe
         if (other == this) return true;
         if (!(other instanceof WXProgramReq)) return false;
         WXProgramReq o = (WXProgramReq) other;
-        return unknownFields().equals(o.unknownFields())
-                && Internal.equals(wx_api_ver, o.wx_api_ver)
-                && Internal.equals(opensdk_ver, o.opensdk_ver)
-                && Internal.equals(wx_installed, o.wx_installed);
+        return unknownFields().equals(o.unknownFields()) && Internal.equals(wx_api_ver, o.wx_api_ver) && Internal.equals(opensdk_ver, o.opensdk_ver) && Internal.equals(wx_installed, o.wx_installed);
     }
 
     @Override
@@ -158,10 +145,7 @@ public final class WXProgramReq extends AndroidMessage<WXProgramReq, WXProgramRe
 
         @Override
         public int encodedSize(WXProgramReq value) {
-            return ProtoAdapter.INT32.encodedSizeWithTag(1, value.wx_api_ver)
-                    + ProtoAdapter.STRING.encodedSizeWithTag(2, value.opensdk_ver)
-                    + ProtoAdapter.BOOL.encodedSizeWithTag(3, value.wx_installed)
-                    + value.unknownFields().size();
+            return ProtoAdapter.INT32.encodedSizeWithTag(1, value.wx_api_ver) + ProtoAdapter.STRING.encodedSizeWithTag(2, value.opensdk_ver) + ProtoAdapter.BOOL.encodedSizeWithTag(3, value.wx_installed) + value.unknownFields().size();
         }
 
         @Override

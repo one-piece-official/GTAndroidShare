@@ -17,7 +17,6 @@ public class SigmobRequestQueue extends RequestQueue {
 
     private static final int CAPACITY = 10;
 
-
     private final Map<Request<?>, DelayedRequestHelper> mDelayedRequests;
 
     SigmobRequestQueue(Network network, int threadPoolSize, int maxThreads) {

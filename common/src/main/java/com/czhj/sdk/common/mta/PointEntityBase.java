@@ -3,7 +3,6 @@ package com.czhj.sdk.common.mta;
 
 public abstract class PointEntityBase extends PointEntitySuper {
 
-
     private String adtype;
     private String placement_id;
     private String load_id;
@@ -12,7 +11,6 @@ public abstract class PointEntityBase extends PointEntitySuper {
     private String ad_scene;
     private String scene_desc;
     private String scene_id;
-
 
 
     public String getAdtype() {

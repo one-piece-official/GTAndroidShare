@@ -38,7 +38,7 @@ public final class Md5Util {
             }
             return new String(str);
         } catch (Throwable e) {
-             SigmobLog.e(e.getMessage());
+            SigmobLog.e(e.getMessage());
         }
         return null;
     }
@@ -62,20 +62,19 @@ public final class Md5Util {
             // 同样，把字节数组转换成字符串
             return bytesToHexString(resultByteArray);
         } catch (Throwable e) {
-             SigmobLog.e(e.getMessage());
+            SigmobLog.e(e.getMessage());
         } finally {
             try {
-                if(fileInputStream != null)
-                {
+                if (fileInputStream != null) {
                     fileInputStream.close();
                 }
             } catch (Throwable e) {
-                 SigmobLog.e(e.getMessage());
+                SigmobLog.e(e.getMessage());
             }
             try {
-                if(digestInputStream != null) digestInputStream.close();
+                if (digestInputStream != null) digestInputStream.close();
             } catch (Throwable e) {
-                 SigmobLog.e(e.getMessage());
+                SigmobLog.e(e.getMessage());
             }
         }
         return null;
@@ -101,18 +100,18 @@ public final class Md5Util {
                 digest.update(buffer, 0, len);
             }
         } catch (Throwable e) {
-             SigmobLog.e(e.getMessage());
+            SigmobLog.e(e.getMessage());
             return null;
         } finally {
             try {
-                if(digest != null) digest.clone();
+                if (digest != null) digest.clone();
             } catch (Throwable e) {
-                 SigmobLog.e(e.getMessage());
+                SigmobLog.e(e.getMessage());
             }
             try {
-               if(in != null) in.close();
+                if (in != null) in.close();
             } catch (Throwable e) {
-                 SigmobLog.e(e.getMessage());
+                SigmobLog.e(e.getMessage());
             }
         }
         return bytesToHexString(digest.digest());

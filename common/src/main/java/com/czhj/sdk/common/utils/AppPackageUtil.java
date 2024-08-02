@@ -9,8 +9,6 @@ import android.text.TextUtils;
 import com.czhj.sdk.logger.SigmobLog;
 
 public class AppPackageUtil {
-
-
     private static String packageName;
     private static String versionName;
     private static PackageInfo packageInfo;

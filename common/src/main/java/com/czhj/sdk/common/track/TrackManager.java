@@ -110,9 +110,7 @@ public class TrackManager {
         void onSuccess(AdTracker tracker, NetworkResponse response);
 
         void onErrorResponse(AdTracker tracker, VolleyError error);
-
     }
-
 
     public void setSigmobTrackListener(Listener listener) {
         mSigmobTrackListener = listener;
@@ -225,7 +223,6 @@ public class TrackManager {
 
         if (repeatingHandlerRunnable != null) return;
 
-
         retryHandler = new Handler(ThreadPoolFactory.BackgroundThreadPool.getInstance().getIOLooper());
 
         repeatingHandlerRunnable = new RepeatingHandlerRunnable(retryHandler) {
@@ -243,7 +240,6 @@ public class TrackManager {
         };
 
         repeatingHandlerRunnable.startRepeating(retryInterval);
-
     }
 
 }

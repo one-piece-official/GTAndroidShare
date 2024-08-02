@@ -11,7 +11,6 @@ import com.czhj.volley.toolbox.ImageLoader;
 class MaxWidthImageLoader extends ImageLoader {
     private final int mMaxImageWidth;
 
-
     MaxWidthImageLoader(final RequestQueue queue, final Context context, final ImageCache imageCache) {
         super(queue, imageCache);
 

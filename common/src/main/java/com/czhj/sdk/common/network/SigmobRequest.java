@@ -16,15 +16,12 @@ import java.util.TreeMap;
 
 public abstract class SigmobRequest<T> extends Request<T> {
 
-
     protected static final String AESKEY = "KGpfzbYsn4T9Jyuq";
     private final String mOriginalUrl;
 
     protected SigmobRequest(final String url,
                             final int method,
                             final Response.ErrorListener listener) {
-
-
         super(method, url, listener);
 
         mOriginalUrl = url;

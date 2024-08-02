@@ -7,6 +7,7 @@ import android.content.Context;
  * 工具类，可以通过资源名来获取资源id
  */
 public class ResourceUtil {
+
     public static int getId(Context context, String resourceName) {
         return getIdentifierByType(context, resourceName, "id");
     }

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 
 public class ViewUtil {
+
     public static void removeFromParent(View view) {
         if (view == null || view.getParent() == null) {
             return;
@@ -44,13 +45,11 @@ public class ViewUtil {
                 : rootViewFromView;
     }
 
-
-
     public static Activity getActivityFromViewTop(View view) {
 
-        View rootView =  getRootViewFromView(view);
-        if (rootView != null){
-          return  getActivityFromView(rootView);
+        View rootView = getRootViewFromView(view);
+        if (rootView != null) {
+            return getActivityFromView(rootView);
         }
 
         return null;
@@ -63,14 +62,15 @@ public class ViewUtil {
 
         return ((Activity) context).getWindow().getDecorView().findViewById(android.R.id.content);
     }
-    public static Activity getActivityFromView(View view){
-        if (view != null){
+
+    public static Activity getActivityFromView(View view) {
+        if (view != null) {
             Context context = view.getContext();
-            while (context instanceof ContextWrapper){
-                if (context instanceof Activity){
+            while (context instanceof ContextWrapper) {
+                if (context instanceof Activity) {
                     return (Activity) context;
                 }
-                context = ((ContextWrapper)context).getBaseContext();
+                context = ((ContextWrapper) context).getBaseContext();
             }
 
         }
@@ -115,8 +115,6 @@ public class ViewUtil {
         }
         return false;
     }
-
-
 
 
 //    public TouchLocation getTouchX(View adContainer, MotionEvent event) {

@@ -10,7 +10,6 @@ public class BackgroundThreadFactory implements ThreadFactory {
     @Override
     public Thread newThread(Runnable r) {
 
-
         SigmobLog.d("ThreadFactor create ,current thread num :" + Thread.activeCount());
         return new Thread(r) {
             @Override

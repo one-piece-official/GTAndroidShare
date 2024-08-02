@@ -88,9 +88,7 @@ public class DBOperator {
     }
 
 
-    public void find(SQLiteDatabase sqLiteDatabase, final String table, String[] columns, String selection,
-                     String[] selectionArgs, String groupBy, String having,
-                     String orderBy, String limit, DataSQLiteLisenter lisenter) {
+    public void find(SQLiteDatabase sqLiteDatabase, final String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy, String limit, DataSQLiteLisenter lisenter) {
 
         SQLiteThread task = new SQLiteThread(sqLiteDatabase, table, columns, selection, selectionArgs, groupBy, having, orderBy, limit, lisenter);
         executor.submit(task);
@@ -148,9 +146,7 @@ public class DBOperator {
         private final DataSQLiteLisenter lisenter;
 
 
-        SQLiteThread(SQLiteDatabase sqLiteDatabase, String table, String[] columns, String selection,
-                     String[] selectionArgs, String groupBy, String having,
-                     String orderBy, String limit, DataSQLiteLisenter lisenter) {
+        SQLiteThread(SQLiteDatabase sqLiteDatabase, String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy, String limit, DataSQLiteLisenter lisenter) {
             this.table = table;
             this.sqLiteDatabase = sqLiteDatabase;
             this.columns = columns;

@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import java.text.SimpleDateFormat;
 
 public class Constants {
+
     public static final String HTTP = "http";
     public static final String HTTPS = "https";
     public static final boolean GOOGLE_PLAY = false;

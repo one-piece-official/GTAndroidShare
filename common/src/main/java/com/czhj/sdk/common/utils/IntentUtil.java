@@ -20,20 +20,23 @@ import com.czhj.sdk.common.exceptions.IntentNotResolvableException;
 import java.util.List;
 
 public class IntentUtil {
+
     private IntentUtil() {
     }
 
     public static void registerReceiver(final Context context, final BroadcastReceiver receiver, IntentFilter intentFilter) {
-        registerReceiver(context,receiver,intentFilter,true);
+        registerReceiver(context, receiver, intentFilter, true);
     }
+
     @SuppressLint("WrongConstant")
-    public static void registerReceiver(final Context context, final BroadcastReceiver receiver, IntentFilter intentFilter, boolean isExported){
-        if (Build.VERSION.SDK_INT >= 34 && context.getApplicationInfo().targetSdkVersion >= 34 ) {
-            context.registerReceiver(receiver, intentFilter, isExported? 2:4);
-        }else {
+    public static void registerReceiver(final Context context, final BroadcastReceiver receiver, IntentFilter intentFilter, boolean isExported) {
+        if (Build.VERSION.SDK_INT >= 34 && context.getApplicationInfo().targetSdkVersion >= 34) {
+            context.registerReceiver(receiver, intentFilter, isExported ? 2 : 4);
+        } else {
             context.registerReceiver(receiver, intentFilter);
         }
     }
+
     private static void startActivity(final Context context, final Intent intent)
             throws IntentNotResolvableException {
         Preconditions.NoThrow.checkNotNull(context);

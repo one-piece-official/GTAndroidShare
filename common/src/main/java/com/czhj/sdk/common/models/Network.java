@@ -22,6 +22,7 @@ import java.util.Map;
  * 网络环境信息
  */
 public final class Network extends AndroidMessage<Network, Network.Builder> {
+
     public static final ProtoAdapter<Network> ADAPTER = new ProtoAdapter_Network();
 
     public static final Parcelable.Creator<Network> CREATOR = AndroidMessage.newCreator(ADAPTER);

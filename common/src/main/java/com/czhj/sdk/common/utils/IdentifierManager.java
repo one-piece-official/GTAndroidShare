@@ -44,8 +44,7 @@ public class IdentifierManager {
     private SdkInitializationListener mInitializationListener;
 
 
-    public IdentifierManager(final Context appContext,
-                             final AdvertisingIdChangeListener idChangeListener) {
+    public IdentifierManager(final Context appContext, final AdvertisingIdChangeListener idChangeListener) {
 
         if (Constants.GOOGLE_PLAY) {
             Preconditions.NoThrow.checkNotNull(appContext);

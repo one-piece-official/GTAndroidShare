@@ -23,7 +23,6 @@ public class ThreadPoolFactory {
         mHandler.post(runnable);
     }
 
-
     public static ExecutorService getFixIOExecutor() {
         return mFixIOExecutor;
     }
@@ -35,7 +34,6 @@ public class ThreadPoolFactory {
         final int KEEP_ALIVE_TIME = 2;
         final BlockingQueue<Runnable> taskQueue;
         final ExecutorService executorService;
-
 
         BackgroundThreadPool() {
             taskQueue = new LinkedBlockingQueue<>();
@@ -53,7 +51,7 @@ public class ThreadPoolFactory {
 
             return mIOHandlerThread.getLooper();
         }
-        
+
 
         public ExecutorService getExecutorService() {
             return executorService;

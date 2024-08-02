@@ -17,7 +17,6 @@ import com.czhj.wire.okio.ByteString;
 import java.io.IOException;
 import java.util.List;
 
-
 public final class AdCache extends AndroidMessage<AdCache, AdCache.Builder> {
 
     public static final ProtoAdapter<AdCache> ADAPTER = new ProtoAdapter_AdCache();
@@ -31,20 +30,13 @@ public final class AdCache extends AndroidMessage<AdCache, AdCache.Builder> {
     /**
      * 广告类型
      */
-    @WireField(
-            tag = 1,
-            adapter = "com.squareup.wire.ProtoAdapter#INT32"
-    )
+    @WireField(tag = 1, adapter = "com.squareup.wire.ProtoAdapter#INT32")
     public final Integer ad_type;
 
     /**
      * 缓存的创意列表
      */
-    @WireField(
-            tag = 2,
-            adapter = "com.squareup.wire.ProtoAdapter#STRING",
-            label = WireField.Label.REPEATED
-    )
+    @WireField(tag = 2, adapter = "com.squareup.wire.ProtoAdapter#STRING", label = WireField.Label.REPEATED)
     public final List<String> crids;
 
     public AdCache(Integer ad_type, List<String> crids) {
@@ -71,9 +63,7 @@ public final class AdCache extends AndroidMessage<AdCache, AdCache.Builder> {
         if (other == this) return true;
         if (!(other instanceof AdCache)) return false;
         AdCache o = (AdCache) other;
-        return unknownFields().equals(o.unknownFields())
-                && Internal.equals(ad_type, o.ad_type)
-                && crids.equals(o.crids);
+        return unknownFields().equals(o.unknownFields()) && Internal.equals(ad_type, o.ad_type) && crids.equals(o.crids);
     }
 
     @Override
@@ -135,9 +125,7 @@ public final class AdCache extends AndroidMessage<AdCache, AdCache.Builder> {
 
         @Override
         public int encodedSize(AdCache value) {
-            return ProtoAdapter.INT32.encodedSizeWithTag(1, value.ad_type)
-                    + ProtoAdapter.STRING.asRepeated().encodedSizeWithTag(2, value.crids)
-                    + value.unknownFields().size();
+            return ProtoAdapter.INT32.encodedSizeWithTag(1, value.ad_type) + ProtoAdapter.STRING.asRepeated().encodedSizeWithTag(2, value.crids) + value.unknownFields().size();
         }
 
         @Override

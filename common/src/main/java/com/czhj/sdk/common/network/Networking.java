@@ -31,7 +31,6 @@ import java.util.HashSet;
 
 import javax.net.ssl.SSLSocketFactory;
 
-
 public class Networking {
 
     private static final String CACHE_DIRECTORY_NAME = "sigmob-volley-cache";

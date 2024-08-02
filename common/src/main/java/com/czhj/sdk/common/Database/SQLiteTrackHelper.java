@@ -12,7 +12,6 @@ import com.czhj.sdk.logger.SigmobLog;
 
 public class SQLiteTrackHelper extends SQLiteOpenHelper {
 
-
     public static final String TABLE_TRACK = "tracks";
 
     private static String DEFAULT_MTA_NAME = Constants.SDK_COMMON_FOLDER + "_track.db";
@@ -20,7 +19,6 @@ public class SQLiteTrackHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 9;
 
     private static String create_tracks_Sql = "CREATE TABLE tracks ( id integer primary key AUTOINCREMENT ,retryNum integer   ,source text   ,event text   ,request_id text   ,url text   ,timestamp integer, extInfo text, messageType integer );\n";
-
 
     // errors are negative, ok is 0, anything else is positive.
     private static final long DB_ERROR_NULL = -6;
@@ -167,10 +165,7 @@ public class SQLiteTrackHelper extends SQLiteOpenHelper {
 
     @Override
     public void onDowngrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-        Log.w(SQLiteTrackHelper.class.getName(),
-                "Downgrading database from version " + oldVersion + " to "
-                        + newVersion + ", which will destroy all old data"
-        );
+        Log.w(SQLiteTrackHelper.class.getName(), "Downgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
 
         recreateDb(database);
 
@@ -191,10 +186,7 @@ public class SQLiteTrackHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-        Log.w(SQLiteTrackHelper.class.getName(),
-                "Upgrading database from version " + oldVersion + " to "
-                        + newVersion + ", which will destroy all old data"
-        );
+        Log.w(SQLiteTrackHelper.class.getName(), "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
 
     }
 

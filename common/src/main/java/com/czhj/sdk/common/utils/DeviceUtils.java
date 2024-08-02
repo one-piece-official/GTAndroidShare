@@ -58,6 +58,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class DeviceUtils {
+
     final static String[] emulatorFiles = new String[]{
             "/system/lib/libdroid4x.so", "/system/bin/mount.vboxsf", "/system/lib/vboxguest.ko", "/etc/mumu-configs",
             "/system/lib/vboxsf.ko", "/system/lib/vboxvideo.ko", "/data/.bluestacks.prop", "/system/bin/microvirt-vbox-sf", "/system/lib/tboxsf.ko", "/system/bin/androVM-vbox-sf",
@@ -938,7 +939,7 @@ public class DeviceUtils {
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 
-            IntentUtil.registerReceiver(context,new NetBroadcastReceiver(), new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
+            IntentUtil.registerReceiver(context, new NetBroadcastReceiver(), new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
 
         } else {
             networkRequest = new NetworkRequest.Builder()
@@ -961,7 +962,7 @@ public class DeviceUtils {
 
                 @Override
                 public void onAvailable(Network network) {
-                    SigmobLog.d("updateNetworkType registerNetworkCallback  onAvailable "+network.hashCode());
+                    SigmobLog.d("updateNetworkType registerNetworkCallback  onAvailable " + network.hashCode());
                     super.onAvailable(network);
                     availableNetworks.add(network);
                     updateNetworkType(context);
@@ -969,7 +970,7 @@ public class DeviceUtils {
 
                 @Override
                 public void onLost(Network network) {
-                    SigmobLog.d("updateNetworkType registerNetworkCallback onLost" +network.hashCode());
+                    SigmobLog.d("updateNetworkType registerNetworkCallback onLost" + network.hashCode());
                     super.onLost(network);
 
                     mNetworkType = NetworkType.UNKNOWN;

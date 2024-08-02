@@ -59,9 +59,7 @@ public class Config {
     private String log;
     private boolean logenc;
 
-    public void update(boolean isGDPRRegion, boolean disable_boot_mark, boolean disable_oaid_api,
-                       int disable_up_oaid, String log, int send_log_interval, int max_send_log_records,
-                       boolean logenc) {
+    public void update(boolean isGDPRRegion, boolean disable_boot_mark, boolean disable_oaid_api, int disable_up_oaid, String log, int send_log_interval, int max_send_log_records, boolean logenc) {
         this.mIsGDPRRegion = isGDPRRegion;
         this.disable_boot_mark = disable_boot_mark;
         this.disable_oaid_api = disable_oaid_api;
@@ -101,7 +99,7 @@ public class Config {
 
     public void setNetworkTimeout(int networkTimeout) {
         if (networkTimeout > 0 && networkTimeout <= 30) {
-            this.networkTimeout = networkTimeout*1000;
+            this.networkTimeout = networkTimeout * 1000;
         }
     }
 

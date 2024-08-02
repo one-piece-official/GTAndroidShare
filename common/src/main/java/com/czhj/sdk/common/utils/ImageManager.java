@@ -170,8 +170,7 @@ public class ImageManager {
                 URL loadUrl = null;
                 try {
                     loadUrl = new URL(url);
-                    HttpURLConnection conn = (HttpURLConnection) loadUrl
-                            .openConnection();
+                    HttpURLConnection conn = (HttpURLConnection) loadUrl.openConnection();
                     // 设置请求方式
                     conn.setRequestMethod("GET");
                     // 设置请求时间
@@ -338,8 +337,7 @@ public class ImageManager {
             URL loadUrl;
             try {
                 loadUrl = new URL(url);
-                HttpURLConnection conn = (HttpURLConnection) loadUrl
-                        .openConnection();
+                HttpURLConnection conn = (HttpURLConnection) loadUrl.openConnection();
                 // 设置请求方式
                 conn.setRequestMethod("GET");
                 // 设置请求时间

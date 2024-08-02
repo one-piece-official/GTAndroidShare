@@ -6,6 +6,7 @@ import android.view.View;
 import java.io.Serializable;
 
 public class TouchLocation implements Serializable {
+
     private final int x;
     private final int y;
 

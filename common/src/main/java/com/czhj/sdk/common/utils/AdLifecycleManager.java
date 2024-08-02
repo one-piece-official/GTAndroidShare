@@ -142,17 +142,17 @@ public class AdLifecycleManager {
     }
 
     private synchronized WeakReference<LifecycleListener> getLifecycleListenerWeakReference(LifecycleListener listener) {
-       try {
+        try {
 
-           CopyOnWriteArraySet<WeakReference<LifecycleListener>> tempList = new CopyOnWriteArraySet(mLifecycleListeners);
-           for (WeakReference<LifecycleListener> weakReference : tempList) {
-               if (weakReference.get() == listener) {
-                   return weakReference;
-               }
-           }
-       }catch (Throwable t){
+            CopyOnWriteArraySet<WeakReference<LifecycleListener>> tempList = new CopyOnWriteArraySet(mLifecycleListeners);
+            for (WeakReference<LifecycleListener> weakReference : tempList) {
+                if (weakReference.get() == listener) {
+                    return weakReference;
+                }
+            }
+        } catch (Throwable t) {
 
-       }
+        }
         return null;
     }
 
@@ -172,16 +172,16 @@ public class AdLifecycleManager {
 
     private synchronized void onCreate(final Activity activity) {
 
-       try {
-           CopyOnWriteArraySet<WeakReference<LifecycleListener>> tempList = new CopyOnWriteArraySet(mLifecycleListeners);
-           for (WeakReference<LifecycleListener> weakReference : tempList) {
-               LifecycleListener listener = weakReference.get();
-               if (listener != null) {
-                   listener.onCreate(activity);
-               }
-           }
-       }catch (Throwable t){
-       }
+        try {
+            CopyOnWriteArraySet<WeakReference<LifecycleListener>> tempList = new CopyOnWriteArraySet(mLifecycleListeners);
+            for (WeakReference<LifecycleListener> weakReference : tempList) {
+                LifecycleListener listener = weakReference.get();
+                if (listener != null) {
+                    listener.onCreate(activity);
+                }
+            }
+        } catch (Throwable t) {
+        }
     }
 
     private synchronized void onStart(final Activity activity) {
@@ -193,7 +193,7 @@ public class AdLifecycleManager {
                     listener.onStart(activity);
                 }
             }
-        }catch (Throwable t){
+        } catch (Throwable t) {
 
         }
 
@@ -211,7 +211,7 @@ public class AdLifecycleManager {
                     listener.onPause(activity);
                 }
             }
-        }catch (Throwable t){
+        } catch (Throwable t) {
 
         }
     }
@@ -226,7 +226,7 @@ public class AdLifecycleManager {
                     listener.onResume(activity);
                 }
             }
-        }catch (Throwable t){
+        } catch (Throwable t) {
 
         }
     }
@@ -241,7 +241,7 @@ public class AdLifecycleManager {
                     listener.onStop(activity);
                 }
             }
-        }catch (Throwable t) {
+        } catch (Throwable t) {
 
         }
 
@@ -257,7 +257,7 @@ public class AdLifecycleManager {
                     listener.onDestroy(activity);
                 }
             }
-        }catch (Throwable t) {
+        } catch (Throwable t) {
         }
 
     }

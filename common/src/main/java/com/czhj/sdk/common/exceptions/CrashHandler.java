@@ -28,26 +28,25 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     private Set<CrashHandlerListener> crashHandlerListenerSet = new HashSet();
 
-    private CrashHandler(){
+    private CrashHandler() {
         mDefaultCrashHandler = Thread.getDefaultUncaughtExceptionHandler();
         Thread.setDefaultUncaughtExceptionHandler(this);
     }
 
-    public void add(CrashHandlerListener crashHandlerListener){
+    public void add(CrashHandlerListener crashHandlerListener) {
 
-        if (crashHandlerListener != null)
-            crashHandlerListenerSet.add(crashHandlerListener);
+        if (crashHandlerListener != null) crashHandlerListenerSet.add(crashHandlerListener);
 
     }
 
     public static synchronized CrashHandler getInstance() {
 
-        if (gInstance == null){
-            synchronized (CrashHandler.class){
+        if (gInstance == null) {
+            synchronized (CrashHandler.class) {
                 gInstance = new CrashHandler();
             }
         }
-         return gInstance;
+        return gInstance;
     }
 
 
@@ -116,8 +115,8 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             pw.close();
             String crash = writer.toString();
             if (!TextUtils.isEmpty(crash)) {
-                for (CrashHandlerListener listener: this.crashHandlerListenerSet) {
-                    if (listener != null){
+                for (CrashHandlerListener listener : this.crashHandlerListenerSet) {
+                    if (listener != null) {
                         listener.reportCrash(crash);
                     }
                 }
@@ -133,13 +132,6 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     public interface CrashHandlerListener {
         void reportCrash(String crash);
     }
-
-
-
-
-
-
-
 
 
 }

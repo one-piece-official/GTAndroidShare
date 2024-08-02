@@ -14,7 +14,6 @@ import java.util.Map;
 
 public class BuriedPointRequest extends SigmobRequest<NetworkResponse> {
 
-
     private final RequestListener mListener;
 
     private byte[] bodyBytes = null;
