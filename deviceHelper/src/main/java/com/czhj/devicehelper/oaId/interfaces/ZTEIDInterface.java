@@ -7,23 +7,26 @@ import android.os.Parcel;
 
 
 public interface ZTEIDInterface extends IInterface {
-  boolean c();
-  String getOAID();
-  boolean isSupported();
-  void shutDown();
+    boolean c();
+
+    String getOAID();
+
+    boolean isSupported();
+
+    void shutDown();
 
     public static abstract class up extends Binder implements ZTEIDInterface {
         public static class down implements ZTEIDInterface {
             private IBinder binder;
 
-      public down(IBinder b) {
-        binder = b;
-      }
+            public down(IBinder b) {
+                binder = b;
+            }
 
-      @Override
-      public IBinder asBinder() {
-        return binder;
-      }
+            @Override
+            public IBinder asBinder() {
+                return binder;
+            }
 
             @Override
             public boolean c() {
@@ -82,7 +85,7 @@ public interface ZTEIDInterface extends IInterface {
                         result = true;
                     }
 
-                } catch (Exception e){
+                } catch (Exception e) {
                     obtain2.recycle();
                     obtain.recycle();
                 }

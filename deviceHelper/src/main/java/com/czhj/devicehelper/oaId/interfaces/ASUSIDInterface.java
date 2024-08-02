@@ -14,37 +14,36 @@ import com.czhj.sdk.logger.SigmobLog;
  */
 public interface ASUSIDInterface extends IInterface {
 
-  String getID();
+    String getID();
 
     public final class ASUSID implements ASUSIDInterface {
         private IBinder iBinder;
 
-    public ASUSID(IBinder ib) {
-      iBinder = ib;
-    }
+        public ASUSID(IBinder ib) {
+            iBinder = ib;
+        }
 
-    @Override
-    public IBinder asBinder() {
-      return iBinder;
-    }
+        @Override
+        public IBinder asBinder() {
+            return iBinder;
+        }
 
-    @Override
-    public String getID() {
-      String result = null;
-      Parcel v1 = Parcel.obtain();
-      Parcel v2 = Parcel.obtain();
+        @Override
+        public String getID() {
+            String result = null;
+            Parcel v1 = Parcel.obtain();
+            Parcel v2 = Parcel.obtain();
 
-      try {
-        v1.writeInterfaceToken("com.asus.msa.SupplementaryDID.IDidAidlInterface");
-        iBinder.transact(3, v1, v2, 0);
-        v2.readException();
-        result = v2.readString();
-      }
-      catch (Throwable e) {
-        v1.recycle();
-        v2.recycle();
-         SigmobLog.e(e.getMessage());
-      }
+            try {
+                v1.writeInterfaceToken("com.asus.msa.SupplementaryDID.IDidAidlInterface");
+                iBinder.transact(3, v1, v2, 0);
+                v2.readException();
+                result = v2.readString();
+            } catch (Throwable e) {
+                v1.recycle();
+                v2.recycle();
+                SigmobLog.e(e.getMessage());
+            }
 
             v1.recycle();
             v2.recycle();
@@ -64,7 +63,7 @@ public interface ASUSIDInterface extends IInterface {
                     support = true;
                 }
 
-            } catch (Exception e){
+            } catch (Exception e) {
                 obtain2.recycle();
                 obtain.recycle();
             }

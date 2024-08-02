@@ -15,9 +15,9 @@ import android.text.TextUtils;
  */
 public interface HWIDInterface extends IInterface {
 
-  String getIDs();
+    String getIDs();
 
-  boolean getBoos();
+    boolean getBoos();
 
     public final class HWID implements HWIDInterface {
         private IBinder iBinder;
@@ -78,7 +78,7 @@ public interface HWIDInterface extends IInterface {
             return result;
         }
 
-        public String  getPPS_oaid() {
+        public String getPPS_oaid() {
             String result = null;
 
             if (Build.VERSION.SDK_INT >= 24) {
@@ -98,7 +98,6 @@ public interface HWIDInterface extends IInterface {
 
             return result;
         }
-
 
 
     }

@@ -12,21 +12,21 @@ import android.os.Parcel;
  */
 public interface SamsungIDInterface extends IInterface {
 
-  String getID();
+    String getID();
 
-  class Proxy implements SamsungIDInterface {
+    class Proxy implements SamsungIDInterface {
 
-    private IBinder mIBinder;
+        private IBinder mIBinder;
 
-    public Proxy(IBinder iBinder) {
-      super();
-      mIBinder = iBinder;
-    }
+        public Proxy(IBinder iBinder) {
+            super();
+            mIBinder = iBinder;
+        }
 
-    @Override
-    public IBinder asBinder() {
-      return mIBinder;
-    }
+        @Override
+        public IBinder asBinder() {
+            return mIBinder;
+        }
 
         @Override
         public String getID() {
@@ -46,27 +46,27 @@ public interface SamsungIDInterface extends IInterface {
             obtain2.recycle();
             obtain.recycle();
 
-      return result;
+            return result;
+        }
     }
-  }
 
     public abstract class Stub extends Binder implements SamsungIDInterface {
 
-    public Stub() {
-      super();
-      this.attachInterface(((IInterface) this), "com.samsung.android.deviceidservice.IDeviceIdService");
-    }
+        public Stub() {
+            super();
+            this.attachInterface(((IInterface) this), "com.samsung.android.deviceidservice.IDeviceIdService");
+        }
 
-    public SamsungIDInterface a(IBinder iBinder) {
-      if (iBinder == null) {
-        return null;
-      }
-      IInterface iInterface = iBinder.queryLocalInterface("com.samsung.android.deviceidservice.IDeviceIdService");
-      if (iInterface == null) {
-        return null;
-      }
-      Proxy proxy = new Proxy(iBinder);
-      return (SamsungIDInterface) proxy;
+        public SamsungIDInterface a(IBinder iBinder) {
+            if (iBinder == null) {
+                return null;
+            }
+            IInterface iInterface = iBinder.queryLocalInterface("com.samsung.android.deviceidservice.IDeviceIdService");
+            if (iInterface == null) {
+                return null;
+            }
+            Proxy proxy = new Proxy(iBinder);
+            return (SamsungIDInterface) proxy;
+        }
     }
-  }
 }
