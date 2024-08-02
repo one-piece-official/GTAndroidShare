@@ -10,8 +10,7 @@ def gitVersionCode() {
 def mVersionCode = 100
 def mVersionName = "1.0.1" + "-SNAPSHOT"
 
-if (project.hasProperty("buildVersion"))
-    mVersionName = "${project.buildVersion}"
+if (project.hasProperty("buildVersion")) mVersionName = "${project.buildVersion}"
 
 android {
     sourceSets {
@@ -19,12 +18,11 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
-    // namespace "com.czhj.sdk.common"
+    compileSdkVersion 33
+
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 29
+        minSdkVersion 19
+        targetSdkVersion 33
         versionCode mVersionCode
         versionName mVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -61,7 +59,6 @@ dependencies {
 //    compileOnly project(':logger')
 //    compileOnly project(':deviceHelper')
     compileOnly project(':lib-aar-local')
-
 }
 
 task copyAAR {
@@ -81,28 +78,3 @@ task copyAAR {
 //        }
     }
 }
-
-
-//apply plugin: 'maven'
-//uploadArchives {
-//    repositories {
-//        mavenDeployer {
-//            repository(url: 'https://packages.aliyun.com/maven/repository/2154005-release-k0onJU/') {
-//                authentication(
-//                        userName: '60484b57e1a7ccc7cc5cb818',
-//                        password: 'h[kPvS)un[t_'
-//                )
-//            }
-//            snapshotRepository(url: 'https://packages.aliyun.com/maven/repository/2154005-snapshot-JYlibY/') {
-//                authentication(
-//                        userName: '60484b57e1a7ccc7cc5cb818',
-//                        password: 'h[kPvS)un[t_'
-//                )
-//            }
-//
-//            pom.version = mVersionName
-//            pom.artifactId = 'wind-common'
-//            pom.groupId = 'com.sigmob.sdk'
-//        }
-//    }
-//}

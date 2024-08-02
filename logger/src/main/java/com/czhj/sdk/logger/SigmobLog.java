@@ -28,6 +28,7 @@ public class SigmobLog {
     }
 
     private SigmobLog() {
+
     }
 
     public static void c(final String message) {
@@ -44,16 +45,11 @@ public class SigmobLog {
         }
     }
 
-
     /**
      * 截断输出日志
-     *
-     * @param msg
-     */
+     **/
     public static void dd(String tag, String msg) {
-        if (tag == null || tag.length() == 0
-                || msg == null || msg.length() == 0)
-            return;
+        if (tag == null || tag.isEmpty() || msg == null || msg.isEmpty()) return;
         int segmentSize = 3 * 1024;
         long length = msg.length();
         if (length <= segmentSize) {// 长度小于等于限制直接打印
@@ -121,8 +117,7 @@ public class SigmobLog {
     /**
      * Adds a {@link Handler} to a {@link Logger} if they are not already associated.
      */
-    private static void addHandler(final Logger logger,
-                                   final Handler handler) {
+    private static void addHandler(final Logger logger, final Handler handler) {
         final Handler[] currentHandlers = logger.getHandlers();
         for (final Handler currentHandler : currentHandlers) {
             if (currentHandler.equals(handler)) {
@@ -194,6 +189,4 @@ public class SigmobLog {
         public void flush() {
         }
     }
-
-
 }
