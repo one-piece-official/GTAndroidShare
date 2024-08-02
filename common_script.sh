@@ -80,7 +80,6 @@ function setDebug() {
       echo "set COMMON_LOGGER_PATH Debug Status : " +${COMMON_IS_DEBUG}
       IS_DEBUG_LINE_NUM=$(grep -n "DEBUG" ${COMMON_LOGGER_PATH} | awk -F: '{print $1}'  | head -n 1)
 
-
       sed -i '' "${IS_DEBUG_LINE_NUM}d" ${COMMON_LOGGER_PATH}
 
       if [ "${COMMON_IS_DEBUG}" == "false" ]; then
@@ -154,7 +153,6 @@ function buildCommonSDK() {
     pushMavenCommonSDK
     newTag
   fi
-
 }
 
 function build() {
