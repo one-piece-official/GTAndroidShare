@@ -20,9 +20,7 @@ android {
         }
     }
     compileSdkVersion 33
-    // namespace "com.wind.common"
     defaultConfig {
-
         applicationId 'com.sigmob.common.android'
         minSdkVersion 19
         targetSdkVersion 33
@@ -98,8 +96,6 @@ dependencies {
     implementation project(':logger')
     implementation project(':deviceHelper')
     implementation project(':lib-aar-local')
-//    implementation 'com.sigmob.sdk:common-cn:1.1'
-//    implementation "com.sigmob.sdk:common-cn:${mVersionName}"
 
 }
 

@@ -1,23 +1,25 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 29
 
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
         }
     }
+
+    compileSdkVersion 33
+
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 29
+        minSdkVersion 19
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
-    // namespace "com.czhj.volley"
+
     buildFeatures {
         buildConfig = false
     }
@@ -39,5 +41,4 @@ dependencies {
     testImplementation "org.mockito:mockito-core:2.2.29"
     testImplementation "org.robolectric:robolectric:4.2.1"
     //noinspection GradleCompatible
-
 }
