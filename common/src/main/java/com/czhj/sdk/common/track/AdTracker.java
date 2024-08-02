@@ -7,7 +7,7 @@ import android.text.TextUtils;
 
 import com.czhj.sdk.common.Database.DBOperator;
 import com.czhj.sdk.common.Database.SQLiteBuider;
-import com.czhj.sdk.common.Database.SQLiteLisenter;
+import com.czhj.sdk.common.Database.SQLiteListener;
 import com.czhj.sdk.common.Database.SQLiteTrackHelper;
 import com.czhj.sdk.logger.SigmobLog;
 
@@ -169,7 +169,7 @@ public class AdTracker implements Serializable {
         try {
             String where = "timestamp < " + (System.currentTimeMillis() - expiredMs);
 
-            DBOperator.getInstance().delete(SQLiteTrackHelper.getInstance().getWritableDatabase(), SQLiteTrackHelper.TABLE_TRACK, where, new SQLiteLisenter() {
+            DBOperator.getInstance().delete(SQLiteTrackHelper.getInstance().getWritableDatabase(), SQLiteTrackHelper.TABLE_TRACK, where, new SQLiteListener() {
                 @Override
                 public void onSuccess(List list) {
 
@@ -216,7 +216,7 @@ public class AdTracker implements Serializable {
 
             if (limitId != null) {
                 String where = "id <'" + limitId + "'";
-                DBOperator.getInstance().delete(SQLiteTrackHelper.getInstance().getWritableDatabase(), SQLiteTrackHelper.TABLE_TRACK, where, new SQLiteLisenter() {
+                DBOperator.getInstance().delete(SQLiteTrackHelper.getInstance().getWritableDatabase(), SQLiteTrackHelper.TABLE_TRACK, where, new SQLiteListener() {
                     @Override
                     public void onSuccess(List list) {
 
@@ -354,7 +354,7 @@ public class AdTracker implements Serializable {
         if (mId == null) return;
         try {
             String where = "id ='" + mId + "'";
-            DBOperator.getInstance().delete(SQLiteTrackHelper.getInstance().getWritableDatabase(), SQLiteTrackHelper.TABLE_TRACK, where, new SQLiteLisenter() {
+            DBOperator.getInstance().delete(SQLiteTrackHelper.getInstance().getWritableDatabase(), SQLiteTrackHelper.TABLE_TRACK, where, new SQLiteListener() {
                 @Override
                 public void onSuccess(List list) {
 

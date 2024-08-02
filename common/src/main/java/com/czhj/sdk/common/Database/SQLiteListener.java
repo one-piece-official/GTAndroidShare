@@ -2,7 +2,7 @@ package com.czhj.sdk.common.Database;
 
 import java.util.List;
 
-public interface SQLiteLisenter {
+public interface SQLiteListener {
 
     void onSuccess(List<?> list);
 

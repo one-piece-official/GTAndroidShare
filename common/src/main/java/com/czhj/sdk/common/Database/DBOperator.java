@@ -76,7 +76,7 @@ public class DBOperator {
      * @param tableName   表对应的model
      * @param whereClause 删除条件
      */
-    public void delete(SQLiteDatabase database, final String tableName, String whereClause, SQLiteLisenter execCallBack) {
+    public void delete(SQLiteDatabase database, final String tableName, String whereClause, SQLiteListener execCallBack) {
         try {
             SQLiteDeleteThread task = new SQLiteDeleteThread(database, tableName, whereClause, execCallBack);
             executor.submit(task);
@@ -105,10 +105,10 @@ public class DBOperator {
 
         private final String table;
         private final String whereClause;
-        private final SQLiteLisenter callBack;
+        private final SQLiteListener callBack;
         private final SQLiteDatabase sqLiteDatabase;
 
-        SQLiteDeleteThread(SQLiteDatabase database, String table, String whereClause, SQLiteLisenter callBack) {
+        SQLiteDeleteThread(SQLiteDatabase database, String table, String whereClause, SQLiteListener callBack) {
             this.table = table;
             this.sqLiteDatabase = database;
             this.whereClause = whereClause;
