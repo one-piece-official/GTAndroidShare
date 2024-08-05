@@ -11,7 +11,7 @@ import com.czhj.volley.VolleyError;
 public class TrackingRequest extends Request<NetworkResponse> {
 
     private static final int ZERO_RETRIES = 0;
-    private static int reTryFailCount = 0;
+    private static final int reTryFailCount = 0;
     private final RequestListener mListener;
 
     public TrackingRequest(String url, int retryNum, RequestListener mListener) {

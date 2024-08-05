@@ -59,7 +59,6 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     /**
      * 0=无法探测当前网络状态; 1=蜂窝数据接入，未知网络类型; 2=2G; 3=3G; 4=4G; 5=5G; 100=Wi-Fi网络接入; 101=以太网接入
      */
-
     private static volatile ClientMetadata sInstance;
     // Network type constant defined after API 9:
     private Location mLocation;
@@ -120,13 +119,12 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
 
     public static Integer getDeviceOSLevel() {
         return DeviceUtils.getDeviceOSLevel();
-
     }
 
     public static String getMacAddress() {
         try {
             return DeviceHelper.getMacAddress();
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return "";
@@ -135,12 +133,11 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public static String getCPUInfo() {
         try {
             return DeviceUtils.getCPUInfo();
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return null;
     }
-
 
     public static String getCPUModel() {
         return Build.BOARD;
@@ -154,7 +151,6 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
         }
         return null;
     }
-
 
     public static PackageInfo getPackageInfoWithUri(Context context, String path) {
         try {
@@ -171,7 +167,6 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
      * ClientMetadata. If the object has never been referenced from a thread with a context,
      * this will return null.
      */
-
     public static ClientMetadata getInstance() {
         if (sInstance == null) {
             synchronized (ClientMetadata.class) {
@@ -184,7 +179,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public static boolean isRoot() {
         try {
             return DeviceUtils.isRoot();
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return false;
@@ -193,7 +188,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public static boolean isEmulator() {
         try {
             return DeviceUtils.isEmulator();
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return false;
@@ -211,7 +206,6 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
         editor.apply();
         return mUDID;
     }
-
 
     public static boolean isPermissionGranted(final Context context, final String permission) {
 
@@ -234,7 +228,6 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
         }
     }
 
-
     public static void setOaidCertFileName(String fileName) {
         try {
 
@@ -243,7 +236,6 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
             SigmobLog.e("not support OAID Module");
         }
     }
-
 
     public static Map<String, String> getQueryParamMap(final Uri uri) {
 
@@ -279,7 +271,6 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
         return display.getRotation();
     }
 
-
     private String getOAIDSDK() {
 
         if (!TextUtils.isEmpty(mOAID_SDK)) {
@@ -307,11 +298,10 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
 
                 }
             });
-        } catch (Throwable th) {
+        } catch (Throwable ignored) {
 
         }
         return mOAID_SDK;
-
     }
 
     public String getOAID_API() {
@@ -342,7 +332,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
                 });
             }
 
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return null;
@@ -350,9 +340,8 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
 
     public String getAndroidId() {
         try {
-
             return DeviceUtils.getAndroidId(mContext);
-        } catch (Throwable th) {
+        } catch (Throwable ignored) {
 
         }
         return null;
@@ -360,9 +349,8 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
 
     public String getApkSha1() {
         try {
-
             return DeviceUtils.getApkSha1OrMd5(mContext, "SHA1");
-        } catch (Throwable th) {
+        } catch (Throwable ignored) {
 
         }
         return null;
@@ -370,9 +358,8 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
 
     public String getApkMd5() {
         try {
-
             return DeviceUtils.getApkSha1OrMd5(mContext, "MD5");
-        } catch (Throwable th) {
+        } catch (Throwable ignored) {
 
         }
         return null;
@@ -383,7 +370,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
             if (Constants.GOOGLE_PLAY) {
                 return mIdentifierManager.getAdvertisingInfo().mAdvertisingId;
             }
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return null;
@@ -394,7 +381,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
             if (Constants.GOOGLE_PLAY) {
                 return mIdentifierManager.getAdvertisingInfo().mDoNotTrack;
             }
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return false;
@@ -413,7 +400,6 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
 
     public synchronized String getDeviceId(int index) {
         try {
-
             if (TextUtils.isEmpty(mImei) && Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
 
                 if (!DeviceUtils.isCanUsePhoneState(mContext) || !DeviceUtils.isCanRetryIMEI())
@@ -431,14 +417,12 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
                 return mImeiIndex1;
             }
         } catch (Throwable t) {
-
             SigmobLog.e("getDeviceId:" + t.getMessage());
         }
         return null;
     }
 
     public String getBootId() {
-
         try {
             if (Config.sharedInstance().isDisableBootMark()) return "";
 
@@ -485,7 +469,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public String getDeviceSerial() {
         try {
             return DeviceUtils.getDeviceSerial();
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return null;
@@ -494,7 +478,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public String getIMSI() {
         try {
             return DeviceHelper.getIMSI(mContext);
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return null;
@@ -507,7 +491,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public boolean isTablet() {
         try {
             return DeviceUtils.isTablet(mContext);
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return false;
@@ -516,7 +500,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public Float getBatteryLevel() {
         try {
             return DeviceUtils.getBatteryLevel(mContext);
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return 0.0f;
@@ -525,17 +509,16 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public Integer getBatteryState() {
         try {
             return DeviceUtils.getBatteryState(mContext);
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return 0;
     }
 
     public Boolean getBatterySaveEnable() {
-
         try {
             return DeviceUtils.getBatterySaveEnable(mContext);
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return false;
@@ -544,7 +527,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public int getDensityDpi() {
         try {
             return (int) DeviceUtils.getDensityDpi(mContext);
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return 0;
@@ -553,7 +536,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public Integer getDeviceScreenHeightDip() {
         try {
             return (int) DeviceUtils.getDeviceScreenHeightDip(mContext);
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return 0;
@@ -562,7 +545,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public Integer getDeviceScreenWidthDip() {
         try {
             return (int) DeviceUtils.getDeviceScreenWidthDip(mContext);
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return 0;
@@ -571,7 +554,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public String getSDCardPath() {
         try {
             return DeviceUtils.getSDCardPath(mContext);
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return null;
@@ -580,7 +563,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public Integer getDeviceScreenRealHeightDip() {
         try {
             return DeviceUtils.getDeviceScreenRealHeightDip(mContext);
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return null;
@@ -589,7 +572,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public Integer getDeviceScreenRealWidthDip() {
         try {
             return DeviceUtils.getDeviceScreenRealWidthDip(mContext);
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return null;
@@ -600,7 +583,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
             if (!TextUtils.isEmpty(targetSdkVersion)) return targetSdkVersion;
             targetSdkVersion = String.valueOf(mContext.getApplicationInfo().targetSdkVersion);
             return targetSdkVersion;
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return null;
@@ -609,7 +592,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public String getAppPackageName() {
         try {
             return AppPackageUtil.getAppPackageName(mContext);
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return null;
@@ -618,7 +601,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public Integer getOrientationInt() {
         try {
             return DeviceUtils.getOrientationInt(mContext);
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return 0;
@@ -627,7 +610,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public String getAppVersion() {
         try {
             return AppPackageUtil.getAppVersionFromContext(mContext);
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return null;
@@ -636,7 +619,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public int getActiveNetworkType() {
         try {
             return DeviceUtils.getActiveNetworkType().getId();
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return DeviceUtils.NetworkType.UNKNOWN.getId();
@@ -645,7 +628,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public String getNetworkOperatorForUrl() {
         try {
             return DeviceUtils.getNetworkOperatorForUrl(mContext);
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return null;
@@ -654,7 +637,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public String getNetworkOperatorName() {
         try {
             return DeviceUtils.getNetworkOperatorName(mContext);
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return null;
@@ -663,7 +646,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public String getWifimac() {
         try {
             return DeviceHelper.getWifimac(mContext);
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return null;
@@ -672,7 +655,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public String getWifiName() {
         try {
             return DeviceHelper.getWifiName(mContext);
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return null;
@@ -682,7 +665,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public String getBlueToothName() {
         try {
             return DeviceUtils.getBlueToothName(mContext);
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return null;
@@ -691,15 +674,13 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public Locale getDeviceLocale() {
         try {
             return DeviceUtils.getDeviceLocale(mContext);
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return null;
     }
 
     public String getOAID() {
-
-
         int disable_up_oAid = Config.sharedInstance().getDisable_up_OAid();
         boolean oaidApiDisable = Config.sharedInstance().getOaidApiDisable();
 
@@ -709,7 +690,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
 
         String oaid = getOAID_SDK();
 
-        if (TextUtils.isEmpty(oaid) && oaidSDKCallbacked ) {
+        if (TextUtils.isEmpty(oaid) && oaidSDKCallbacked) {
             oaid = getOAID_API();
         }
 
@@ -741,19 +722,16 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
 //                case 2://禁止上传
 //                    return null;
             }
-
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return null;
     }
 
     public DisplayMetrics getRealMetrics() {
-
         try {
             return DeviceUtils.getRealMetrics(mContext);
-        } catch (Throwable t) {
-
+        } catch (Throwable ignored) {
 
         }
         return DeviceUtils.getDisplayMetrics(mContext);
@@ -770,7 +748,6 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     // Cached client metadata used for generating URLs and events.
 
     public void setUid(String uid) {
-
         try {
             if (!TextUtils.isEmpty(uid) && (TextUtils.isEmpty(this.uid) || !uid.equalsIgnoreCase(this.uid))) {
                 this.uid = uid;
@@ -782,11 +759,9 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
         } catch (Throwable e) {
             SigmobLog.e(e.getMessage());
         }
-
     }
 
     public void setWindInsets(WindowInsets insets) {
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
             if (insets != null && insets.isRound()) {
                 mInsetBottom = insets.getSystemWindowInsetBottom();
@@ -861,7 +836,6 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
 
             install_time = SharedPreferencesUtil.getSharedPreferences(mContext).getLong("install_time", 0);
 
-
             if (install_time == 0) {
                 PackageInfo packageInfo = AppPackageUtil.getPackageInfo(context);
 
@@ -906,11 +880,6 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
                 }
             }
 
-//            try {
-//                getOAID();
-//            } catch (Throwable th) {
-//
-//            }
             mIdentifierManager = new IdentifierManager(mContext, this);
             SQLiteMTAHelper.initialize(mContext);
             SQLiteTrackHelper.initialize(mContext);
@@ -934,7 +903,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public String getDeviceName() {
         try {
             return DeviceUtils.getDeviceName(mContext);
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return null;
@@ -943,7 +912,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public Long getSystemTotalMemorySize() {
         try {
             return DeviceUtils.getSysteTotalMemorySize(mContext);
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return null;
@@ -952,7 +921,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public DisplayMetrics getDisplayMetrics() {
         try {
             return DeviceUtils.getDisplayMetrics(mContext);
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
 
         }
         return null;
@@ -962,8 +931,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
         try {
             URL url = new URL(configUrl);
             return SigmobRequestUtil.isConnection(url.getHost());
-
-        } catch (Throwable throwable) {
+        } catch (Throwable ignored) {
         }
         return false;
     }
@@ -971,18 +939,14 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public String getRotation() {
         try {
             return DeviceUtils.getRotation(mContext);
-        } catch (Throwable throwable) {
+        } catch (Throwable ignored) {
         }
         return null;
     }
 
-
     DownloadManager getDownloadManager() {
-        DownloadManager manager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-
-        return manager;
+        return (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
     }
-
 
     private boolean isNoOptions() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
@@ -992,9 +956,8 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
         Intent intent = null;
         intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
 
-
         List<ResolveInfo> list = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-        return list.size() > 0;
+        return !list.isEmpty();
     }
 
     public LocationManager getLocationManager() {
@@ -1015,8 +978,6 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     @SuppressLint("MissingPermission")
     public Location getLocation() {
         try {
-
-
             if (!enableLocation) {
                 return null;
             }
@@ -1048,26 +1009,6 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
 
         mLocation = location;
     }
-
-//    public RefWatcher getRefWatcher(Context context) {
-//
-//        if (!Constants.IS_TEST) return null;
-//
-//        try {
-//            Field field = context.getClass().getDeclaredField("refWatcher");
-//            field.setAccessible(true);
-//            RefWatcher refWatcher = (RefWatcher) field.get(context);
-//
-//            return refWatcher;
-//        } catch (NoSuchFieldException e) {
-//             SigmobLog.e(e.getMessage());
-//        } catch (IllegalAccessException e) {
-//             SigmobLog.e(e.getMessage());
-//        } catch (Throwable e) {
-//             SigmobLog.e(e.getMessage());
-//        }
-//        return null;
-//    }
 
     public String getPermission(Context context) {
         String permissionReq = "";
@@ -1106,14 +1047,6 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
         return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
     }
 
-//
-//    @SuppressLint("MissingPermission")
-//    ClientMetadata(Context context) {
-//        mContext = context.getApplicationContext();
-//        uid = SharedPreferencesUtil.getSharedPreferences(mContext).getString("uid", null);
-//        mIdentifierManager = new IdentifierManager(mContext, this);
-//    }
-
     /**
      * public String getAdvertisingId(){
      * return  mIdentifierManager.getAdvertisingInfo().mAdvertisingId;
@@ -1122,7 +1055,6 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
      *
      * @return the name of the application the SDK is included in.
      */
-
     public long getInstallTime() {
         return install_time;
     }
@@ -1131,10 +1063,8 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
         return AppPackageUtil.getAppName(mContext);
     }
 
-
     public enum ForceOrientation {
         FORCE_PORTRAIT("portrait"), FORCE_LANDSCAPE("landscape"), DEVICE_ORIENTATION("device"), UNDEFINED("");
-
 
         private final String mKey;
 

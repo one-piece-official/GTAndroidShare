@@ -23,7 +23,6 @@ public class BaseMacroCommon implements Serializable {
 
         _MC_, _COUNTRY_, _TIMESTAMP_, _OSVERSION_, _BUNDLEID_, _LANGUAGE_, _TIMEMILLIS_;
 
-
         static String getMacroValue(String macroName) {
 
             try {
@@ -139,7 +138,6 @@ public class BaseMacroCommon implements Serializable {
     }
 
     public String macroProcess(String url) {
-
         return this.macroProcess(url, null);
     }
 
