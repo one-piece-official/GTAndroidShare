@@ -30,9 +30,6 @@ public abstract class PointEntitySuper {
     private static long seqId = 1;
     protected Object mPointEntityClass;
     private String ac_type;
-    private String is_mediation;
-    private String appinfo_switch;
-    private String location_switch;
     private String category;
     private String sub_category;
     private String ext;
@@ -63,7 +60,7 @@ public abstract class PointEntitySuper {
         return "2";
     }
 
-    public String getGameversion() {
+    public String getAppVersion() {
         return ClientMetadata.getInstance().getAppVersion();
     }
 
@@ -80,7 +77,6 @@ public abstract class PointEntitySuper {
         }
 
         return name;
-
     }
 
     public static String captureName(String name) {
@@ -107,7 +103,6 @@ public abstract class PointEntitySuper {
             SigmobLog.e(e.getMessage());
         }
         return "";
-
     }
 
     public int getCompatible() {
@@ -164,32 +159,16 @@ public abstract class PointEntitySuper {
 
     public void commit() {
         mPointEntityClass = this;
-
         if (TextUtils.isEmpty(this.timestamp)) {
             setTimestamp(String.valueOf(System.currentTimeMillis()));
         }
         ThreadPoolFactory.BackgroundThreadPool.getInstance().submit(new Runnable() {
             @Override
             public void run() {
-
                 insertToDB(null);
             }
         });
-
     }
-
-    public String testJsonString() {
-        Map<String, Object> map = toMap();
-
-        if (getOptions() != null) {
-            map.remove("options");
-            map.putAll(getOptions());
-        }
-
-        String item = toJsonString(map);
-        return item;
-    }
-
 
     public Map<String, String> getOptions() {
         if (options == null) {
@@ -202,18 +181,13 @@ public abstract class PointEntitySuper {
         this.options = options;
     }
 
-
     public abstract boolean isAcTypeBlock();
 
     public abstract String appId();
 
     public void insertToDB(final SQLiteMTAHelper.ExecCallBack execCallBack) {
-
         //begin
-
         try {
-
-
             if (isAcTypeBlock() || TextUtils.isEmpty(appId())) {
                 return;
             }
@@ -224,32 +198,31 @@ public abstract class PointEntitySuper {
                 map.remove("options");
                 map.putAll(getOptions());
             }
-            String uniqKey = "sigandroid_" + appId();
 
-            map.put("_uniq_key", uniqKey);
+            String uniqueKey = "gt_android_" + appId();
 
+            map.put("_unique_key", uniqueKey);
 
             String item = toJsonString(map);
             if (TextUtils.isEmpty(item)) {
                 return;
             }
 
-
-            SigmobLog.d("dcdebug:" + item);
+            SigmobLog.d("dc_debug:" + item);
 
             SQLiteMTAHelper mtaHelper = SQLiteMTAHelper.getInstance();
 
             if (mtaHelper == null) {
-
 //                BuriedPointManager.getInstance().addWaitSend(item);
                 return;
             }
+
             SQLiteDatabase database = mtaHelper.getWritableDatabase();
 
             SQLiteBuider.Insert.Builder builder = new SQLiteBuider.Insert.Builder();
             builder.setTableName(SQLiteMTAHelper.TABLE_POINT);
             Map<String, Object> values = new HashMap<>();
-            values.put("item", AESUtil.EncryptString(item, Constants.AESKEY));
+            values.put("item", AESUtil.EncryptString(item, Constants.AES_KEY));
             values.put("encryption", 1);
             builder.setColumnValues(values);
 
@@ -257,7 +230,6 @@ public abstract class PointEntitySuper {
                 @Override
                 public void onSuccess() {
                     SigmobLog.d("insert success!");
-
                     if (execCallBack != null) {
                         execCallBack.onSuccess();
                     }
@@ -271,7 +243,6 @@ public abstract class PointEntitySuper {
                     SigmobLog.e(e.getMessage());
                 }
             });
-
         } catch (Throwable e) {
             SigmobLog.e(e.getMessage());
         }
@@ -281,19 +252,19 @@ public abstract class PointEntitySuper {
     private boolean urlEncodeFilter(String key) {
 //        String[] filter = {"motion_before", "motion_after", "custom_info"};
         String[] filter = {"motion_before", "motion_after"};
-
         return Arrays.asList(filter).contains(key);
     }
 
     public String toJsonString(Map<String, Object> map) {
 
-        if (map.size() == 0) return null;
+        if (map.isEmpty()) return null;
 
         StringBuilder builder = new StringBuilder();
         builder.append("{");
         Iterator<Map.Entry<String, Object>> entryIterator = map.entrySet().iterator();
 
         boolean isValid = false;
+
         while (entryIterator.hasNext()) {
 
             Map.Entry entry = entryIterator.next();
@@ -326,13 +297,11 @@ public abstract class PointEntitySuper {
     }
 
     public void sendServe() {
-
         sendServe(null);
     }
 
     public void sendServe(BuriedPointRequest.RequestListener listener) {
         mPointEntityClass = this;
-
 
         Map<String, Object> map = toMap();
 
@@ -346,16 +315,10 @@ public abstract class PointEntitySuper {
                 jsonStringBuilder.append(item);
                 jsonStringBuilder.append("]");
 
-                String json = jsonStringBuilder.toString();
-
-                String uniqKey = "sigandroid_" + appId();
-                String dcLog = "_uniq_key=" + uniqKey + "&_batch_value=" + json;
+                String dcLog = jsonStringBuilder.toString();
                 String rawData = BuriedPointManager.deflateAndBase64(dcLog);
                 String body = toURLEncoded(rawData);
-
-
                 BuriedPointRequest.BuriedPointSend(body, listener);
-
             } catch (Exception e) {
                 SigmobLog.e(e.getMessage());
             }
@@ -366,7 +329,6 @@ public abstract class PointEntitySuper {
         List<Method> methods = ReflectionUtil.getMethodWithTraversal(mPointEntityClass.getClass());
 
         HashMap<String, Object> map = new HashMap<>(methods.size());
-
 
         for (Method method : methods) {
 
@@ -403,14 +365,12 @@ public abstract class PointEntitySuper {
         }
 
         return map;
-
     }
 
 
     public String getUser_id() {
         return ClientMetadata.getUserId();
     }
-
 
     public String getAc_type() {
         return ac_type;
@@ -420,10 +380,9 @@ public abstract class PointEntitySuper {
         this.ac_type = ac_type;
     }
 
-    public String getWmsession_id() {
+    public String getSession_id() {
         return mSessionId;
     }
-
 
     public String getSeq_id() {
         return String.valueOf(PointEntitySuper.getSeqId());
@@ -433,8 +392,7 @@ public abstract class PointEntitySuper {
         return ClientMetadata.getInstance().getUid();
     }
 
-
-    public String getClientversion() {
+    public String getClientOsVersion() {
         return ClientMetadata.getDeviceOsVersion();
     }
 
@@ -459,13 +417,11 @@ public abstract class PointEntitySuper {
         return ClientMetadata.getInstance().getDeviceId();
     }
 
-
     public String getImei1() {
         if (getDeviceContext() != null) {
             return getDeviceContext().getImei1();
         }
         return ClientMetadata.getInstance().getDeviceId(0);
-
     }
 
     public String getCarrier() {
@@ -479,7 +435,6 @@ public abstract class PointEntitySuper {
         return ClientMetadata.getInstance().getAdvertisingId();
     }
 
-
     public String getOaid() {
         if (getDeviceContext() != null) {
             return getDeviceContext().getOaid();
@@ -487,18 +442,11 @@ public abstract class PointEntitySuper {
         return ClientMetadata.getInstance().getOAID();
     }
 
+    public abstract String getSdkVersion();
 
-    public abstract String getSdkversion();
-
-
-//    public String getOaid_api() {
-//        return ClientMetadata.getInstance().getOAID_API();
-//    }
-
-    public String getNetworktype() {
+    public String getNetworkType() {
         return String.valueOf(ClientMetadata.getInstance().getActiveNetworkType());
     }
-
 
     public String getTimestamp() {
         if (TextUtils.isEmpty(this.timestamp)) {
@@ -508,7 +456,6 @@ public abstract class PointEntitySuper {
     }
 
     public void setTimestamp(String timestamp) {
-
         this.timestamp = timestamp;
     }
 
@@ -534,30 +481,6 @@ public abstract class PointEntitySuper {
 
     public void setExt(String ext) {
         this.ext = ext;
-    }
-
-    public String getAppinfo_switch() {
-        return appinfo_switch;
-    }
-
-    public void setAppinfo_switch(String appinfo_switch) {
-        this.appinfo_switch = appinfo_switch;
-    }
-
-    public String getLocation_switch() {
-        return location_switch;
-    }
-
-    public void setLocation_switch(String location_switch) {
-        this.location_switch = location_switch;
-    }
-
-    public String getIs_mediation() {
-        return is_mediation;
-    }
-
-    public void setIs_mediation(String is_mediation) {
-        this.is_mediation = is_mediation;
     }
 
 }

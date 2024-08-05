@@ -27,7 +27,6 @@ import com.czhj.devicehelper.DeviceHelper;
 import com.czhj.devicehelper.oaId.helpers.DevicesIDsHelper;
 import com.czhj.sdk.common.Database.SQLiteMTAHelper;
 import com.czhj.sdk.common.Database.SQLiteTrackHelper;
-import com.czhj.sdk.common.ThreadPool.BackgroundThreadFactory;
 import com.czhj.sdk.common.ThreadPool.RepeatingHandlerRunnable;
 import com.czhj.sdk.common.ThreadPool.ThreadPoolFactory;
 import com.czhj.sdk.common.models.Config;
@@ -299,7 +298,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
                         if (!oaid.equalsIgnoreCase(mOaid)) {
                             SharedPreferences sharedPreferences = SharedPreferencesUtil.getSharedPreferences(mContext);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("oaid_aes_gcm", AESUtil.EncryptString(oaid, Constants.AESKEY));
+                            editor.putString("oaid_aes_gcm", AESUtil.EncryptString(oaid, Constants.AES_KEY));
                             editor.apply();
                         }
 
@@ -334,7 +333,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
                             if (!oaid.equalsIgnoreCase(mOaid)) {
                                 SharedPreferences sharedPreferences = SharedPreferencesUtil.getSharedPreferences(mContext);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString("oaid_aes_gcm", AESUtil.EncryptString(oaid, Constants.AESKEY));
+                                editor.putString("oaid_aes_gcm", AESUtil.EncryptString(oaid, Constants.AES_KEY));
                                 editor.apply();
                             }
 
@@ -777,7 +776,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
                 this.uid = uid;
                 SharedPreferences sharedPreferences = SharedPreferencesUtil.getSharedPreferences(mContext);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("uid_aes_gcm", AESUtil.EncryptString(uid, Constants.AESKEY));
+                editor.putString("uid_aes_gcm", AESUtil.EncryptString(uid, Constants.AES_KEY));
                 editor.apply();
             }
         } catch (Throwable e) {
@@ -882,27 +881,27 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
             String uid_aes = SharedPreferencesUtil.getSharedPreferences(mContext).getString("uid_aes_gcm", null);
 
             if (uid_aes != null) {
-                uid = AESUtil.DecryptString(uid_aes, Constants.AESKEY);
+                uid = AESUtil.DecryptString(uid_aes, Constants.AES_KEY);
             } else {
                 uid = SharedPreferencesUtil.getSharedPreferences(mContext).getString("uid", null);
 
                 if (uid != null) {
                     SharedPreferences.Editor edit = SharedPreferencesUtil.getSharedPreferences(mContext).edit();
                     edit.remove("uid");
-                    edit.putString("uid_aes_gcm", AESUtil.EncryptString(uid, Constants.AESKEY));
+                    edit.putString("uid_aes_gcm", AESUtil.EncryptString(uid, Constants.AES_KEY));
                     edit.apply();
                 }
             }
 
             String oaid_aes = SharedPreferencesUtil.getSharedPreferences(mContext).getString("oaid_aes_gcm", null);
             if (oaid_aes != null) {
-                mOaid = AESUtil.DecryptString(oaid_aes, Constants.AESKEY);
+                mOaid = AESUtil.DecryptString(oaid_aes, Constants.AES_KEY);
             } else {
                 mOaid = SharedPreferencesUtil.getSharedPreferences(mContext).getString("oaid", null);
                 if (mOaid != null) {
                     SharedPreferences.Editor edit = SharedPreferencesUtil.getSharedPreferences(mContext).edit();
                     edit.remove("oaid");
-                    edit.putString("oaid_aes_gcm", AESUtil.EncryptString(mOaid, Constants.AESKEY));
+                    edit.putString("oaid_aes_gcm", AESUtil.EncryptString(mOaid, Constants.AES_KEY));
                     edit.apply();
                 }
             }

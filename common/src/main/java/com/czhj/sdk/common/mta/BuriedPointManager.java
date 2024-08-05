@@ -43,11 +43,10 @@ public class BuriedPointManager {
 
     private volatile boolean isSending;
     private static BuriedPointManager sInstance;
-    private Set<Integer> mLogBackList = new HashSet<>();
+    private final Set<Integer> mLogBackList = new HashSet<>();
     private SQLiteDatabase database;
     private int wait_send_size;
     private RepeatingHandlerRunnable repeatingHandlerRunnable;
-
 
     private BuriedPointManager() {
 
@@ -168,13 +167,11 @@ public class BuriedPointManager {
                     String item = cursor.getString(itemColumn);
                     Integer id = cursor.getInt(idColumn);
                     Integer encryption = cursor.getInt(encrypColumn);
-
-
                     if (!TextUtils.isEmpty(item)) {
                         if (encryption == 1) {
-                            String s = AESUtil.DecryptString(item, Constants.AESKEY);
+                            String s = AESUtil.DecryptString(item, Constants.AES_KEY);
                             if (!TextUtils.isEmpty(s)) {
-                                stringList.put(id, AESUtil.DecryptString(item, Constants.AESKEY));
+                                stringList.put(id, AESUtil.DecryptString(item, Constants.AES_KEY));
                             }
                         } else {
                             stringList.put(id, item);
@@ -320,11 +317,10 @@ public class BuriedPointManager {
 
             jsonStringBuilder.append("]");
 
-            String json = jsonStringBuilder.toString();
+            String dcLog = jsonStringBuilder.toString();
 
-            String dcLog = "_batch_value=" + json;
             try {
-                SigmobLog.d("_batch_value: " + json);
+                SigmobLog.d("dcLog: " + dcLog);
                 SigmobLog.d("BPLog_Count: " + send_value.size());
                 String rawData = deflateAndBase64(dcLog);
                 body = PointEntitySuper.toURLEncoded(rawData);
@@ -336,7 +332,6 @@ public class BuriedPointManager {
             SigmobLog.e("sendPoint fail ", th);
         } finally {
             readWriteLock.readLock().unlock();
-
         }
 
         return body;

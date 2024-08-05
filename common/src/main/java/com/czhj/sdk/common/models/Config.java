@@ -19,7 +19,6 @@ public class Config {
 
     public static Config sharedInstance() {
         if (gInstance == null) {
-
             synchronized (Config.class) {
                 if (gInstance == null) {
                     gInstance = new Config();
@@ -57,6 +56,7 @@ public class Config {
     }
 
     private String log;
+
     private boolean logenc;
 
     public void update(boolean isGDPRRegion, boolean disable_boot_mark, boolean disable_oaid_api, int disable_up_oaid, String log, int send_log_interval, int max_send_log_records, boolean logenc) {

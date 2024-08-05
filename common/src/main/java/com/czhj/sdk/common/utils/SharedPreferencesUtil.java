@@ -10,9 +10,7 @@ import com.czhj.sdk.common.Constants;
 
 public final class SharedPreferencesUtil {
 
-//    private static final String DEFAULT_PREFERENCE_NAME = "com.Sigmob.Settings";
-
-    private static String DEFAULT_PREFERENCE_NAME = "com." + Constants.SDK_COMMON_FOLDER + ".Settings";
+    private static String DEFAULT_PREFERENCE_NAME = "com." + Constants.SDK_COMMON_FOLDER + ".setting";
 
     private SharedPreferencesUtil(String default_preference_name) {
 

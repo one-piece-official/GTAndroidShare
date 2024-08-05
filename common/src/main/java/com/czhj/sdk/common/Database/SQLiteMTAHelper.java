@@ -17,8 +17,8 @@ public class SQLiteMTAHelper extends SQLiteOpenHelper {
     private static String DEFAULT_MTA_NAME = Constants.SDK_COMMON_FOLDER + "_mta.db";
 
     private static final int DATABASE_VERSION = 10;
-    private static String create_point_Sql = "CREATE TABLE point ( point_id integer  primary key  ,item text , encryption int);\n";
 
+    private static String create_point_Sql = "CREATE TABLE point ( point_id integer  primary key  ,item text , encryption int);\n";
 
     // errors are negative, ok is 0, anything else is positive.
     private static final long DB_ERROR_NULL = -6;
@@ -28,11 +28,9 @@ public class SQLiteMTAHelper extends SQLiteOpenHelper {
     public static final long DB_WRITE_ERROR = -1; // from SQLiteDatabase if an error occurred
     private static final long DB_OK = 0;
 
-
     private static SQLiteMTAHelper gInstance = null;
 
     private static SQLiteDatabase writedb = null;
-
 
     public SQLiteMTAHelper(final Context context) {
         super(context, DEFAULT_MTA_NAME, null, DATABASE_VERSION);
@@ -165,10 +163,7 @@ public class SQLiteMTAHelper extends SQLiteOpenHelper {
 
     @Override
     public void onDowngrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-        Log.w(SQLiteMTAHelper.class.getName(),
-                "Downgrading database from version " + oldVersion + " to "
-                        + newVersion + ", which will destroy all old data"
-        );
+        Log.w(SQLiteMTAHelper.class.getName(), "Downgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
 
         recreateDb(database);
 
@@ -189,10 +184,7 @@ public class SQLiteMTAHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-        Log.w(SQLiteMTAHelper.class.getName(),
-                "Upgrading database from version " + oldVersion + " to "
-                        + newVersion + ", which will destroy all old data"
-        );
+        Log.w(SQLiteMTAHelper.class.getName(), "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
         if (oldVersion == 9) {
             recreateDb(database);
         } else if (newVersion > 8) {

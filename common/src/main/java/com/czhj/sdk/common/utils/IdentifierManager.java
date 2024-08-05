@@ -118,7 +118,7 @@ public class IdentifierManager {
             final String ifa_id_aes = preferences.getString(PREF_IFA_IDENTIFIER_AES, "");
             final String ifa_id;
             if (!TextUtils.isEmpty(ifa_id_aes)) {
-                ifa_id = AESUtil.DecryptString(ifa_id_aes, Constants.AESKEY);
+                ifa_id = AESUtil.DecryptString(ifa_id_aes, Constants.AES_KEY);
             } else {
                 ifa_id = preferences.getString(PREF_IFA_IDENTIFIER, "");
             }
@@ -143,7 +143,7 @@ public class IdentifierManager {
         final SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean(PREF_LIMIT_AD_TRACKING, info.mDoNotTrack);
         editor.remove(PREF_IFA_IDENTIFIER);
-        editor.putString(PREF_IFA_IDENTIFIER_AES, AESUtil.EncryptString(info.mAdvertisingId, Constants.AESKEY));
+        editor.putString(PREF_IFA_IDENTIFIER_AES, AESUtil.EncryptString(info.mAdvertisingId, Constants.AES_KEY));
         editor.putString(PREF_Sigmob_IDENTIFIER, info.mSigmobId);
         editor.putLong(PREF_IDENTIFIER_TIME, info.mLastRotation.getTimeInMillis());
         editor.apply();

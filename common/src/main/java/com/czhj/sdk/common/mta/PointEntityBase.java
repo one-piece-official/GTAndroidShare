@@ -3,22 +3,17 @@ package com.czhj.sdk.common.mta;
 
 public abstract class PointEntityBase extends PointEntitySuper {
 
-    private String adtype;
+    private String adType;
     private String placement_id;
     private String load_id;
     private String platform;
-    private String vtime;
-    private String ad_scene;
-    private String scene_desc;
-    private String scene_id;
 
-
-    public String getAdtype() {
-        return adtype;
+    public String getAdType() {
+        return adType;
     }
 
-    public void setAdtype(String adtype) {
-        this.adtype = adtype;
+    public void setAdType(String adType) {
+        this.adType = adType;
     }
 
     public String getPlacement_id() {
@@ -43,37 +38,5 @@ public abstract class PointEntityBase extends PointEntitySuper {
 
     public void setPlatform(String platform) {
         this.platform = platform;
-    }
-
-    public String getVtime() {
-        return vtime;
-    }
-
-    public void setVtime(String vtime) {
-        this.vtime = vtime;
-    }
-
-    public String getAd_scene() {
-        return ad_scene;
-    }
-
-    public void setAd_scene(String ad_scene) {
-        this.ad_scene = ad_scene;
-    }
-
-    public String getScene_desc() {
-        return scene_desc;
-    }
-
-    public void setScene_desc(String scene_desc) {
-        this.scene_desc = scene_desc;
-    }
-
-    public String getScene_id() {
-        return scene_id;
-    }
-
-    public void setScene_id(String scene_id) {
-        this.scene_id = scene_id;
     }
 }

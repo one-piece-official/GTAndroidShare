@@ -28,11 +28,9 @@ public class SQLiteTrackHelper extends SQLiteOpenHelper {
     public static final long DB_WRITE_ERROR = -1; // from SQLiteDatabase if an error occurred
     private static final long DB_OK = 0;
 
-
     private static SQLiteTrackHelper gInstance = null;
 
     private static SQLiteDatabase writedb = null;
-
 
     public SQLiteTrackHelper(final Context context) {
         super(context, DEFAULT_MTA_NAME, null, DATABASE_VERSION);
@@ -71,15 +69,12 @@ public class SQLiteTrackHelper extends SQLiteOpenHelper {
 
     public static void insert(SQLiteDatabase sqLiteDatabase, SQLiteBuider.Insert insert, ExecCallBack callBack) {
         sqLiteDatabase.beginTransaction();
-
-
         boolean result = false;
         try {
 
             SQLiteStatement sqlListStatment = sqLiteDatabase.compileStatement(insert.sql);
 
             for (int i = 1; i <= insert.columns.size(); i++) {
-
 
                 String colume = (String) insert.columns.get(i - 1);
                 Object value = insert.values.get(colume);
@@ -121,7 +116,6 @@ public class SQLiteTrackHelper extends SQLiteOpenHelper {
         }
     }
 
-
     public void transactionWriteExecSQL(SQLiteDatabase sqLiteDatabase, String sql, ExecCallBack callBack) {
         sqLiteDatabase.beginTransaction();
 
@@ -162,13 +156,11 @@ public class SQLiteTrackHelper extends SQLiteOpenHelper {
         }
     }
 
-
     @Override
     public void onDowngrade(SQLiteDatabase database, int oldVersion, int newVersion) {
         Log.w(SQLiteTrackHelper.class.getName(), "Downgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
 
         recreateDb(database);
-
 
     }
 
@@ -189,7 +181,6 @@ public class SQLiteTrackHelper extends SQLiteOpenHelper {
         Log.w(SQLiteTrackHelper.class.getName(), "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
 
     }
-
 
     public void clearDb() {
         recreateDb(getWritableDatabase());

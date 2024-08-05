@@ -18,7 +18,6 @@ public class Constants {
     public static final int SIG_VERSION = 159;
 
     public static final String SUCCESS = "1";
-
     public static final String FAIL = "0";
     public static final int TEN_SECONDS_MILLIS = 10 * 1000;
     public static final String BROADCAST_IDENTIFIER_KEY = "broadcastIdentifier";
@@ -44,10 +43,10 @@ public class Constants {
 
     public static final boolean ENCRYPT = false;
 
-    public static final String SDK_COMMON_FOLDER = "sigmob";
-    public static final String AESKEY = "sigandroid_mtadb";
-    public static final String GCMNONCE = "+lx3fUZcRI2mzU/W";
-    public static final int RETRYMAXNUM = 3000;
+    public static final String SDK_COMMON_FOLDER = "gt_sdk";
+    public static final String AES_KEY = "gt_android_mta_db";
+    public static final String GCM_NONCE = "+lx3fUZcRI2mzU/W";
+    public static final int RETRY_MAX_NUM = 3000;
     public static final String LOG_URL = "dc.sigmob.cn/log";
 
     @SuppressLint("SimpleDateFormat")

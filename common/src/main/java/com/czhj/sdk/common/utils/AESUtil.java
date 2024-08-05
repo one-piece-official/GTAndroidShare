@@ -82,7 +82,7 @@ public class AESUtil {
     }
 
     public static String EncryptString(String sSrc, String sKey) {
-        return EncryptString(sSrc, sKey, Constants.GCMNONCE);
+        return EncryptString(sSrc, sKey, Constants.GCM_NONCE);
     }
 
     public static String EncryptStringServer(String sSrc, String sKey) {
@@ -90,7 +90,7 @@ public class AESUtil {
     }
 
     public static String DecryptString(String sSrc, String sKey) {
-        return DecryptString(sSrc, sKey, Constants.GCMNONCE);
+        return DecryptString(sSrc, sKey, Constants.GCM_NONCE);
     }
 
     public static String DecryptStringServer(String sSrc, String sKey) {

@@ -64,13 +64,11 @@ public class Networking {
         return sRequestQueue;
     }
 
-
     public static String getUserAgent() {
         if (TextUtils.isEmpty(sUserAgent)) {
             return sCacheUserAgent;
         }
         return sUserAgent;
-
     }
 
     public static SigmobRequestQueue getAdTrackerRetryQueue() {

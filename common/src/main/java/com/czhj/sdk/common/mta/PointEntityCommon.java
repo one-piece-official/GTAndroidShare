@@ -16,35 +16,25 @@ public abstract class PointEntityCommon extends PointEntitySuper {
         return ClientMetadata.getInstance().getTargetSdkVersion();
     }
 
-    public String getClienttype() {
+    public String getDevice_model() {
         return ClientMetadata.getDeviceModel();
     }
-
 
     public String getDevice_type() {
         return ClientMetadata.getInstance().isTablet() ? "5" : "4";
     }
 
-
-    public String getPkgname() {
+    public String getPackageName() {
         return ClientMetadata.getInstance().getAppPackageName();
     }
-
 
     public String getIsEmulator() {
         return ClientMetadata.isEmulator() ? Constants.SUCCESS : Constants.FAIL;
     }
 
-
-    public String getScreendensity() {
+    public String getScreenDensity() {
         return String.valueOf(ClientMetadata.getInstance().getDensityDpi());
     }
-
-
-    public String getCwidth() {
-        return String.valueOf(ClientMetadata.getInstance().getDeviceScreenWidthDip());
-    }
-
 
     public String getWifi_id() {
         String wifi_id = ClientMetadata.getInstance().getWifiName();
@@ -60,7 +50,6 @@ public abstract class PointEntityCommon extends PointEntitySuper {
         return ClientMetadata.getInstance().getWifimac();
     }
 
-
     public String getLat() {
         DeviceContext deviceContext = getDeviceContext();
         Location location = deviceContext != null ? deviceContext.getLocation() : ClientMetadata.getInstance().getLocation();
@@ -70,7 +59,6 @@ public abstract class PointEntityCommon extends PointEntitySuper {
         }
         return null;
     }
-
 
     public String getLng() {
         DeviceContext deviceContext = getDeviceContext();
@@ -83,41 +71,39 @@ public abstract class PointEntityCommon extends PointEntitySuper {
         return null;
     }
 
-
     public String getBattery_level() {
         return String.format("%.2f", ClientMetadata.getInstance().getBatteryLevel());
     }
-
 
     public String getBattery_save_enabled() {
         return String.valueOf(ClientMetadata.getInstance().getBatterySaveEnable());
     }
 
-
     public String getBattery_state() {
         return String.valueOf(ClientMetadata.getInstance().getBatteryState());
     }
 
+    public String getC_width() {
+        return String.valueOf(ClientMetadata.getInstance().getDeviceScreenWidthDip());
+    }
 
-    public String getCheight() {
+    public String getC_height() {
         return String.valueOf(ClientMetadata.getInstance().getDeviceScreenHeightDip());
     }
 
-    public String getDwidth() {
+    public String getD_width() {
         return String.valueOf(ClientMetadata.getInstance().getDeviceScreenRealWidthDip());
     }
 
-
-    public String getDheight() {
+    public String getD_height() {
         return String.valueOf(ClientMetadata.getInstance().getDeviceScreenRealHeightDip());
     }
 
-    public String getScreenangle() {
+    public String getScreen_angle() {
         return String.valueOf(Math.abs(ClientMetadata.getInstance().getOrientationInt() - 1) * 90);
     }
 
-
-    public String getClientpixel() {
+    public String getClient_pixel() {
         return String.format("%sx%s", ClientMetadata.getInstance().getDisplayMetrics().widthPixels, ClientMetadata.getInstance().getDisplayMetrics().heightPixels);
     }
 

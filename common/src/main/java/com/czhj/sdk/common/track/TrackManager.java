@@ -88,8 +88,8 @@ public class TrackManager {
 
         retryHandler.removeCallbacksAndMessages(null);
 
-        AdTracker.cleanLimitAdTracker(Constants.RETRYMAXNUM);
-        trackers = AdTracker.getAdTrackerFromDB(Constants.RETRYMAXNUM, retryExpiredTime);
+        AdTracker.cleanLimitAdTracker(Constants.RETRY_MAX_NUM);
+        trackers = AdTracker.getAdTrackerFromDB(Constants.RETRY_MAX_NUM, retryExpiredTime);
         retryIndex = 0;
 
         int parallel_size = trackers.size();
