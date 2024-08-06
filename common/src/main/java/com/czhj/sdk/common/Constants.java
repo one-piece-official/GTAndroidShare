@@ -43,7 +43,7 @@ public class Constants {
 
     public static final boolean ENCRYPT = false;
 
-    public static final String SDK_COMMON_FOLDER = "gt_sdk";
+    public static final String SDK_COMMON_FOLDER = "gts";
     public static final String AES_KEY = "gt_android_mta_db";
     public static final String GCM_NONCE = "+lx3fUZcRI2mzU/W";
     public static final int RETRY_MAX_NUM = 3000;
