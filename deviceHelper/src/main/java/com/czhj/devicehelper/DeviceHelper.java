@@ -1,5 +1,6 @@
 package com.czhj.devicehelper;
 
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
@@ -10,6 +11,7 @@ import android.util.Log;
 
 import com.czhj.devicehelper.oaId.helpers.DevicesIDsHelper;
 import com.czhj.sdk.logger.SigmobLog;
+
 
 public final class DeviceHelper {
 
@@ -225,119 +227,5 @@ public final class DeviceHelper {
         return null;
     }
 
-    @SuppressLint({"MissingPermission", "HardwareIds"})
-    public static String getIMSI(Context context) {
-//        try {
-//            if (!isCanUsePhoneState(context) || !isCanRetryIMEI()) return null;
-//
-//            final TelephonyManager telephonyManager =
-//                    (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-//            if (telephonyManager != null) {
-//
-//                return telephonyManager.getSubscriberId();
-//
-//            }
-//        } catch (Throwable e) {
-//            SigmobLog.e(e.getMessage());
-//        }
-        return null;
-    }
 
-    /**
-     * 获取 Wifi MAC 地址
-     * <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-     */
-
-    public static String getMacAddress() {
-        //wifi mac地址
-
-//        try {
-//
-//            if (!TextUtils.isEmpty(mMacAddress)) {
-//                return mMacAddress;
-//            }
-//
-//            String interfaceName = "wlan0";
-//            List<NetworkInterface> interfaces = Collections
-//                    .list(NetworkInterface.getNetworkInterfaces());
-//            for (NetworkInterface intf : interfaces) {
-//
-//                if (!intf.getName().equalsIgnoreCase(interfaceName)) {
-//                    continue;
-//                }
-//                byte[] mac = intf.getHardwareAddress();
-//                if (mac == null) {
-//                    return null;
-//                }
-//
-//                StringBuilder buf = new StringBuilder();
-//                for (byte aMac : mac) {
-//                    buf.append(String.format("%02X:", aMac));
-//                }
-//                if (buf.length() > 0) {
-//                    buf.deleteCharAt(buf.length() - 1);
-//                }
-//                mMacAddress = buf.toString();
-//            }
-//        } catch (Throwable th) {
-//
-//            SigmobLog.e(th.getMessage());
-//        }
-
-        return "";
-    }
-
-    @SuppressLint("MissingPermission")
-    public static String getWifimac(Context context) {
-//        try {
-//
-//
-//            //wifi mac地址
-//            WifiManager wifi = getWifiManager(context);
-//
-//            if (wifi == null) return null;
-//
-//            if (TextUtils.isEmpty(mBssid)) {
-//                WifiInfo info = wifi.getConnectionInfo();
-//                mBssid = info.getBSSID();
-//            }
-//
-//            return mBssid;
-//        } catch (Throwable e) {
-//
-//        }
-        return "";
-    }
-
-    @SuppressLint("MissingPermission")
-    public static String getWifiName(Context context) {
-//        try {
-//            //wifi mac地址
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//
-//                WifiManager wifi = getWifiManager(context);
-//                if (wifi == null) return null;
-//                WifiInfo info = wifi.getConnectionInfo();
-//                mWifiName = info.getSSID();
-//
-//            } else {
-//                NetworkInfo wifiInfo = getConnectivityManager(context).getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-//                String wifiName = wifiInfo.getExtraInfo();
-//
-//                if (wifiName.startsWith("\"")) {
-//                    wifiName = wifiName.substring(1, wifiName.length());
-//                }
-//                if (wifiName.endsWith("\"")) {
-//                    wifiName = wifiName.substring(0, wifiName.length() - 1);
-//                }
-//
-//                mWifiName = wifiName;
-//            }
-//
-//        } catch (Throwable t) {
-//
-//        }
-        return mWifiName;
-
-    }
 }

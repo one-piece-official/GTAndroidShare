@@ -30,6 +30,8 @@ public abstract class PointEntitySuper {
     private static long seqId = 1;
     protected Object mPointEntityClass;
     private String ac_type;
+    private String appInfo_switch;
+    private String location_switch;
     private String category;
     private String sub_category;
     private String ext;
@@ -44,6 +46,22 @@ public abstract class PointEntitySuper {
 
     public PointEntitySuper() {
 
+    }
+
+    public String getAppInfo_switch() {
+        return appInfo_switch;
+    }
+
+    public void setAppInfo_switch(String appInfo_switch) {
+        this.appInfo_switch = appInfo_switch;
+    }
+
+    public String getLocation_switch() {
+        return location_switch;
+    }
+
+    public void setLocation_switch(String location_switch) {
+        this.location_switch = location_switch;
     }
 
     public abstract DeviceContext getDeviceContext();

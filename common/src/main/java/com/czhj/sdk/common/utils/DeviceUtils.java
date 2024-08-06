@@ -25,6 +25,7 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.NetworkRequest;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Build;
@@ -53,17 +54,14 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
 
 public class DeviceUtils {
 
-    final static String[] emulatorFiles = new String[]{
-            "/system/lib/libdroid4x.so", "/system/bin/mount.vboxsf", "/system/lib/vboxguest.ko", "/etc/mumu-configs",
-            "/system/lib/vboxsf.ko", "/system/lib/vboxvideo.ko", "/data/.bluestacks.prop", "/system/bin/microvirt-vbox-sf", "/system/lib/tboxsf.ko", "/system/bin/androVM-vbox-sf",
-            "/system/bin/microvirtd", "/system/bin/windroyed", "/system/lib/libdroid4x.so"
-    };
+    final static String[] emulatorFiles = new String[]{"/system/lib/libdroid4x.so", "/system/bin/mount.vboxsf", "/system/lib/vboxguest.ko", "/etc/mumu-configs", "/system/lib/vboxsf.ko", "/system/lib/vboxvideo.ko", "/data/.bluestacks.prop", "/system/bin/microvirt-vbox-sf", "/system/lib/tboxsf.ko", "/system/bin/androVM-vbox-sf", "/system/bin/microvirtd", "/system/bin/windroyed", "/system/lib/libdroid4x.so"};
     private static final int MAX_MEMORY_CACHE_SIZE = 30 * 1024 * 1024; // 30 MB
     private static final String SIM_STATE = "getSimState";
     private static final String SIM_IMEI = "getImei";
@@ -189,8 +187,7 @@ public class DeviceUtils {
     }
 
     public static WindowManager getWindowManger(Context context) {
-        return (WindowManager) context.getSystemService(
-                Context.WINDOW_SERVICE);
+        return (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
     }
 
     public static String getRotation(Context context) {
@@ -284,9 +281,7 @@ public class DeviceUtils {
         String value = null;
         Object roSecureObj;
         try {
-            roSecureObj = Class.forName("android.os.SystemProperties")
-                    .getMethod("get", String.class)
-                    .invoke(null, propName);
+            roSecureObj = Class.forName("android.os.SystemProperties").getMethod("get", String.class).invoke(null, propName);
             if (roSecureObj != null) value = (String) roSecureObj;
         } catch (Throwable e) {
 
@@ -296,9 +291,7 @@ public class DeviceUtils {
     }
 
     public static boolean isTablet(Context context) {
-        return (context.getResources().getConfiguration().screenLayout
-                & Configuration.SCREENLAYOUT_SIZE_MASK)
-                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+        return (context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 
     public static String getDeviceType(Context context) {
@@ -320,8 +313,7 @@ public class DeviceUtils {
     }
 
     public static boolean isCanUseLocation(Context context) {
-        boolean result = context.checkCallingOrSelfPermission(ACCESS_COARSE_LOCATION) == PERMISSION_GRANTED
-                || context.checkCallingOrSelfPermission(ACCESS_FINE_LOCATION) == PERMISSION_GRANTED;
+        boolean result = context.checkCallingOrSelfPermission(ACCESS_COARSE_LOCATION) == PERMISSION_GRANTED || context.checkCallingOrSelfPermission(ACCESS_FINE_LOCATION) == PERMISSION_GRANTED;
 
         SigmobLog.d("isCanUseLocation status " + result);
         return result;
@@ -549,8 +541,7 @@ public class DeviceUtils {
         try {
             Intent i = pm.getLaunchIntentForPackage(packageName);
             SigmobLog.d("getAppLaunchCount==" + packageName);
-            if (i == null)
-                return 0;
+            if (i == null) return 0;
             ComponentName aName = i.getComponent();
             SigmobLog.d("getAppLaunchCount==" + packageName);
             // 隐藏引用
@@ -571,8 +562,7 @@ public class DeviceUtils {
             // 调用getPkgUsageStats 获取PkgUsageStats对象
             Object aStats = getPkgUsageStats.invoke(oIUsageStats, aName);
             SigmobLog.d("getAppLaunchCount==" + packageName);
-            if (aStats == null)
-                return 0;
+            if (aStats == null) return 0;
             // 获得PkgUsageStats类
             Class PkgUsageStats = Class.forName("com.android.internal.os.PkgUsageStats");
             SigmobLog.d("getAppLaunchCount==" + packageName);
@@ -598,13 +588,11 @@ public class DeviceUtils {
         try {
             p = Runtime.getRuntime().exec("ls -l " + filePath);
             // 获取返回内容
-            BufferedReader in = new BufferedReader(new InputStreamReader(
-                    p.getInputStream()));
+            BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String str = in.readLine();
             if (str != null && str.length() >= 4) {
                 char flag = str.charAt(3);
-                if (flag == 's' || flag == 'x')
-                    return true;
+                if (flag == 's' || flag == 'x') return true;
             }
         } catch (Throwable e) {
         } finally {
@@ -636,12 +624,10 @@ public class DeviceUtils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             display.getRealMetrics(dm);
         } else {
-            @SuppressWarnings("rawtypes")
-            Class c;
+            @SuppressWarnings("rawtypes") Class c;
             try {
                 c = Class.forName("android.view.Display");
-                @SuppressWarnings("unchecked")
-                Method method = c.getMethod("getRealMetrics", DisplayMetrics.class);
+                @SuppressWarnings("unchecked") Method method = c.getMethod("getRealMetrics", DisplayMetrics.class);
                 method.invoke(display, dm);
             } catch (Exception e) {
                 SigmobLog.e(e.getMessage());
@@ -671,11 +657,7 @@ public class DeviceUtils {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     validated = capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED);
                 }
-                return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
-                        || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
-                        || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
-                        || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
-                        || validated;
+                return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN) || validated;
 
             }
         }
@@ -712,12 +694,10 @@ public class DeviceUtils {
                     misNetworkConnected = isNetworkValid(networkCapabilities);
 //                    SigmobLog.d("updateNetworkType misNetworkConnected " + misNetworkConnected);
 
-                    if (networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) &&
-                            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                    if (networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
 
                         mNetworkType = NetworkType.WIFI;
-                    } else if (networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-                            && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                    } else if (networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
                         mNetworkType = getDataNetworkType(context);
                     } else {
                         mNetworkType = NetworkType.UNKNOWN;
@@ -730,8 +710,7 @@ public class DeviceUtils {
                 if (activeNetworkInfo != null) {
                     misNetworkConnected = activeNetworkInfo.isAvailable();
                 }
-                int networkType = activeNetworkInfo != null
-                        ? activeNetworkInfo.getType() : UNKNOWN_NETWORK;
+                int networkType = activeNetworkInfo != null ? activeNetworkInfo.getType() : UNKNOWN_NETWORK;
                 mNetworkType = NetworkType.fromAndroidNetworkType(context, networkType);
 
             }
@@ -816,8 +795,7 @@ public class DeviceUtils {
         }
 
 
-        return (TelephonyManager)
-                context.getSystemService(Context.TELEPHONY_SERVICE);
+        return (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
     }
 
     public static String getNetworkOperator(Context context) {
@@ -828,8 +806,7 @@ public class DeviceUtils {
 
         if (telephonyManager != null) {
 
-            if (telephonyManager.getPhoneType() == TelephonyManager.PHONE_TYPE_CDMA &&
-                    telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY) {
+            if (telephonyManager.getPhoneType() == TelephonyManager.PHONE_TYPE_CDMA && telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY) {
                 mOperator = telephonyManager.getSimOperator();
             } else {
                 mOperator = telephonyManager.getNetworkOperator();
@@ -851,8 +828,7 @@ public class DeviceUtils {
 
         if (telephonyManager != null) {
 
-            if (telephonyManager.getPhoneType() == TelephonyManager.PHONE_TYPE_CDMA &&
-                    telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY) {
+            if (telephonyManager.getPhoneType() == TelephonyManager.PHONE_TYPE_CDMA && telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY) {
                 mOperatorName = telephonyManager.getSimOperatorName();
             } else {
                 mOperatorName = telephonyManager.getNetworkOperatorName();
@@ -865,10 +841,28 @@ public class DeviceUtils {
         return mOperatorName;
     }
 
+    public static int getSimOperatorName(Context context) {
+        int opeType = 0;
+        final TelephonyManager telephonyManager = getTelephonyManager(context);
+
+        String simOperator = telephonyManager.getSimOperator();
+        if (telephonyManager.getSimState() != TelephonyManager.SIM_STATE_READY) {
+            return opeType;
+        }
+
+        if ("46001" == simOperator || "46006" == simOperator || "46009" == simOperator) {
+            opeType = 2;//中国联通
+        } else if ("46000" == simOperator || "46002" == simOperator || "46004" == simOperator || "46007" == simOperator) {
+            opeType = 1;//中国移动
+        } else if ("46003" == simOperator || "46005" == simOperator || "46011" == simOperator) {
+            opeType = 3;//中国电信
+        }
+        return opeType;
+    }
+
     public static boolean isNetworkConnected() {
         return misNetworkConnected;
     }
-
 
     /**
      * @return the network operator for URL generators.
@@ -942,10 +936,7 @@ public class DeviceUtils {
             IntentUtil.registerReceiver(context, new NetBroadcastReceiver(), new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
 
         } else {
-            networkRequest = new NetworkRequest.Builder()
-                    .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-                    .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR).
-                    addTransportType(NetworkCapabilities.TRANSPORT_WIFI).build();
+            networkRequest = new NetworkRequest.Builder().addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR).addTransportType(NetworkCapabilities.TRANSPORT_WIFI).build();
 
             ConnectivityManager connectivityManager = getConnectivityManager(context);
             if (connectivityManager == null) return;
@@ -1028,6 +1019,10 @@ public class DeviceUtils {
      */
     public static String getDeviceModel() {
         return Build.MODEL;
+    }
+
+    public static Long getBuildTime() {
+        return Build.TIME;
     }
 
     /**
@@ -1114,16 +1109,14 @@ public class DeviceUtils {
                 ++isEmulator;//基带信息
 
             String buildFlavor = getProperty("ro.build.flavor");
-            if (TextUtils.isEmpty(buildFlavor))
-                ++isEmulator;//基带信息
+            if (TextUtils.isEmpty(buildFlavor)) ++isEmulator;//基带信息
             else if (buildFlavor.contains("vbox") || buildFlavor.contains("sdk_gphone")) {
                 isEmulator += 10;
 
             }
 
             String productBoard = getProperty("ro.product.board");
-            if (TextUtils.isEmpty(productBoard))
-                ++isEmulator;//芯片
+            if (TextUtils.isEmpty(productBoard)) ++isEmulator;//芯片
             else if (productBoard.contains("android") || productBoard.contains("goldfish")) {
                 isEmulator += 10;
             }
@@ -1158,15 +1151,7 @@ public class DeviceUtils {
     }
 
     public enum NetworkType {
-        UNKNOWN(0),
-        ETHERNET(101),
-        WIFI(100),
-        MOBILE(1),
-        MOBILE_2G(2),
-        MOBILE_3G(3),
-        MOBILE_4G(4),
-        MOBILE_5G(5);
-
+        UNKNOWN(0), ETHERNET(1), WIFI(2), MOBILE(3), MOBILE_2G(4), MOBILE_3G(5), MOBILE_4G(6), MOBILE_5G(7);
 
         private final int mId;
 
@@ -1209,5 +1194,115 @@ public class DeviceUtils {
                 updateNetworkType(context);
             }
         }
+    }
+
+    @SuppressLint({"MissingPermission", "HardwareIds"})
+    public static String getIMSI(Context context) {
+        try {
+            if (!isCanUsePhoneState(context) || !isCanRetryIMEI()) return null;
+
+            final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            if (telephonyManager != null) {
+
+                return telephonyManager.getSubscriberId();
+
+            }
+        } catch (Throwable e) {
+            SigmobLog.e(e.getMessage());
+        }
+        return null;
+    }
+
+    /**
+     * 获取 Wifi MAC 地址
+     * <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+     */
+
+    public static String getMacAddress() {
+        //wifi mac地址
+        try {
+            if (!TextUtils.isEmpty(mMacAddress)) {
+                return mMacAddress;
+            }
+
+            String interfaceName = "wlan0";
+            List<NetworkInterface> interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
+            for (NetworkInterface intf : interfaces) {
+
+                if (!intf.getName().equalsIgnoreCase(interfaceName)) {
+                    continue;
+                }
+                byte[] mac = intf.getHardwareAddress();
+                if (mac == null) {
+                    return null;
+                }
+
+                StringBuilder buf = new StringBuilder();
+                for (byte aMac : mac) {
+                    buf.append(String.format("%02X:", aMac));
+                }
+                if (buf.length() > 0) {
+                    buf.deleteCharAt(buf.length() - 1);
+                }
+                mMacAddress = buf.toString();
+            }
+        } catch (Throwable th) {
+
+            SigmobLog.e(th.getMessage());
+        }
+
+        return "";
+    }
+
+    @SuppressLint("MissingPermission")
+    public static String getWifimac(Context context) {
+        try {
+            //wifi mac地址
+            WifiManager wifi = getWifiManager(context);
+
+            if (wifi == null) return null;
+
+            if (TextUtils.isEmpty(mBssid)) {
+                WifiInfo info = wifi.getConnectionInfo();
+                mBssid = info.getBSSID();
+            }
+
+            return mBssid;
+        } catch (Throwable e) {
+
+        }
+        return "";
+    }
+
+    @SuppressLint("MissingPermission")
+    public static String getWifiName(Context context) {
+        try {
+            //wifi mac地址
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+                WifiManager wifi = getWifiManager(context);
+                if (wifi == null) return null;
+                WifiInfo info = wifi.getConnectionInfo();
+                mWifiName = info.getSSID();
+
+            } else {
+                NetworkInfo wifiInfo = getConnectivityManager(context).getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                String wifiName = wifiInfo.getExtraInfo();
+
+                if (wifiName.startsWith("\"")) {
+                    wifiName = wifiName.substring(1, wifiName.length());
+                }
+                if (wifiName.endsWith("\"")) {
+                    wifiName = wifiName.substring(0, wifiName.length() - 1);
+                }
+
+                mWifiName = wifiName;
+            }
+
+        } catch (Throwable t) {
+
+        }
+        return mWifiName;
+
     }
 }

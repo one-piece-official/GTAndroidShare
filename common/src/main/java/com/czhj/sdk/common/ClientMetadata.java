@@ -6,6 +6,7 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -15,6 +16,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -44,6 +46,8 @@ import com.czhj.sdk.logger.SigmobLog;
 import com.tan.mark.TanId;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -109,6 +113,15 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
         return DeviceUtils.getDeviceModel();
     }
 
+    public static Long getBuildTime() {
+        return DeviceUtils.getBuildTime();
+    }
+
+    public static long getRebootTime() {
+        long rebootTime = new Date().getTime() - SystemClock.elapsedRealtime();
+        return new Date().getTime() - SystemClock.elapsedRealtime();
+    }
+
     public static String getCell_ip() {
         return DeviceUtils.getCell_ip();
     }
@@ -123,7 +136,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
 
     public static String getMacAddress() {
         try {
-            return DeviceHelper.getMacAddress();
+            return DeviceUtils.getMacAddress();
         } catch (Throwable ignored) {
 
         }
@@ -477,7 +490,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
 
     public String getIMSI() {
         try {
-            return DeviceHelper.getIMSI(mContext);
+            return DeviceUtils.getIMSI(mContext);
         } catch (Throwable ignored) {
 
         }
@@ -643,24 +656,58 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
         return null;
     }
 
+    public int getSimOperatorName() {
+        try {
+            return DeviceUtils.getSimOperatorName(mContext);
+        } catch (Throwable ignored) {
+
+        }
+        return 0;
+    }
+
     public String getWifimac() {
         try {
-            return DeviceHelper.getWifimac(mContext);
+            return DeviceUtils.getWifimac(mContext);
         } catch (Throwable ignored) {
 
         }
         return null;
+    }
+
+    private List<String> applist;
+
+    public List<String> getAppList() {
+        try {
+            if (applist == null) {
+                applist = new ArrayList<>();
+            }
+
+            if (!applist.isEmpty()) {
+                return applist;
+            }
+
+            List<PackageInfo> appInfos = mContext.getPackageManager().getInstalledPackages(0);
+            for (int i = 0; i < appInfos.size(); i++) {
+                PackageInfo packageInfo = appInfos.get(i);
+                if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
+                    applist.add(packageInfo.packageName);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return applist;
     }
 
     public String getWifiName() {
         try {
-            return DeviceHelper.getWifiName(mContext);
+            return DeviceUtils.getWifiName(mContext);
         } catch (Throwable ignored) {
 
         }
         return null;
     }
-
 
     public String getBlueToothName() {
         try {
