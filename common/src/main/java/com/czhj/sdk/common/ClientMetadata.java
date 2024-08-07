@@ -52,7 +52,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -79,8 +78,6 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
 
     private String mOaid;
     private String mOAID_SDK;
-
-    private String mUDID;
 
     private String mOAID_API;
     private String targetSdkVersion;
@@ -205,19 +202,6 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
 
         }
         return false;
-    }
-
-    public String getUDID() {
-        if (mUDID != null) {
-            return mUDID;
-        }
-
-        mUDID = UUID.randomUUID().toString();
-        SharedPreferences sharedPreferences = SharedPreferencesUtil.getSharedPreferences(mContext);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("sig_UDID", mUDID);
-        editor.apply();
-        return mUDID;
     }
 
     public static boolean isPermissionGranted(final Context context, final String permission) {
@@ -897,15 +881,12 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
                 edit.apply();
             }
 
-            mUDID = SharedPreferencesUtil.getSharedPreferences(mContext).getString("sig_UDID", null);
-
             String uid_aes = SharedPreferencesUtil.getSharedPreferences(mContext).getString("uid_aes_gcm", null);
 
             if (uid_aes != null) {
                 uid = AESUtil.DecryptString(uid_aes, Constants.AES_KEY);
             } else {
                 uid = SharedPreferencesUtil.getSharedPreferences(mContext).getString("uid", null);
-
                 if (uid != null) {
                     SharedPreferences.Editor edit = SharedPreferencesUtil.getSharedPreferences(mContext).edit();
                     edit.remove("uid");

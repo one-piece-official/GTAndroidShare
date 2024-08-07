@@ -1,6 +1,6 @@
 package com.czhj.sdk.common.mta;
 
-public abstract class PointEntityCrash extends PointEntitySuper {
+public abstract class PointEntityCrash extends PointEntityDevice {
 
     public String getCrashMessage() {
         return crashMessage;

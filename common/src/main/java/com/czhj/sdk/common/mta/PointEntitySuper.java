@@ -29,39 +29,15 @@ public abstract class PointEntitySuper {
     private final static String mSessionId = UUID.randomUUID().toString();
     private static long seqId = 1;
     protected Object mPointEntityClass;
-    private String ac_type;
-    private String appInfo_switch;
-    private String location_switch;
     private String category;
     private String sub_category;
+    private String ac_type;
     private String ext;
     private Map<String, String> options;
     private String timestamp;
-    private String sha1;
-    private String md5;
-    private String name;
-    private int integration;
-    private String version;
-    private int compatible;
 
     public PointEntitySuper() {
 
-    }
-
-    public String getAppInfo_switch() {
-        return appInfo_switch;
-    }
-
-    public void setAppInfo_switch(String appInfo_switch) {
-        this.appInfo_switch = appInfo_switch;
-    }
-
-    public String getLocation_switch() {
-        return location_switch;
-    }
-
-    public void setLocation_switch(String location_switch) {
-        this.location_switch = location_switch;
     }
 
     public abstract DeviceContext getDeviceContext();
@@ -80,6 +56,18 @@ public abstract class PointEntitySuper {
 
     public String getAppVersion() {
         return ClientMetadata.getInstance().getAppVersion();
+    }
+
+    public String getAppPackageName() {
+        return ClientMetadata.getInstance().getAppPackageName();
+    }
+
+    public String getSha1() {
+        return ClientMetadata.getInstance().getApkSha1();
+    }
+
+    public String getMd5() {
+        return ClientMetadata.getInstance().getApkMd5();
     }
 
     private static synchronized long getSeqId() {
@@ -123,57 +111,6 @@ public abstract class PointEntitySuper {
         return "";
     }
 
-    public int getCompatible() {
-        return compatible;
-    }
-
-    public void setCompatible(int compatible) {
-        this.compatible = compatible;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getIntegration() {
-        return integration;
-    }
-
-    public void setIntegration(int integration) {
-        this.integration = integration;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
-    public String getSha1() {
-        return sha1;
-    }
-
-    public void setSha1(String sha1) {
-        this.sha1 = sha1;
-    }
-
-    public String getMd5() {
-        return md5;
-    }
-
-    public void setMd5(String md5) {
-        this.md5 = md5;
-    }
-
-    public String getUdid() {
-        return ClientMetadata.getInstance().getUDID();
-    }
 
     public void commit() {
         mPointEntityClass = this;
@@ -188,16 +125,6 @@ public abstract class PointEntitySuper {
         });
     }
 
-    public Map<String, String> getOptions() {
-        if (options == null) {
-            options = new HashMap<>();
-        }
-        return options;
-    }
-
-    public void setOptions(Map<String, String> options) {
-        this.options = options;
-    }
 
     public abstract boolean isAcTypeBlock();
 
@@ -385,7 +312,6 @@ public abstract class PointEntitySuper {
         return map;
     }
 
-
     public String getUser_id() {
         return ClientMetadata.getUserId();
     }
@@ -414,13 +340,6 @@ public abstract class PointEntitySuper {
         return ClientMetadata.getDeviceOsVersion();
     }
 
-    public String getImei2() {
-        if (getDeviceContext() != null) {
-            return getDeviceContext().getImei2();
-        }
-        return ClientMetadata.getInstance().getDeviceId(1);
-    }
-
     public String getAndroid_id() {
         if (getDeviceContext() != null) {
             return getDeviceContext().getAndroidId();
@@ -440,6 +359,13 @@ public abstract class PointEntitySuper {
             return getDeviceContext().getImei1();
         }
         return ClientMetadata.getInstance().getDeviceId(0);
+    }
+
+    public String getImei2() {
+        if (getDeviceContext() != null) {
+            return getDeviceContext().getImei2();
+        }
+        return ClientMetadata.getInstance().getDeviceId(1);
     }
 
     public String getCarrier() {
@@ -499,6 +425,17 @@ public abstract class PointEntitySuper {
 
     public void setExt(String ext) {
         this.ext = ext;
+    }
+
+    public Map<String, String> getOptions() {
+        if (options == null) {
+            options = new HashMap<>();
+        }
+        return options;
+    }
+
+    public void setOptions(Map<String, String> options) {
+        this.options = options;
     }
 
 }

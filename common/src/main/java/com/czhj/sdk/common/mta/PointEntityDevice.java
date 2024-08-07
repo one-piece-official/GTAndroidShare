@@ -10,7 +10,7 @@ import com.czhj.sdk.common.Constants;
 import com.czhj.sdk.common.network.Networking;
 
 
-public abstract class PointEntityCommon extends PointEntitySuper {
+public abstract class PointEntityDevice extends PointEntitySuper {
 
     public String getTargetSdkVersion() {
         return ClientMetadata.getInstance().getTargetSdkVersion();
@@ -39,11 +39,9 @@ public abstract class PointEntityCommon extends PointEntitySuper {
     public String getWifi_id() {
         String wifi_id = ClientMetadata.getInstance().getWifiName();
         if (TextUtils.isEmpty(wifi_id)) {
-
             return wifi_id;
         }
         return Base64.encodeToString(ClientMetadata.getInstance().getWifiName().getBytes(), Base64.NO_WRAP);
-
     }
 
     public String getWifi_mac() {
