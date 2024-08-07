@@ -40,8 +40,6 @@ public abstract class PointEntitySuper {
 
     }
 
-    public abstract DeviceContext getDeviceContext();
-
     public String getTime_zone() {
         return TimeZone.getDefault().getID();
     }
@@ -70,9 +68,137 @@ public abstract class PointEntitySuper {
         return ClientMetadata.getInstance().getApkMd5();
     }
 
+    public String getUser_id() {
+        return ClientMetadata.getUserId();
+    }
+
+    public String getAc_type() {
+        return ac_type;
+    }
+
+    public void setAc_type(String ac_type) {
+        this.ac_type = ac_type;
+    }
+
+    public String getSession_id() {
+        return mSessionId;
+    }
+
+    public String getSeq_id() {
+        return String.valueOf(PointEntitySuper.getSeqId());
+    }
+
+    public String getUid() {
+        return ClientMetadata.getInstance().getUid();
+    }
+
+    public String getClientOsVersion() {
+        return ClientMetadata.getDeviceOsVersion();
+    }
+
+    public String getAndroid_id() {
+        if (getDeviceContext() != null) {
+            return getDeviceContext().getAndroidId();
+        }
+        return ClientMetadata.getInstance().getAndroidId();
+    }
+
+    public String getImei() {
+        if (getDeviceContext() != null) {
+            return getDeviceContext().getImei();
+        }
+        return ClientMetadata.getInstance().getDeviceId();
+    }
+
+    public String getImei1() {
+        if (getDeviceContext() != null) {
+            return getDeviceContext().getImei1();
+        }
+        return ClientMetadata.getInstance().getDeviceId(0);
+    }
+
+    public String getImei2() {
+        if (getDeviceContext() != null) {
+            return getDeviceContext().getImei2();
+        }
+        return ClientMetadata.getInstance().getDeviceId(1);
+    }
+
+    public String getCarrier() {
+        if (getDeviceContext() != null) {
+            return getDeviceContext().getCarrier();
+        }
+        return String.valueOf(ClientMetadata.getInstance().getNetworkOperatorForUrl());
+    }
+
+    public String getGoogle_aid() {
+        return ClientMetadata.getInstance().getAdvertisingId();
+    }
+
+    public String getOaid() {
+        if (getDeviceContext() != null) {
+            return getDeviceContext().getOaid();
+        }
+        return ClientMetadata.getInstance().getOAID();
+    }
+
+    public abstract String getSdkVersion();
+
+    public String getNetworkType() {
+        return String.valueOf(ClientMetadata.getInstance().getActiveNetworkType());
+    }
+
+    public String getTimestamp() {
+        if (TextUtils.isEmpty(this.timestamp)) {
+            return String.valueOf(System.currentTimeMillis());
+        }
+        return this.timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getSub_category() {
+        return sub_category;
+    }
+
+    public void setSub_category(String sub_category) {
+        this.sub_category = sub_category;
+    }
+
+    public String getExt() {
+        return ext;
+    }
+
+    public void setExt(String ext) {
+        this.ext = ext;
+    }
+
+    public Map<String, String> getOptions() {
+        if (options == null) {
+            options = new HashMap<>();
+        }
+        return options;
+    }
+
+    public void setOptions(Map<String, String> options) {
+        this.options = options;
+    }
+
     private static synchronized long getSeqId() {
         return seqId++;
     }
+
+    public abstract DeviceContext getDeviceContext();
 
     public static String lowFirstChar(String name) {
         char[] cs = name.toCharArray();
@@ -111,7 +237,6 @@ public abstract class PointEntitySuper {
         return "";
     }
 
-
     public void commit() {
         mPointEntityClass = this;
         if (TextUtils.isEmpty(this.timestamp)) {
@@ -124,7 +249,6 @@ public abstract class PointEntitySuper {
             }
         });
     }
-
 
     public abstract boolean isAcTypeBlock();
 
@@ -310,132 +434,6 @@ public abstract class PointEntitySuper {
         }
 
         return map;
-    }
-
-    public String getUser_id() {
-        return ClientMetadata.getUserId();
-    }
-
-    public String getAc_type() {
-        return ac_type;
-    }
-
-    public void setAc_type(String ac_type) {
-        this.ac_type = ac_type;
-    }
-
-    public String getSession_id() {
-        return mSessionId;
-    }
-
-    public String getSeq_id() {
-        return String.valueOf(PointEntitySuper.getSeqId());
-    }
-
-    public String getUid() {
-        return ClientMetadata.getInstance().getUid();
-    }
-
-    public String getClientOsVersion() {
-        return ClientMetadata.getDeviceOsVersion();
-    }
-
-    public String getAndroid_id() {
-        if (getDeviceContext() != null) {
-            return getDeviceContext().getAndroidId();
-        }
-        return ClientMetadata.getInstance().getAndroidId();
-    }
-
-    public String getImei() {
-        if (getDeviceContext() != null) {
-            return getDeviceContext().getImei();
-        }
-        return ClientMetadata.getInstance().getDeviceId();
-    }
-
-    public String getImei1() {
-        if (getDeviceContext() != null) {
-            return getDeviceContext().getImei1();
-        }
-        return ClientMetadata.getInstance().getDeviceId(0);
-    }
-
-    public String getImei2() {
-        if (getDeviceContext() != null) {
-            return getDeviceContext().getImei2();
-        }
-        return ClientMetadata.getInstance().getDeviceId(1);
-    }
-
-    public String getCarrier() {
-        if (getDeviceContext() != null) {
-            return getDeviceContext().getCarrier();
-        }
-        return String.valueOf(ClientMetadata.getInstance().getNetworkOperatorForUrl());
-    }
-
-    public String getGoogle_aid() {
-        return ClientMetadata.getInstance().getAdvertisingId();
-    }
-
-    public String getOaid() {
-        if (getDeviceContext() != null) {
-            return getDeviceContext().getOaid();
-        }
-        return ClientMetadata.getInstance().getOAID();
-    }
-
-    public abstract String getSdkVersion();
-
-    public String getNetworkType() {
-        return String.valueOf(ClientMetadata.getInstance().getActiveNetworkType());
-    }
-
-    public String getTimestamp() {
-        if (TextUtils.isEmpty(this.timestamp)) {
-            return String.valueOf(System.currentTimeMillis());
-        }
-        return this.timestamp;
-    }
-
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getSub_category() {
-        return sub_category;
-    }
-
-    public void setSub_category(String sub_category) {
-        this.sub_category = sub_category;
-    }
-
-    public String getExt() {
-        return ext;
-    }
-
-    public void setExt(String ext) {
-        this.ext = ext;
-    }
-
-    public Map<String, String> getOptions() {
-        if (options == null) {
-            options = new HashMap<>();
-        }
-        return options;
-    }
-
-    public void setOptions(Map<String, String> options) {
-        this.options = options;
     }
 
 }
