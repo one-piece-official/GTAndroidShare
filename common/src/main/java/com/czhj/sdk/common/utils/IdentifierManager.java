@@ -17,11 +17,10 @@ public class IdentifierManager {
         void onIdChanged(final AdvertisingId oldId, final AdvertisingId newId);
     }
 
-    private static final String PREF_AD_INFO_GROUP = "com.Sigmob.settings.identifier";
     private static final String PREF_IFA_IDENTIFIER = "privacy.identifier.ifa";
     private static final String PREF_IFA_IDENTIFIER_AES = "privacy.identifier.ifa_aes_gcm";
 
-    private static final String PREF_Sigmob_IDENTIFIER = "privacy.identifier.Sigmob";
+    private static final String PREF_GT_IDENTIFIER = "privacy.identifier.gt";
     private static final String PREF_IDENTIFIER_TIME = "privacy.identifier.time";
     private static final String PREF_LIMIT_AD_TRACKING = "privacy.limit.ad.tracking";
     private static final int MISSING_VALUE = -1;
@@ -69,8 +68,6 @@ public class IdentifierManager {
 
     public AdvertisingId getAdvertisingInfo() {
         final AdvertisingId adInfo = mAdInfo;
-
-
         mGAIDLimit = System.currentTimeMillis();
 //        refreshAdvertisingInfo();
         return adInfo;
@@ -113,7 +110,7 @@ public class IdentifierManager {
 
         Calendar now = Calendar.getInstance();
         try {
-            final SharedPreferences preferences = SharedPreferencesUtil.getSharedPreferences(appContext, PREF_AD_INFO_GROUP);
+            final SharedPreferences preferences = SharedPreferencesUtil.getSharedPreferences(appContext);
 
             final String ifa_id_aes = preferences.getString(PREF_IFA_IDENTIFIER_AES, "");
             final String ifa_id;
@@ -123,7 +120,7 @@ public class IdentifierManager {
                 ifa_id = preferences.getString(PREF_IFA_IDENTIFIER, "");
             }
 
-            final String Sigmob_id = preferences.getString(PREF_Sigmob_IDENTIFIER, "");
+            final String Sigmob_id = preferences.getString(PREF_GT_IDENTIFIER, "");
             final long time = preferences.getLong(PREF_IDENTIFIER_TIME, now.getTimeInMillis());
             final boolean limitTracking = preferences.getBoolean(PREF_LIMIT_AD_TRACKING, false);
             if (!TextUtils.isEmpty(ifa_id) && !TextUtils.isEmpty(Sigmob_id)) {
@@ -139,12 +136,12 @@ public class IdentifierManager {
         Preconditions.NoThrow.checkNotNull(context);
         Preconditions.NoThrow.checkNotNull(info);
 
-        final SharedPreferences preferences = SharedPreferencesUtil.getSharedPreferences(context, PREF_AD_INFO_GROUP);
+        final SharedPreferences preferences = SharedPreferencesUtil.getSharedPreferences(context);
         final SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean(PREF_LIMIT_AD_TRACKING, info.mDoNotTrack);
         editor.remove(PREF_IFA_IDENTIFIER);
         editor.putString(PREF_IFA_IDENTIFIER_AES, AESUtil.EncryptString(info.mAdvertisingId, Constants.AES_KEY));
-        editor.putString(PREF_Sigmob_IDENTIFIER, info.mSigmobId);
+        editor.putString(PREF_GT_IDENTIFIER, info.mSigmobId);
         editor.putLong(PREF_IDENTIFIER_TIME, info.mLastRotation.getTimeInMillis());
         editor.apply();
     }

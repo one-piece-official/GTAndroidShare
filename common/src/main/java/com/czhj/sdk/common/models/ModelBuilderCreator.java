@@ -113,11 +113,6 @@ public class ModelBuilderCreator {
                 builder.android_id(androidId);
             }
 
-            String udid = ClientMetadata.getInstance().getUDID();
-            if (!TextUtils.isEmpty(udid)) {
-                builder.udid(udid);
-            }
-
             String gaid = ClientMetadata.getInstance().getAdvertisingId();
             if (!TextUtils.isEmpty(gaid)) {
                 builder.gaid(gaid);

@@ -24,10 +24,6 @@ public abstract class PointEntityDevice extends PointEntitySuper {
         return ClientMetadata.getInstance().isTablet() ? "5" : "4";
     }
 
-    public String getPackageName() {
-        return ClientMetadata.getInstance().getAppPackageName();
-    }
-
     public String getIsEmulator() {
         return ClientMetadata.isEmulator() ? Constants.SUCCESS : Constants.FAIL;
     }

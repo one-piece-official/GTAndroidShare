@@ -66,7 +66,6 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     // Network type constant defined after API 9:
     private Location mLocation;
     private IdentifierManager mIdentifierManager;
-    private static String uid;
     private int mInsetBottom;
     private boolean mIsRetryAble = true;
     private String mImei;
@@ -286,7 +285,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
                         if (!oaid.equalsIgnoreCase(mOaid)) {
                             SharedPreferences sharedPreferences = SharedPreferencesUtil.getSharedPreferences(mContext);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("oaid_aes_gcm", AESUtil.EncryptString(oaid, Constants.AES_KEY));
+                            editor.putString("o_aid_aes_gcm", AESUtil.EncryptString(oaid, Constants.AES_KEY));
                             editor.apply();
                         }
 
@@ -320,7 +319,7 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
                             if (!oaid.equalsIgnoreCase(mOaid)) {
                                 SharedPreferences sharedPreferences = SharedPreferencesUtil.getSharedPreferences(mContext);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString("oaid_aes_gcm", AESUtil.EncryptString(oaid, Constants.AES_KEY));
+                                editor.putString("o_aid_aes_gcm", AESUtil.EncryptString(oaid, Constants.AES_KEY));
                                 editor.apply();
                             }
 
@@ -772,26 +771,6 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
     public void onIdChanged(AdvertisingId oldId, AdvertisingId newId) {
     }
 
-    public static String getUid() {
-        return uid;
-    }
-
-    // Cached client metadata used for generating URLs and events.
-
-    public void setUid(String uid) {
-        try {
-            if (!TextUtils.isEmpty(uid) && (TextUtils.isEmpty(this.uid) || !uid.equalsIgnoreCase(this.uid))) {
-                this.uid = uid;
-                SharedPreferences sharedPreferences = SharedPreferencesUtil.getSharedPreferences(mContext);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("uid_aes_gcm", AESUtil.EncryptString(uid, Constants.AES_KEY));
-                editor.apply();
-            }
-        } catch (Throwable e) {
-            SigmobLog.e(e.getMessage());
-        }
-    }
-
     public void setWindInsets(WindowInsets insets) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
             if (insets != null && insets.isRound()) {
@@ -881,31 +860,9 @@ public class ClientMetadata implements IdentifierManager.AdvertisingIdChangeList
                 edit.apply();
             }
 
-            String uid_aes = SharedPreferencesUtil.getSharedPreferences(mContext).getString("uid_aes_gcm", null);
-
-            if (uid_aes != null) {
-                uid = AESUtil.DecryptString(uid_aes, Constants.AES_KEY);
-            } else {
-                uid = SharedPreferencesUtil.getSharedPreferences(mContext).getString("uid", null);
-                if (uid != null) {
-                    SharedPreferences.Editor edit = SharedPreferencesUtil.getSharedPreferences(mContext).edit();
-                    edit.remove("uid");
-                    edit.putString("uid_aes_gcm", AESUtil.EncryptString(uid, Constants.AES_KEY));
-                    edit.apply();
-                }
-            }
-
-            String oaid_aes = SharedPreferencesUtil.getSharedPreferences(mContext).getString("oaid_aes_gcm", null);
-            if (oaid_aes != null) {
-                mOaid = AESUtil.DecryptString(oaid_aes, Constants.AES_KEY);
-            } else {
-                mOaid = SharedPreferencesUtil.getSharedPreferences(mContext).getString("oaid", null);
-                if (mOaid != null) {
-                    SharedPreferences.Editor edit = SharedPreferencesUtil.getSharedPreferences(mContext).edit();
-                    edit.remove("oaid");
-                    edit.putString("oaid_aes_gcm", AESUtil.EncryptString(mOaid, Constants.AES_KEY));
-                    edit.apply();
-                }
+            String o_aid_aes_gcm = SharedPreferencesUtil.getSharedPreferences(mContext).getString("o_aid_aes_gcm", null);
+            if (o_aid_aes_gcm != null) {
+                mOaid = AESUtil.DecryptString(o_aid_aes_gcm, Constants.AES_KEY);
             }
 
             mIdentifierManager = new IdentifierManager(mContext, this);
