@@ -363,7 +363,6 @@ public final class FileUtil {
         if (files == null || files.length == 0) return null;
         ArrayList<File> fileList = new ArrayList<>(Arrays.asList(files));
 
-
         for (int i = 0; i < files.length; i++) {
 
             if (fileList.size() <= count) {
