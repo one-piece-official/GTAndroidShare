@@ -88,10 +88,6 @@ public abstract class PointEntitySuper {
         return String.valueOf(PointEntitySuper.getSeqId());
     }
 
-    public String getUid() {
-        return ClientMetadata.getInstance().getUid();
-    }
-
     public String getClientOsVersion() {
         return ClientMetadata.getDeviceOsVersion();
     }
