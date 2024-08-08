@@ -22,6 +22,9 @@ public class Constants {
     public static final int TEN_SECONDS_MILLIS = 10 * 1000;
     public static final String BROADCAST_IDENTIFIER_KEY = "broadcastIdentifier";
 
+    public static final String REQUESTED_ORIENTATION = "REQUESTED_ORIENTATION";
+    public static final String IS_HALF_INTERSTITIAL = "isHalfInterstitial";
+
     //adapter
     public static final String TEMPLATETYPE = "templateType";
     public static final String SHOW_DOWNLOAD_DIALOG = "showDownloadDialog";//0不显示；1显示下载弹框
