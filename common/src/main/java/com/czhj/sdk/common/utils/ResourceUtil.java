@@ -61,8 +61,6 @@ public class ResourceUtil {
     }
 
     private static int getIdentifierByType(Context context, String resourceName, String defType) {
-        return context.getResources().getIdentifier(resourceName,
-                defType,
-                context.getPackageName());
+        return context.getResources().getIdentifier(resourceName, defType, context.getPackageName());
     }
 }
