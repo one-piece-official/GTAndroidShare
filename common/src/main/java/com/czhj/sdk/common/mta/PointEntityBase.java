@@ -3,15 +3,15 @@ package com.czhj.sdk.common.mta;
 
 public abstract class PointEntityBase extends PointEntitySuper {
 
-    private String adType;
+    private String ad_type;
     private String load_id;
 
-    public String getAdType() {
-        return adType;
+    public String getAd_type() {
+        return ad_type;
     }
 
-    public void setAdType(String adType) {
-        this.adType = adType;
+    public void setAd_type(String ad_type) {
+        this.ad_type = ad_type;
     }
 
     public String getLoad_id() {
