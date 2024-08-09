@@ -21,6 +21,26 @@ public class ViewUtil {
         }
     }
 
+    public static boolean isViewVisible(View view) {
+        return view.getParent() != null && view.getVisibility() == View.VISIBLE && view.isShown();
+    }
+
+    public static <T extends View> T findViewByClass(ViewGroup root, Class<T> viewType) {
+        int childCount = root.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View child = root.getChildAt(i);
+            if (viewType.isInstance(child)) {
+                return viewType.cast(child);
+            } else if (child instanceof ViewGroup) {
+                T result = findViewByClass((ViewGroup) child, viewType);
+                if (result != null) {
+                    return result;
+                }
+            }
+        }
+        return null;
+    }
+
     /**
      * Finds the topmost view in the current Activity or current view hierarchy.
      *
@@ -40,9 +60,7 @@ public class ViewUtil {
         // Prefer to use the rootView derived from the Activity's DecorView since it provides a
         // consistent value when the View is not attached to the Window. Fall back to the passed-in
         // View's hierarchy if necessary.
-        return rootViewFromActivity != null
-                ? rootViewFromActivity
-                : rootViewFromView;
+        return rootViewFromActivity != null ? rootViewFromActivity : rootViewFromView;
     }
 
     public static Activity getActivityFromViewTop(View view) {
@@ -89,9 +107,7 @@ public class ViewUtil {
         }
 
         final View rootContentView = rootView.findViewById(android.R.id.content);
-        return rootContentView != null
-                ? rootContentView
-                : rootView;
+        return rootContentView != null ? rootContentView : rootView;
     }
 
     //判断点击是否还在该view中，是返回true ,不是返回false
@@ -109,8 +125,7 @@ public class ViewUtil {
         int top = location[1];
         int right = left + view.getMeasuredWidth();
         int bottom = top + view.getMeasuredHeight();
-        if (y >= top && y <= bottom &&
-                x >= left && x <= right) {
+        if (y >= top && y <= bottom && x >= left && x <= right) {
             return true;
         }
         return false;
